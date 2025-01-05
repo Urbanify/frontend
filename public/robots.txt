@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://fixed-my-city.com
+
+# Sitemaps
+Sitemap: https://fixed-my-city.com/sitemap.xml

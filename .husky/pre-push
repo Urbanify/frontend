@@ -1,0 +1,6 @@
+#!/bin/sh
+
+yarn lint:strict
+yarn typecheck
+yarn test
+yarn build
