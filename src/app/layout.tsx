@@ -4,6 +4,8 @@ import { getLocale, getMessages } from 'next-intl/server';
 
 import '@/styles/global.css';
 
+import AuthProvider from '@/providers/AuthProvider';
+
 import PACKAGE from '../../package.json';
 
 const siteConfig = {
@@ -69,7 +71,9 @@ export default async function RootLayout({
       <meta name="version" content={PACKAGE.version} key="meta:name:version" />
       <body data-testid="rootlayout-component" className="size-full">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

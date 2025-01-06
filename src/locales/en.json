@@ -1,4 +1,26 @@
 {
+  "Auth": {
+    "Login": {
+      "cpf": "CPF",
+      "cpf_placeholder": "Enter your CPF",
+      "cpf_required": "CPF is required",
+      "cpf_length": "CPF must be 11 digits",
+      "cpf_only_numbers": "CPF must contain only numbers",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "password_required": "Password is required",
+      "password_length": "Password must be between 8 and 32 characters",
+      "button": "Sign in",
+      "forgot_password": "Forgot your password?",
+      "no_account": "Don't have an account?",
+      "sign_up": "Sign up"
+    },
+    "about_link": "About",
+    "counter_link": "Counter",
+    "portfolio_link": "Portfolio",
+    "sign_in_link": "Sign in",
+    "sign_up_link": "Sign up"
+  },
   "RootLayout": {
     "home_link": "Home",
     "about_link": "About",

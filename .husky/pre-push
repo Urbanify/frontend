@@ -2,5 +2,5 @@
 
 yarn lint:strict
 yarn typecheck
-yarn test
+yarn test:coverage
 yarn build

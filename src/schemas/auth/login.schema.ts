@@ -1,11 +1,10 @@
-import { object, string } from 'zod';
+import z from 'zod';
 
-export const loginSchema = object({
-  cpf: string({ required_error: 'CPF is required' })
-    .min(11, 'CPF is required'),
-  // .email("Invalid email"),
-  password: string({ required_error: 'Password is required' })
-    .min(1, 'Password is required')
-    .min(8, 'Password must be more than 8 characters')
-    .max(32, 'Password must be less than 32 characters'),
+export const loginSchema = (t: (arg: string) => string) => z.object({
+  cpf: z.string({ required_error: t('cpf_required') })
+    .length(11, t('cpf_length'))
+    .regex(/^\d+$/, t('cpf_only_numbers')),
+  password: z.string({ required_error: t('cpf_required') })
+    .min(8, t('password_length'))
+    .max(32, t('password_length')),
 });

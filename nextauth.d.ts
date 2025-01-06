@@ -1,18 +1,16 @@
-import type { DefaultSession, DefaultUser } from 'next-auth';
+/* eslint-disable ts/consistent-type-definitions */
+import type { DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
-  type Session = {
-    error?: 'RefreshAccessTokenError';
-    token: string;
-  } & DefaultSession;
-  type User = {
-    token: string;
-  } & DefaultUser;
-}
-declare module 'next-auth/jwt' {
-  type JWT = {
-    exp: number;
-    token: string;
-    error?: 'RefreshAccessTokenError';
-  } & DefaultJWT;
+  interface User {
+    access_token: string | null;
+  }
+
+  interface Session {
+    access_token: (string & DefaultSession) | any;
+  }
+
+  interface JWT {
+    access_token: string & DefaultJWT;
+  }
 }

@@ -1,4 +1,26 @@
 {
+  "Auth": {
+    "Login": {
+      "cpf": "CPF",
+      "cpf_placeholder": "Ingrese su CPF",
+      "cpf_required": "El CPF es obligatorio",
+      "cpf_length": "El CPF debe tener 11 dígitos",
+      "cpf_only_numbers": "El CPF debe contener solo números",
+      "password": "Contraseña",
+      "password_placeholder": "Ingrese su contraseña",
+      "password_required": "La contraseña es obligatoria",
+      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
+      "button": "Iniciar sesión",
+      "forgot_password": "¿Olvidó su contraseña?",
+      "no_account": "¿No tiene una cuenta?",
+      "sign_up": "Registrarse"
+    },
+    "about_link": "Acerca de",
+    "counter_link": "Contador",
+    "portfolio_link": "Portafolio",
+    "sign_in_link": "Iniciar sesión",
+    "sign_up_link": "Registrarse"
+  },
   "RootLayout": {
     "home_link": "Inicio",
     "about_link": "Acerca de",
