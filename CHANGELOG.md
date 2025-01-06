@@ -1,3 +1,10 @@
+# 1.0.0 (2025-01-06)
+
+
+### Features
+
+* :sparkles: first commit ([cfc5b74](https://github.com/Fixed-My-City/frontend/commit/cfc5b74df0b696a75c0396525cfde50c194b0e15))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
