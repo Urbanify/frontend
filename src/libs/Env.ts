@@ -9,10 +9,12 @@ export const Env = createEnv({
   },
   shared: {
     NODE_ENV: z.enum(['test', 'development', 'production']).optional(),
+    API_URL: z.string().url(),
   },
   // You need to destructure all the keys manually
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NODE_ENV: process.env.NODE_ENV,
+    API_URL: process.env.API_URL,
   },
 });

@@ -17,6 +17,7 @@ export default async function Layout(props: { children: React.ReactNode }) {
   return (
     <>
       <DemoBanner />
+      <LocaleSwitcher />
       <BaseTemplate
         leftNav={(
           <>
@@ -82,9 +83,6 @@ export default async function Layout(props: { children: React.ReactNode }) {
               </Link>
             </li>
 
-            <li>
-              <LocaleSwitcher />
-            </li>
           </>
         )}
       >
