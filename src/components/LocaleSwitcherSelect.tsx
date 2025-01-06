@@ -16,7 +16,7 @@ export default function LocaleSwitcherSelect({
   items,
   label,
 }: Props) {
-  const [isPending, startTransition] = useTransition();
+  const [_, startTransition] = useTransition();
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const locale = event.target.value as Locale;
@@ -26,21 +26,16 @@ export default function LocaleSwitcherSelect({
   };
 
   return (
-    <div className="relative">
+    <div>
       <h4>{label}</h4>
       <select
         defaultValue={defaultValue}
         onChange={handleChange}
-        className={
-          `border border-gray-300 font-medium focus:outline-none focus-visible:ring${
-            isPending
-          }` && 'pointer-events-none opacity-60'
-        }
+        className="border border-gray-300 font-medium focus:outline-none focus-visible:ring"
         aria-label="lang-switcher"
       >
         {items.map(lang => (
           <option key={lang.value} value={lang.value}>
-            {lang.value === defaultValue && 'Selected '}
             {lang.label}
           </option>
         ))}
