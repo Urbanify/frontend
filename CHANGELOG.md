@@ -40,6 +40,7 @@
 ## MISSING
 
 - Tests
+- Adicionar seletor de idioma na área deslogada
 - Avatar
 - Calendar
 - Carousel

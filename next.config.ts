@@ -14,6 +14,21 @@ export default bundleAnalyzer(
     eslint: {
       dirs: ['.'],
     },
+
+    images: {
+      remotePatterns: [
+        {
+          hostname: '**',
+          protocol: 'https',
+
+        },
+        {
+          hostname: '**',
+          protocol: 'http',
+
+        },
+      ],
+    },
     poweredByHeader: false,
     reactStrictMode: true,
   }),

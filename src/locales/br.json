@@ -1,17 +1,16 @@
 {
   "Auth": {
     "Login": {
+      "welcome": "Bem-vindo de volta!",
+      "login_with": "Entre com o seu CPF e senha",
       "cpf": "CPF",
       "cpf_placeholder": "Insira seu CPF",
       "cpf_required": "CPF é obrigatório",
       "cpf_length": "O CPF deve conter 11 números",
       "cpf_only_numbers": "O CPF deve conter apenas números",
-
       "password": "Senha",
-      "password_placeholder": "Insira sua senha",
       "password_required": "A senha é obrigatória",
       "password_length": "O senha deve conter entre 8 e 32 caracteres",
-
       "button": "Entrar",
       "forgot_password": "Esqueceu sua senha?",
       "no_account": "Não tem uma conta?",

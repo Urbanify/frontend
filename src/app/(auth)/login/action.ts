@@ -1,9 +1,9 @@
 'use server';
+import type { LoginFormData } from '@/components/Auth/login-form';
+
 import { signIn } from '@/auth';
 
-import type { LoginForm } from './page';
-
-export const handleSubmit = async (data: LoginForm) => {
+export const handleSubmit = async (data: LoginFormData) => {
   try {
     await signIn('credentials', {
       cpf: data.cpf,

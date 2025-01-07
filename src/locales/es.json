@@ -1,13 +1,14 @@
 {
   "Auth": {
     "Login": {
+      "welcome": "¡Bienvenido de nuevo!",
+      "login_with": "Inicie sesión con su CPF y contraseña",
       "cpf": "CPF",
       "cpf_placeholder": "Ingrese su CPF",
       "cpf_required": "El CPF es obligatorio",
       "cpf_length": "El CPF debe tener 11 dígitos",
       "cpf_only_numbers": "El CPF debe contener solo números",
       "password": "Contraseña",
-      "password_placeholder": "Ingrese su contraseña",
       "password_required": "La contraseña es obligatoria",
       "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
       "button": "Iniciar sesión",

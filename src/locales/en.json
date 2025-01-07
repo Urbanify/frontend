@@ -1,25 +1,27 @@
 {
   "Auth": {
     "Login": {
+      "welcome": "Welcome back!",
+      "login_with": "Login with your CPF and password",
       "cpf": "CPF",
-      "cpf_placeholder": "Enter your CPF",
-      "cpf_required": "CPF is required",
-      "cpf_length": "CPF must be 11 digits",
-      "cpf_only_numbers": "CPF must contain only numbers",
-      "password": "Password",
-      "password_placeholder": "Enter your password",
-      "password_required": "Password is required",
-      "password_length": "Password must be between 8 and 32 characters",
-      "button": "Sign in",
-      "forgot_password": "Forgot your password?",
-      "no_account": "Don't have an account?",
-      "sign_up": "Sign up"
+      "cpf_placeholder": "Insira seu CPF",
+      "cpf_required": "CPF é obrigatório",
+      "cpf_length": "O CPF deve conter 11 números",
+      "cpf_only_numbers": "O CPF deve conter apenas números",
+      "password": "Senha",
+      "password_placeholder": "Insira sua senha",
+      "password_required": "A senha é obrigatória",
+      "password_length": "O senha deve conter entre 8 e 32 caracteres",
+      "button": "Entrar",
+      "forgot_password": "Esqueceu sua senha?",
+      "no_account": "Não tem uma conta?",
+      "sign_up": "Cadastrar-se"
     },
-    "about_link": "About",
-    "counter_link": "Counter",
-    "portfolio_link": "Portfolio",
-    "sign_in_link": "Sign in",
-    "sign_up_link": "Sign up"
+    "about_link": "Sobre",
+    "counter_link": "Contador",
+    "portfolio_link": "Portfólio",
+    "sign_in_link": "Entrar",
+    "sign_up_link": "Cadastrar-se"
   },
   "RootLayout": {
     "home_link": "Home",
