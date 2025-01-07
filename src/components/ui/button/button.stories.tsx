@@ -4,7 +4,7 @@ import React from 'react';
 import type { ButtonProps } from './button';
 import { Button } from './button';
 
-const variantOptions = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const;
+const variantOptions = ['default', 'destructive', 'outline', 'secondary', 'success', 'ghost', 'link'] as const;
 const sizeOptions = ['default', 'sm', 'lg', 'icon'] as const;
 
 const meta: Meta<ButtonProps> = {
