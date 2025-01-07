@@ -55,17 +55,13 @@
 ## MISSING
 
 - Tests
-- Adicionar seletor de idioma na área deslogada
 - Avatar
 - Calendar
 - Carousel
 - Checkbox
-- Combobox
 - Data Table
-- Dialog
 - Sheet
 - Sidebar
 - Skeleton
-- Sonner
 - Switch
 - TextArea
