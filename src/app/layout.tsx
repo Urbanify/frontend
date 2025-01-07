@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import { Toaster } from 'sonner';
 
 import '@/styles/global.css';
 
@@ -72,7 +73,8 @@ export default async function RootLayout({
       <body data-testid="rootlayout-component" className="size-full">
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
-            {children}
+            <main>{children}</main>
+            <Toaster richColors />
           </AuthProvider>
         </NextIntlClientProvider>
       </body>

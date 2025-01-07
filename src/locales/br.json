@@ -16,11 +16,53 @@
       "no_account": "Não tem uma conta?",
       "sign_up": "Cadastrar-se"
     },
-    "about_link": "Sobre",
+    "Register": {
+      "create": "Crie sua conta!",
+      "welcome": "Sua jornada começa aqui!",
+      "cpf": "CPF",
+      "cpf_placeholder": "Insira seu CPF",
+      "cpf_required": "CPF é obrigatório",
+      "cpf_length": "O CPF deve conter 11 números",
+      "cpf_only_numbers": "O CPF deve conter apenas números",
+      "password": "Senha",
+      "password_required": "A senha é obrigatória",
+      "password_length": "O senha deve conter entre 8 e 32 caracteres",
+      "name": "Nome",
+      "name_placeholder": "Insira seu nome",
+      "name_required": "Nome é obrigatório",
+      "name_length": "O nome deve conter pelo menos 2 caracteres",
+      "surname": "Sobrenome",
+      "surname_placeholder": "Insira seu sobrenome",
+      "surname_required": "Sobrenome é obrigatório",
+      "surname_length": "O sobrenome deve conter pelo menos 2 caracteres",
+      "email": "Email",
+      "email_placeholder": "Insira seu email",
+      "email_required": "Email é obrigatório",
+      "email_invalid": "O email inserido é inválido",
+      "city": "Cidade",
+      "city_placeholder": "Selecione uma cidade...",
+      "city_required": "Cidade é obrigatória",
+      "button": "Criar conta",
+      "have_account": "Já tem uma conta?",
+      "go_login": "Ir para o login",
+      "success": "Sua conta foi criada com sucesso!",
+      "error": "Ocorreu um erro ao criar sua conta"
+    },
+    "terms_and_policy": {
+      "text": "Ao clicar em continuar, você concorda com nossos",
+      "terms": "Termos de Serviço",
+      "and": "e",
+      "privacy_policy": "Política de Privacidade"
+    },
     "counter_link": "Contador",
     "portfolio_link": "Portfólio",
     "sign_in_link": "Entrar",
     "sign_up_link": "Cadastrar-se"
+  },
+  "Components": {
+    "LocaleSwitcher": {
+      "label": "Selecionar idioma"
+    }
   },
   "RootLayout": {
     "home_link": "Início",

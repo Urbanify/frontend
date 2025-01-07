@@ -16,11 +16,54 @@
       "no_account": "¿No tiene una cuenta?",
       "sign_up": "Registrarse"
     },
+    "Register": {
+      "create": "¡Crea tu cuenta!",
+      "welcome": "¡Tu viaje comienza aquí!",
+      "cpf": "CPF",
+      "cpf_placeholder": "Ingrese su CPF",
+      "cpf_required": "El CPF es obligatorio",
+      "cpf_length": "El CPF debe tener 11 dígitos",
+      "cpf_only_numbers": "El CPF debe contener solo números",
+      "password": "Contraseña",
+      "password_required": "La contraseña es obligatoria",
+      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
+      "name": "Nombre",
+      "name_placeholder": "Ingrese su nombre",
+      "name_required": "El nombre es obligatorio",
+      "name_length": "El nombre debe tener al menos 2 caracteres",
+      "surname": "Apellido",
+      "surname_placeholder": "Ingrese su apellido",
+      "surname_required": "El apellido es obligatorio",
+      "surname_length": "El apellido debe tener al menos 2 caracteres",
+      "email": "Correo electrónico",
+      "email_placeholder": "Ingrese su correo electrónico",
+      "email_required": "El correo electrónico es obligatorio",
+      "email_invalid": "El correo electrónico ingresado es inválido",
+      "city": "Ciudad",
+      "city_placeholder": "Selecciona una ciudad...",
+      "city_required": "La ciudad es obligatoria",
+      "button": "Registrarse",
+      "have_account": "¿Ya tienes una cuenta?",
+      "go_login": "Ir al inicio de sesión",
+      "success": "¡Su cuenta fue creada exitosamente!",
+      "error": "Se produjo un error al crear su cuenta"
+    },
+    "terms_and_policy": {
+      "text": "Al hacer clic en continuar, acepta nuestros",
+      "terms": "Términos de servicio",
+      "and": "y",
+      "privacy_policy": "Política de privacidad"
+    },
     "about_link": "Acerca de",
     "counter_link": "Contador",
     "portfolio_link": "Portafolio",
     "sign_in_link": "Iniciar sesión",
     "sign_up_link": "Registrarse"
+  },
+  "Components": {
+    "LocaleSwitcher": {
+      "label": "Seleccionar idioma"
+    }
   },
   "RootLayout": {
     "home_link": "Inicio",

@@ -6,13 +6,17 @@ export const Env = createEnv({
   server: {},
   client: {
     NEXT_PUBLIC_APP_URL: z.string().optional(),
+    NEXT_PUBLIC_API_URL: z.string().optional(),
+    NEXT_PUBLIC_IMGBB_KEY: z.string(),
   },
   shared: {
     NODE_ENV: z.enum(['test', 'development', 'production']).optional(),
-    API_URL: z.string().url(),
+    API_URL: z.string().url().optional(),
   },
   // You need to destructure all the keys manually
   runtimeEnv: {
+    NEXT_PUBLIC_IMGBB_KEY: process.env.NEXT_PUBLIC_IMGBB_KEY,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NODE_ENV: process.env.NODE_ENV,
     API_URL: process.env.API_URL,

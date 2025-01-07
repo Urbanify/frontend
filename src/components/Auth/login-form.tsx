@@ -1,5 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -23,6 +24,7 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const t = useTranslations('Auth.Login');
+  const terms = useTranslations('Auth.terms_and_policy');
   const formSchema = loginSchema(t as unknown as (arg: string) => string);
 
   const { register, ...methods } = useForm<LoginFormData>({
@@ -50,8 +52,8 @@ export function LoginForm({
           <CardContent>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <div className="grid gap-6">
-                <div className="grid gap-6">
-                  <div className="grid gap-2">
+                <div className="grid gap-8">
+                  <div className="relative grid gap-2">
                     <Label htmlFor="cpf">{t('cpf')}</Label>
                     <Input
                       id="cpf"
@@ -60,9 +62,9 @@ export function LoginForm({
                       required
                       {...register('cpf')}
                     />
-                    {methods.formState.errors.cpf && <span className="text-red-500">{methods.formState.errors.cpf.message}</span>}
+                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.cpf.message}</span>}
                   </div>
-                  <div className="grid gap-2">
+                  <div className="relative grid gap-2">
                     <div className="flex items-center">
                       <Label htmlFor="password">{t('password')}</Label>
                       <a
@@ -73,7 +75,7 @@ export function LoginForm({
                       </a>
                     </div>
                     <Input id="password" type="password" placeholder="********" required {...register('password')} />
-                    {methods.formState.errors.password && <span className="text-red-500">{methods.formState.errors.password.message}</span>}
+                    {methods.formState.errors.password && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.password.message}</span>}
                   </div>
 
                   <input type="hidden" name="redirectTo" value="/issues" />
@@ -82,6 +84,7 @@ export function LoginForm({
                     disabled={
                       disableButton
                     }
+                    isLoading={methods.formState.isSubmitting}
                     type="submit"
                     className="w-full"
                   >
@@ -91,22 +94,22 @@ export function LoginForm({
                 <div className="text-center text-sm">
                   {t('no_account')}
                   {' '}
-                  <a href="/register" className="underline underline-offset-4">
+                  <Link href="/register" className="underline underline-offset-4">
                     {t('sign_up')}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </form>
           </CardContent>
         </Card>
         <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-          By clicking continue, you agree to our
+          {terms('text')}
           {' '}
-          <a href="/terms">Terms of Service</a>
+          <Link href="/terms">{terms('terms')}</Link>
           {' '}
-          and
+          {terms('and')}
           {' '}
-          <a href="/policies">Privacy Policy</a>
+          <Link href="/policies">{terms('privacy_policy')}</Link>
           .
         </div>
       </div>

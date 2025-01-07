@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
-import { auth } from '@/auth';
+import { Env } from '@/libs/Env';
 
-const mainAPI = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL;
+// import { auth } from '@/auth';
+
+const mainAPI = Env.API_URL ?? Env.NEXT_PUBLIC_APP_URL;
 
 const buildURL = (input: RequestInfo | URL): string => {
   if (typeof input === 'string') {
@@ -13,13 +15,14 @@ const buildURL = (input: RequestInfo | URL): string => {
   return input.toString();
 };
 
-export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, authed: boolean = true) => {
+export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, _authed: boolean = true) => {
   const url = buildURL(input);
-  const authRes = authed ? await auth() : null;
+  // const authRes = authed ? await auth() : null;
 
   const headers = {
+    'Content-Type': `application/json`,
     ...init?.headers,
-    ...(authed && authRes ? { Authorization: `Bearer ${authRes?.access_token}` } : {}),
+    // ...(authed && authRes ? { Authorization: `Bearer ${authRes?.access_token}` } : {}),
   };
 
   const requestInit = {
