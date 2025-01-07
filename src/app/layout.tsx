@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
-import { Toaster } from 'sonner';
 
 import '@/styles/global.css';
+
+import { Toaster } from '@/components/ui/toaster/toaster';
 
 import AuthProvider from '@/providers/AuthProvider';
 

@@ -22,7 +22,7 @@ const Button = ({ ref, className, variant, size, asChild = false, isLoading, chi
       {...props}
     >
       {isLoading
-        ? <LoaderCircle className="size-4 animate-spin" />
+        ? <LoaderCircle role="img" className="size-4 animate-spin" />
         : children}
     </Comp>
   );

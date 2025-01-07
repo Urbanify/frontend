@@ -30,4 +30,20 @@ describe('Components -> Button', () => {
     expect(slotChild).toBeInTheDocument();
     expect(slotChild.tagName).toBe('A'); // Verify that the Slot renders an anchor tag
   });
+
+  it('shows spinner when isLoading is true', () => {
+    render(<Button isLoading>Click me</Button>);
+
+    expect(screen.getByRole('button')).toBeDisabled();
+    expect(screen.getByRole('img', { hidden: true })).toHaveClass('size-4 animate-spin');
+    expect(screen.queryByText('Click me')).not.toBeInTheDocument();
+  });
+
+  it('shows children when isLoading is false', () => {
+    render(<Button>Click me</Button>);
+
+    expect(screen.getByRole('button')).toBeEnabled();
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+    expect(screen.queryByRole('svg')).not.toBeInTheDocument();
+  });
 });
