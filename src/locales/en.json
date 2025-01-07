@@ -64,6 +64,9 @@
   "Components": {
     "LocaleSwitcher": {
       "label": "Select language"
+    },
+    "Combobox": {
+      "not_found": "No options found"
     }
   },
   "RootLayout": {
