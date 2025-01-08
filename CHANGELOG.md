@@ -77,6 +77,7 @@
 ## MISSING
 
 - Tests
+- ADD THEME TO NAVBAR
 - Avatar
 - Calendar
 - Carousel
