@@ -85,5 +85,4 @@
 - Sheet
 - Sidebar
 - Skeleton
-- Switch
 - TextArea
