@@ -6,14 +6,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
 
+import { Button } from '@/components/ui/button/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card/card';
+import { Combobox } from '@/components/ui/combobox/combobox';
+import { Input } from '@/components/ui/input/input';
+import { Label } from '@/components/ui/label/label';
+
 import { handleSubmit } from '@/app/(auth)/register/action';
 import { registerSchema } from '@/schemas/auth/register.schema';
-
-import { Button } from '../ui/button/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card/card';
-import { Combobox } from '../ui/combobox/combobox';
-import { Input } from '../ui/input/input';
-import { Label } from '../ui/label/label';
 
 export type RegisterFormData = {
   name: string;

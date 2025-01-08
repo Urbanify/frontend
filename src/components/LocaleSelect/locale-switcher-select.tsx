@@ -2,10 +2,10 @@
 
 import { useTransition } from 'react';
 
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select/select';
+
 import { setUserLocale } from '@/services/locale';
 import type { Locale } from '@/utils/AppConfig';
-
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select/select';
 
 type Props = {
   defaultValue: string;
