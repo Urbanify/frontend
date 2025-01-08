@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Skeleton } from './skeleton';
 
-describe('Skeleton Component', () => {
+describe('Components -> Skeleton', () => {
   it('renders without crashing', () => {
     render(<Skeleton data-testid="skeleton-el" />);
     const skeleton = screen.getByTestId('skeleton-el');

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 
-describe('Avatar Component', () => {
+describe('Components -> Avatar', () => {
   it('renders without crashing', () => {
     render(
       <Avatar data-testid="avatar-el">
