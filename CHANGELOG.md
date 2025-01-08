@@ -100,13 +100,8 @@
 ## MISSING
 
 - Tests
-- Avatar
 - Calendar
 - Carousel
 - Checkbox
 - Data Table
-- Sheet
-- Sidebar
-- Skeleton
-- Switch
 - TextArea
