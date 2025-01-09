@@ -79,7 +79,17 @@
       "title": "All cities"
     },
     "CreatePage": {
-      "title": "Create city"
+      "title": "Create a city",
+      "description": "Fill in the form below to create a new city",
+      "city_name": "City name",
+      "city_name_placeholder": "Enter city name",
+      "name_required": "City name is required",
+      "name_length": "City name must contain at least 2 characters",
+      "map_position_required": "Map position is required",
+      "create": "Create city",
+      "go_back": "Go back",
+      "success": "All good! The city was created successfully!",
+      "error": "An error occurred while creating the city"
     }
   },
   "Components": {

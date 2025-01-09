@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-import { Env } from '@/libs/Env';
 
-// import { auth } from '@/auth';
+import { Env } from '@/libs/Env';
 
 const mainAPI = Env.API_URL ?? Env.NEXT_PUBLIC_APP_URL;
 
@@ -15,14 +14,12 @@ const buildURL = (input: RequestInfo | URL): string => {
   return input.toString();
 };
 
-export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, _authed: boolean = true) => {
+export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, token?: string) => {
   const url = buildURL(input);
-  // const authRes = authed ? await auth() : null;
-
   const headers = {
     'Content-Type': `application/json`,
     ...init?.headers,
-    // ...(authed && authRes ? { Authorization: `Bearer ${authRes?.access_token}` } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
   const requestInit = {
@@ -30,10 +27,10 @@ export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, _aut
     headers,
   };
 
-  const response = await fetch(url, requestInit);
-
   console.log(`🚀 =====================================`);
   console.log(`🚀 REQUEST ${init?.method} ${input} ~ ${JSON.stringify(requestInit, null, 2)}`);
+
+  const response = await fetch(url, requestInit);
   console.log(`🚀 RESPONSE ~ ${JSON.stringify(response, null, 2)}`);
   return response;
 };

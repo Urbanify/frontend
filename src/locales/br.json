@@ -79,7 +79,17 @@
       "title": "Todas as cidades"
     },
     "CreatePage": {
-      "title": "Criar cidade"
+      "title": "Crie uma cidade",
+      "description": "Preencha o formulário abaixo para criar uma nova cidade",
+      "city_name": "Nome da cidade",
+      "city_name_placeholder": "Digite o nome da cidade",
+      "name_required": "Nome da cidade é obrigatório",
+      "name_length": "Nome da cidade deve conter pelo menos 2 caracteres",
+      "map_position_required": "Posição no mapa é obrigatória",
+      "create": "Criar cidade",
+      "go_back": "Voltar",
+      "success": "Tudo certo! A cidade foi criada com sucesso!",
+      "error": "Ocorreu um erro ao criar a cidade"
     }
   },
   "Components": {

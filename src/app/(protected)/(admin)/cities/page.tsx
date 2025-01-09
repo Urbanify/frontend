@@ -20,7 +20,7 @@ export default async function ListCities() {
         ]}
       />
       <div className="px-4">
-        <h1>{ pageT('title')}</h1>
+        <h1 className="mb-4 font-sans text-3xl font-semibold">{pageT('title')}</h1>
         <CitiesTable cities={cities} />
       </div>
     </>

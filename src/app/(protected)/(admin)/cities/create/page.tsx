@@ -1,10 +1,11 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
+import CityForm from '@/components/Cities/CityForm';
 import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
-export default function CreateCity() {
-  const t = useTranslations('Components.Sidebar.Admin.cities');
-  const pageT = useTranslations('Cities.CreatePage');
+export default async function CreateCity() {
+  const t = await getTranslations('Components.Sidebar.Admin.cities');
+  // const pageT = await getTranslations('Cities.CreatePage');
 
   return (
     <>
@@ -14,9 +15,8 @@ export default function CreateCity() {
           { label: t('create') },
         ]}
       />
-      <div>
-        <h1>{pageT('title')}</h1>
-      </div>
+
+      <CityForm />
     </>
   );
 }

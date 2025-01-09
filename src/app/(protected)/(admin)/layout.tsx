@@ -12,7 +12,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   // TODO: UPDATE HERE TO USE THE CORRECT TYPE
   const isAdmin = userRole === 'ADMIN';
 
-  if (!isAdmin) {
+  if (!parsedJWT) {
+    return null;
+  }
+
+  if (parsedJWT && !isAdmin) {
     return redirect('/login');
   }
 
