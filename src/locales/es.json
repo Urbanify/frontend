@@ -74,6 +74,12 @@
     "status": {
       "active": "activo",
       "inactive": "inactivo"
+    },
+    "ListPage": {
+      "title": "Todas las ciudades"
+    },
+    "CreatePage": {
+      "title": "Crear ciudad"
     }
   },
   "Components": {
