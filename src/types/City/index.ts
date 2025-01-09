@@ -5,8 +5,10 @@ export type City = {
   name: string;
   latitude: string;
   longitude: string;
-  status: boolean;
+  status: CityStatus;
   createdAt: string;
   updatedAt: string;
   featureFlags: Array<FeatureFlag>;
 };
+
+export type CityStatus = 'ACTIVE' | 'INACTIVE';
