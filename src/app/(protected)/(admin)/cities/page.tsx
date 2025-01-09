@@ -16,7 +16,7 @@ export default async function ListCities() {
       <BreadcrumbSetter
         breadcrumbs={[
           { label: t('title'), href: '/cities' },
-          { label: t('create') },
+          { label: t('list') },
         ]}
       />
       <div className="px-4">

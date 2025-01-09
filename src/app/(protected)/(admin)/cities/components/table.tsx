@@ -43,6 +43,7 @@ export function CitiesTable({ cities }: CitiesTableProps) {
             <TableHead className="w-fit min-w-24 max-w-24 truncate md:max-w-72">{t('id')}</TableHead>
             <TableHead className="w-1/2">{t('name')}</TableHead>
             <TableHead className="w-full min-w-24">{t('status')}</TableHead>
+            <TableHead className="w-full min-w-24">FFs</TableHead>
             <TableHead className="text-right">{t('actions')}</TableHead>
           </TableRow>
         </TableHeader>
@@ -52,6 +53,11 @@ export function CitiesTable({ cities }: CitiesTableProps) {
               <TableCell className="w-fit min-w-24 max-w-24 truncate font-medium md:max-w-72">{city.id}</TableCell>
               <TableCell>{city.name}</TableCell>
               <TableCell><CityStatusBadge status={city.status} /></TableCell>
+              <TableCell>
+                {city.featureFlags.filter(ff => ff.status).length}
+                /
+                {city.featureFlags.length}
+              </TableCell>
               <TableCell className="text-right">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
