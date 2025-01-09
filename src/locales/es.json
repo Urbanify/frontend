@@ -2,63 +2,79 @@
   "Auth": {
     "Login": {
       "welcome": "¡Bienvenido de nuevo!",
-      "login_with": "Inicie sesión con su CPF y contraseña",
+      "login_with": "Introduzca su CPF y contraseña",
       "cpf": "CPF",
-      "cpf_placeholder": "Ingrese su CPF",
-      "cpf_required": "El CPF es obligatorio",
-      "cpf_length": "El CPF debe tener 11 dígitos",
-      "cpf_only_numbers": "El CPF debe contener solo números",
+      "cpf_placeholder": "Introduzca su CPF",
+      "cpf_required": "CPF es obligatorio",
+      "cpf_length": "El CPF debe contrarrestar 11 números",
+      "cpf_only_numbers": "El CPF debería contar sólo números",
       "password": "Contraseña",
-      "password_required": "La contraseña es obligatoria",
-      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
-      "button": "Iniciar sesión",
-      "forgot_password": "¿Olvidó su contraseña?",
-      "no_account": "¿No tiene una cuenta?",
-      "sign_up": "Registrarse"
+      "password_required": "Se requiere contraseña",
+      "password_length": "La contraseña debe tener entre 8 y 32 caracteres.",
+      "button": "Ingresar",
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "no_account": "¿No tienes una cuenta?",
+      "sign_up": "Regístrese"
     },
     "Register": {
       "create": "¡Crea tu cuenta!",
-      "welcome": "¡Tu viaje comienza aquí!",
+      "welcome": "¡Tu día comienza aquí!",
       "cpf": "CPF",
-      "cpf_placeholder": "Ingrese su CPF",
-      "cpf_required": "El CPF es obligatorio",
-      "cpf_length": "El CPF debe tener 11 dígitos",
-      "cpf_only_numbers": "El CPF debe contener solo números",
+      "cpf_placeholder": "Introduzca su CPF",
+      "cpf_required": "CPF es obligatorio",
+      "cpf_length": "El CPF debe contrarrestar 11 números",
+      "cpf_only_numbers": "El CPF debería contar sólo números",
       "password": "Contraseña",
-      "password_required": "La contraseña es obligatoria",
-      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
+      "password_required": "Se requiere contraseña",
+      "password_length": "La contraseña debe tener entre 8 y 32 caracteres.",
       "name": "Nombre",
-      "name_placeholder": "Ingrese su nombre",
+      "name_placeholder": "Introduce tu nombre",
       "name_required": "El nombre es obligatorio",
-      "name_length": "El nombre debe tener al menos 2 caracteres",
-      "surname": "Apellido",
-      "surname_placeholder": "Ingrese su apellido",
-      "surname_required": "El apellido es obligatorio",
-      "surname_length": "El apellido debe tener al menos 2 caracteres",
+      "name_length": "El nombre debe contener al menos 2 caracteres.",
+      "surname": "Apodos",
+      "surname_placeholder": "Introduce tu apodo",
+      "surname_required": "Se requiere apodo",
+      "surname_length": "El apodo debe contener al menos 2 caracteres.",
       "email": "Correo electrónico",
-      "email_placeholder": "Ingrese su correo electrónico",
-      "email_required": "El correo electrónico es obligatorio",
-      "email_invalid": "El correo electrónico ingresado es inválido",
+      "email_placeholder": "Introduce tu correo electrónico",
+      "email_required": "Se requiere correo electrónico",
+      "email_invalid": "El correo electrónico ingresado no es válido",
       "city": "Ciudad",
-      "city_placeholder": "Selecciona una ciudad...",
-      "city_required": "La ciudad es obligatoria",
-      "button": "Registrarse",
+      "city_placeholder": "Seleccione una ciudad...",
+      "city_required": "La ciudad es imprescindible.",
+      "button": "Crear una cuenta",
       "have_account": "¿Ya tienes una cuenta?",
-      "go_login": "Ir al inicio de sesión",
+      "go_login": "Ir a iniciar sesión",
       "success": "¡Su cuenta fue creada exitosamente!",
-      "error": "Se produjo un error al crear su cuenta"
+      "error": "Hubo un error al crear tu cuenta."
     },
     "terms_and_policy": {
-      "text": "Al hacer clic en continuar, acepta nuestros",
+      "text": "Al hacer clic en continuar, aceptas nuestra",
       "terms": "Términos de servicio",
-      "and": "y",
-      "privacy_policy": "Política de privacidad"
+      "and": "en",
+      "privacy_policy": "política de privacidad"
     },
-    "about_link": "Acerca de",
-    "counter_link": "Contador",
-    "portfolio_link": "Portafolio",
-    "sign_in_link": "Iniciar sesión",
-    "sign_up_link": "Registrarse"
+    "counter_link": "Encimera",
+    "portfolio_link": "Cartera",
+    "sign_in_link": "Ingresar",
+    "sign_up_link": "Regístrese"
+  },
+  "Cities": {
+    "table": {
+      "filterPlaceholder": "Filtrar por nombre de ciudad...",
+      "id": "Identificador",
+      "name": "Nombre",
+      "status": "Estado",
+      "actions": "Comportamiento",
+      "edit": "Editar",
+      "deactivate": "Desactivar",
+      "activate": "Atívar",
+      "access": "Accediendo"
+    },
+    "status": {
+      "active": "activo",
+      "inactive": "inactivo"
+    }
   },
   "Components": {
     "LocaleSwitcher": {
@@ -66,79 +82,21 @@
     },
     "Combobox": {
       "not_found": "No se encontraron opciones"
+    },
+    "Sidebar": {
+      "Admin": {
+        "title": "Administración",
+        "cities": {
+          "title": "Ciudades",
+          "create": "Crear",
+          "list": "Lista"
+        },
+        "features": {
+          "title": "Banderas de características",
+          "create": "Crear",
+          "list": "Lista"
+        }
+      }
     }
-  },
-  "RootLayout": {
-    "home_link": "Inicio",
-    "about_link": "Acerca de",
-    "counter_link": "Contador",
-    "portfolio_link": "Portafolio",
-    "sign_in_link": "Iniciar sesión",
-    "sign_up_link": "Registrarse"
-  },
-  "BaseTemplate": {
-    "description": "Código inicial para tu Boilerplate Nextjs con Tailwind CSS",
-    "made_with": "Hecho con <author></author>."
-  },
-  "Index": {
-    "meta_title": "Presentación del Boilerplate Next.js",
-    "meta_description": "El Boilerplate Next.js es el código inicial perfecto para tu proyecto. Construye tu aplicación React con el framework Next.js.",
-    "sponsors_title": "Patrocinadores"
-  },
-  "Counter": {
-    "meta_title": "Contador",
-    "meta_description": "Un ejemplo de operación en la base de datos",
-    "loading_counter": "Cargando contador...",
-    "security_powered_by": "Seguridad, detección de bots y limitación de velocidad proporcionadas por"
-  },
-  "CounterForm": {
-    "presentation": "El contador se almacena en la base de datos y se incrementa por el valor que proporciones.",
-    "label_increment": "Incrementar por",
-    "button_increment": "Incrementar"
-  },
-  "CurrentCount": {
-    "count": "Cuenta: {count}"
-  },
-  "About": {
-    "meta_title": "Acerca de",
-    "meta_description": "Descripción de la página Acerca de",
-    "about_paragraph": "¡Bienvenido a nuestra página Acerca de! Somos un equipo de personas apasionadas dedicadas a crear software increíble.",
-    "translation_powered_by": "Traducción proporcionada por"
-  },
-  "Portfolio": {
-    "meta_title": "Portafolio",
-    "meta_description": "¡Bienvenido a mi página de portafolio!",
-    "presentation": "¡Bienvenido a mi página de portafolio! Aquí encontrarás una colección cuidadosamente seleccionada de mi trabajo y logros. A través de este portafolio, busco mostrar mi experiencia, creatividad y el valor que puedo aportar a tus proyectos.",
-    "portfolio_name": "Portafolio {name}",
-    "error_reporting_powered_by": "Informe de errores proporcionado por",
-    "coverage_powered_by": "Cobertura de código proporcionada por"
-  },
-  "PortfolioSlug": {
-    "meta_title": "Portafolio {slug}",
-    "meta_description": "Descripción del portafolio {slug}",
-    "header": "Portafolio {slug}",
-    "content": "Creé un conjunto de materiales promocionales y elementos de branding para un evento corporativo. Diseñé un tema visualmente unificado, incluyendo un logotipo, carteles, banners y activos digitales. Integré la identidad de marca del cliente mientras aportaba un enfoque contemporáneo e innovador. Recibí respuestas favorables de los asistentes al evento, lo que resultó en un evento exitoso con mayor participación y visibilidad de la marca.",
-    "log_management_powered_by": "Gestión de registros proporcionada por"
-  },
-  "SignIn": {
-    "meta_title": "Iniciar sesión",
-    "meta_description": "Inicia sesión en tu cuenta fácilmente con nuestro proceso de inicio de sesión amigable."
-  },
-  "SignUp": {
-    "meta_title": "Registrarse",
-    "meta_description": "Crea una cuenta de manera sencilla a través de nuestro proceso intuitivo de registro."
-  },
-  "Dashboard": {
-    "meta_title": "Panel",
-    "hello_message": "¡Hola {email}!",
-    "alternative_message": "¿Quieres construir tu SaaS más rápido usando la misma tecnología? Prueba <url></url>."
-  },
-  "UserProfile": {
-    "meta_title": "Perfil de Usuario"
-  },
-  "DashboardLayout": {
-    "dashboard_link": "Panel",
-    "user_profile_link": "Gestionar tu cuenta",
-    "sign_out": "Cerrar sesión"
   }
 }

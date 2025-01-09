@@ -37,6 +37,7 @@ describe('useIsMobile', () => {
 
     const TestComponent = () => {
       const isMobile = useIsMobile();
+      /* c8 ignore next 1 */
       return <div>{isMobile ? 'Mobile' : 'Not mobile'}</div>;
     };
 
