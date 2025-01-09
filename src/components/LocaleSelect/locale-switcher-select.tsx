@@ -28,7 +28,7 @@ export default function LocaleSwitcherSelect({
   };
 
   return (
-    <div className="max-w-fit">
+    <div className="max-w-60">
       <span>{label}</span>
       <Select defaultValue={defaultValue} onValueChange={handleChange}>
         <SelectTrigger>

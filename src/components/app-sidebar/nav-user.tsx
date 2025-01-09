@@ -7,7 +7,10 @@ import {
   CreditCard,
   LogOut,
 } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
+import LocaleSwitcher from '@/components/LocaleSelect';
+import { ToggleTheme } from '@/components/toggle-theme/toggle-theme';
 import {
   Avatar,
   AvatarFallback,
@@ -29,8 +32,6 @@ import {
 } from '@/components/ui/sidebar/sidebar';
 import { useSidebar } from '@/components/ui/sidebar/useSidebar';
 
-import { ToggleTheme } from '../toggle-theme/toggle-theme';
-
 export function NavUser({
   user,
 }: {
@@ -46,6 +47,9 @@ export function NavUser({
     <SidebarMenu>
       <SidebarMenuItem>
         <ToggleTheme />
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <LocaleSwitcher />
       </SidebarMenuItem>
       <SidebarMenuItem>
         <DropdownMenu>
@@ -99,7 +103,11 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut({
+              redirect: true,
+              redirectTo: '/login',
+            })}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
