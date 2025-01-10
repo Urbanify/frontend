@@ -1,20 +1,23 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { LatLngExpression, LatLngLiteral } from 'leaflet';
+import { Autocomplete, Marker, useLoadScript } from '@react-google-maps/api';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import LeafletMap from '@/components/leaflet-map/leaflet-map';
-import Marker from '@/components/leaflet-map/marker';
-import SetViewOnClick from '@/components/leaflet-map/set-view-on-click';
+import { Env } from '@/libs/Env';
+
+import { animateMarker } from '@/components/google-map/animate-marker';
+import { GoogleMaps } from '@/components/google-map/google-map';
 import { Button } from '@/components/ui/button/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card/card';
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
+import { Skeleton } from '@/components/ui/skeleton/skeleton';
 
 import { BRAZIL_POSITION } from '@/constants/BRAZIL_POSITION';
 import { createCitySchema } from '@/schemas/city/create.schema';
@@ -27,7 +30,10 @@ type CityFormData = {
 };
 
 export default function CityForm() {
-  const [position, setPosition] = useState<LatLngExpression>(BRAZIL_POSITION);
+  const [position, setPosition] = useState<google.maps.LatLngLiteral>({
+    lat: BRAZIL_POSITION.lat,
+    lng: BRAZIL_POSITION.lng,
+  });
   const { data: session } = useSession();
   const router = useRouter();
   const t = useTranslations('Cities.CreatePage');
@@ -39,17 +45,21 @@ export default function CityForm() {
     reValidateMode: 'onChange',
     defaultValues: {
       name: '',
-      latitude: `${BRAZIL_POSITION[0]}`,
-      longitude: `${BRAZIL_POSITION[1]}`,
+      latitude: `${BRAZIL_POSITION.lat}`,
+      longitude: `${BRAZIL_POSITION.lng}`,
     },
   });
   const disableButton = !methods.formState.isValid
     || methods.formState.isSubmitting;
 
-  const handleChangePosition = (newPosition: LatLngLiteral) => {
-    setPosition(newPosition);
-    methods.setValue('latitude', `${(newPosition.lat)}`);
-    methods.setValue('longitude', `${(newPosition.lng)}`);
+  const handleChangePosition = (e: google.maps.MapMouseEvent) => {
+    const latlng = e.latLng?.toJSON();
+
+    if (latlng) {
+      animateMarker(position, latlng, setPosition);
+      methods.setValue('latitude', `${(latlng?.lat)}`);
+      methods.setValue('longitude', `${(latlng?.lng)}`);
+    }
   };
 
   const handleSubmit = async (data: CityFormData) => {
@@ -70,6 +80,40 @@ export default function CityForm() {
     }
   };
 
+  const [autocomplete, setAutocomplete] = useState<any>(null);
+
+  const { isLoaded } = useLoadScript({
+    id: 'google-map-script',
+    googleMapsApiKey: Env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    libraries: ['places'],
+  });
+
+  const onLoad = (autoC: any) => {
+    setAutocomplete(autoC);
+  };
+
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+
+      const lat = place.geometry.location.lat();
+      const lng = place.geometry.location.lng();
+
+      animateMarker(position, { lat, lng }, setPosition);
+    }
+  };
+
+  useEffect(() => {
+    if (navigator) {
+      navigator.geolocation.getCurrentPosition((newPos) => {
+        const lat = newPos.coords.latitude;
+        const lng = newPos.coords.longitude;
+
+        animateMarker(position, { lat, lng }, setPosition);
+      });
+    }
+  }, []);
+
   return (
     <FormProvider {...methods} register={register}>
       <form onSubmit={methods.handleSubmit(handleSubmit)} className="flex justify-center">
@@ -82,17 +126,40 @@ export default function CityForm() {
           </CardHeader>
           <CardContent className="flex flex-col gap-8">
             <div className="relative grid gap-2">
-              <Label htmlFor="city-name">{t('city_name')}</Label>
-              <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
-              {methods.formState.errors.name && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.name.message}</span>}
+              {isLoaded
+                ? (
+                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                      <div>
+                        <Label htmlFor="city-name">{t('city_name')}</Label>
+                        <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
+                        {methods.formState.errors.name && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.name.message}</span>}
+                      </div>
+                    </Autocomplete>
+                  )
+                : <Skeleton className="h-10" />}
             </div>
 
             <div className="relative grid gap-2">
               <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
-                <LeafletMap posix={position} zoom={4}>
-                  {position ? <Marker posix={position} /> : null}
-                  <SetViewOnClick setPosition={handleChangePosition} />
-                </LeafletMap>
+                {isLoaded
+                  ? (
+                      <GoogleMaps
+                        center={position}
+                        zoom={4}
+                        onClick={handleChangePosition}
+                        options={{
+                          controlSize: 30,
+                          draggableCursor: 'pointer',
+                          draggingCursor: 'all-scroll',
+                        }}
+                      >
+                        <Marker
+                          position={position}
+                          animation={google.maps.Animation.DROP}
+                        />
+                      </GoogleMaps>
+                    )
+                  : <Skeleton className="h-[50dvh]" />}
               </div>
               {methods.formState.errors.latitude && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.latitude.message}</span>}
             </div>
@@ -100,8 +167,10 @@ export default function CityForm() {
           </CardContent>
           <CardFooter className="w-full">
             <div className="flex flex-1 justify-between gap-2">
-              <Button variant="outline">
-                {t('go_back')}
+              <Button asChild type="button" variant="outline">
+                <Link href="/cities">
+                  {t('go_back')}
+                </Link>
               </Button>
               <Button disabled={disableButton} type="submit" isLoading={methods.formState.isSubmitting}>
                 {t('create')}

@@ -5,7 +5,6 @@ now create tests for it following the pattern
 # Fluxos que consigo tocar
 
 ## Cidade
-- Desativar cidade (admin only)
 - Acessar uma cidade (admin only)
 
 ## Feature Flag
@@ -18,3 +17,7 @@ now create tests for it following the pattern
 
 # BUGS
 - Atualizar descrição da Feature para TextArea
+- Modificar para usar SWR ou ReactQuery
+- Adicionar campo de endereço no problema
+  - Ao carregar a página, geolocalizar a pessoa, caso n, city location
+  - Input de localizador de endereço (pesquisa e troca a localização no mapa)

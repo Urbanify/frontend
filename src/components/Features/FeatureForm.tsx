@@ -1,5 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -93,8 +94,10 @@ export default function FeatureForm() {
           </CardContent>
           <CardFooter className="w-full">
             <div className="flex flex-1 justify-between gap-2">
-              <Button variant="outline">
-                {t('go_back')}
+              <Button asChild type="button" variant="outline">
+                <Link href="/features">
+                  {t('go_back')}
+                </Link>
               </Button>
               <Button disabled={disableButton} type="submit" isLoading={methods.formState.isSubmitting}>
                 {t('create')}

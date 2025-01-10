@@ -1,8 +1,5 @@
 import type React from 'react';
 
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-
 import { AppSidebar } from '@/components/app-sidebar';
 import CheckAuth from '@/components/Auth/check-auth';
 import { Separator } from '@/components/ui/separator/separator';

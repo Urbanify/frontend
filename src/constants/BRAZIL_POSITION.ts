@@ -1,3 +1,1 @@
-import type { LatLngTuple } from 'leaflet';
-
-export const BRAZIL_POSITION = [-14.4095261, -51.31668] as LatLngTuple;
+export const BRAZIL_POSITION = { lat: -14.4095261, lng: -51.31668 } as google.maps.LatLngLiteral;
