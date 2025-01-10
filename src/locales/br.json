@@ -65,6 +65,8 @@
       "id": "Identificador",
       "name": "Nome",
       "status": "Status",
+      "status_success": "Status da cidade atualizado com sucesso",
+      "status_error": "Ocorreu um erro ao atualizar o status da cidade",
       "actions": "Ações",
       "edit": "Editar",
       "deactivate": "Desativar",

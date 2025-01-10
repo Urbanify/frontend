@@ -1,8 +1,10 @@
 'use client';
 import { Edit, Key, MoreHorizontal, Power } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu/dropdown-menu';
@@ -16,6 +18,9 @@ import {
   TableRow,
 } from '@/components/ui/table/table';
 
+import { fetcher } from '@/services/api';
+import { customRevalidateTag } from '@/utils/revalidateTag';
+
 import CityStatusBadge from './city-status-badge';
 
 import type { City } from '@/types/City';
@@ -24,12 +29,41 @@ type CitiesTableProps = {
   cities: City[];
 };
 export function CitiesTable({ cities }: CitiesTableProps) {
+  const { data } = useSession();
   const t = useTranslations('Cities.table');
   const [filter, setFilter] = useState('');
 
   const filteredCities = cities.filter(city =>
     city.name.toLowerCase().includes(filter.toLowerCase()),
   );
+
+  const toggleCityStatus = async (city: City) => {
+    try {
+      if (city.status === 'ACTIVE') {
+        const response = await fetcher(`/cities/${city.id}/deactivate`, {
+          method: 'POST',
+        }, data?.access_token);
+
+        if (!response.ok) {
+          throw new Error(t('status_error'));
+        }
+      }
+      if (city.status === 'DISABLED') {
+        const response = await fetcher(`/cities/${city.id}/activate`, {
+          method: 'POST',
+        }, data?.access_token);
+
+        if (!response.ok) {
+          throw new Error(t('status_error'));
+        }
+      }
+
+      customRevalidateTag('list-cities');
+      toast.success(t('status_success'));
+    } catch {
+      toast.error(t('status_error'));
+    }
+  };
   return (
     <>
       <Input
@@ -77,7 +111,7 @@ export function CitiesTable({ cities }: CitiesTableProps) {
                       </Link>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem disabled>
+                    <DropdownMenuItem onClick={() => toggleCityStatus(city)}>
                       <Power size={16} className="mr-2" />
                       {t(city.status === 'ACTIVE' ? 'deactivate' : 'activate')}
                     </DropdownMenuItem>

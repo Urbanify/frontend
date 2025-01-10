@@ -16,7 +16,7 @@ export default function CityStatusBadge({ status }: CityStatusBadgeProps) {
       label: t('active'),
       variant: 'success',
     },
-    INACTIVE: {
+    DISABLED: {
       label: t('inactive'),
       variant: 'warning',
     },

@@ -9,7 +9,7 @@ export type City = {
   featureFlags: Array<CityFeatureFlag>;
 };
 
-export type CityStatus = 'ACTIVE' | 'INACTIVE';
+export type CityStatus = 'ACTIVE' | 'DISABLED';
 
 export type CityFeatureFlag = {
   cityId: string;

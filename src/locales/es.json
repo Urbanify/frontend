@@ -69,7 +69,9 @@
       "edit": "Editar",
       "deactivate": "Desactivar",
       "activate": "Atívar",
-      "access": "Accediendo"
+      "access": "Accediendo",
+      "status_success": "El estado de la ciudad se actualizó con éxito",
+      "status_error": "Ocurrió un error al actualizar el estado de la ciudad"
     },
     "status": {
       "active": "activo",
