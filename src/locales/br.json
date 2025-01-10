@@ -92,6 +92,36 @@
       "error": "Ocorreu um erro ao criar a cidade"
     }
   },
+  "Features": {
+    "table": {
+      "filterPlaceholder": "Filtre pelo nome da feature...",
+      "id": "Identificador",
+      "name": "Nome",
+      "slug": "Slug",
+      "actions": "Ações",
+      "edit": "Editar",
+      "delete": "Deletar"
+    },
+    "ListPage": {
+      "title": "Todas as features"
+    },
+    "CreatePage": {
+      "title": "Crie uma feature flag",
+      "description": "Preencha o formulário abaixo para criar uma nova feature",
+      "feature_name": "Nome da feature",
+      "feature_name_placeholder": "Digite o nome da feature",
+      "feature_name_required": "Nome da feature é obrigatório",
+      "feature_name_length": "Nome da feature deve conter pelo menos 2 caracteres",
+      "feature_description": "Descrição da feature",
+      "feature_description_placeholder": "Descreva a feature",
+      "feature_description_required": "Descrição é obrigatória",
+      "feature_description_length": "A descrição deve conter pelo menos 10 caracteres",
+      "create": "Criar feature",
+      "go_back": "Voltar",
+      "success": "Tudo certo! A feature foi criada com sucesso!",
+      "error": "Ocorreu um erro ao criar a feature"
+    }
+  },
   "Components": {
     "LocaleSwitcher": {
       "label": "Selecionar idioma"

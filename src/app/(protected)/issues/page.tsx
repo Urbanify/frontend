@@ -1,7 +1,7 @@
 import { fetcher } from '@/services/api';
 
 export default async function Page() {
-  const response = await fetcher('http://localhost:3000/cities', {
+  const response = await fetcher('/cities', {
     method: 'GET',
   });
 

@@ -1,5 +1,3 @@
-import type { FeatureFlag } from '../FeatureFlag';
-
 export type City = {
   id: string;
   name: string;
@@ -8,7 +6,17 @@ export type City = {
   status: CityStatus;
   createdAt: string;
   updatedAt: string;
-  featureFlags: Array<FeatureFlag>;
+  featureFlags: Array<CityFeatureFlag>;
 };
 
 export type CityStatus = 'ACTIVE' | 'INACTIVE';
+
+export type CityFeatureFlag = {
+  cityId: string;
+  featureFlagId: string;
+  slug: string;
+  description: string;
+  status: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
