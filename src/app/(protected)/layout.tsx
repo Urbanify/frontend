@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
 import { AppSidebar } from '@/components/app-sidebar';
+import CheckAuth from '@/components/Auth/check-auth';
 import { Separator } from '@/components/ui/separator/separator';
 import {
   SidebarInset,
@@ -23,6 +24,7 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
   return (
     <SidebarProvider>
       <BreadcrumbProvider>
+        <CheckAuth />
         <AppSidebar />
         <SidebarInset>
           <header className="mb-4 flex h-16 shrink-0 items-center gap-2 bg-primary-foreground">

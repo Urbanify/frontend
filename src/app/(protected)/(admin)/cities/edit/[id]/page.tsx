@@ -24,7 +24,7 @@ export default async function EditCity({
         ]}
       />
 
-      <EditCityForm city={city} />
+      {city ? <EditCityForm city={city} /> : null}
     </div>
   );
 }

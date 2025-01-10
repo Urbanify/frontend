@@ -28,5 +28,6 @@ type ParseResponse = {
   // TODO: Add user properties
   user: {
     role: string;
+    cityId: string | null;
   };
 } | null;
