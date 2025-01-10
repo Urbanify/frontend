@@ -129,7 +129,7 @@ export default function EditCityForm({ city }: { city: City }) {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-8">
-            {methods.watch('featureFlags').map((ff: CityFeatureFlag) => (
+            {methods.watch('featureFlags')?.map((ff: CityFeatureFlag) => (
               <div className="flex items-center gap-2" key={ff.featureFlagId}>
                 <Switch
                   id={ff.featureFlagId}

@@ -2,7 +2,7 @@
 
 import { Env } from '@/libs/Env';
 
-const mainAPI = Env.API_URL ?? Env.NEXT_PUBLIC_APP_URL;
+const mainAPI = Env.API_URL ?? Env.NEXT_PUBLIC_API_URL;
 
 const buildURL = (input: RequestInfo | URL): string => {
   if (typeof input === 'string') {
