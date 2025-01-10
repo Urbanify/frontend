@@ -114,5 +114,35 @@
         }
       }
     }
+  },
+  "Features": {
+    "table": {
+      "filterPlaceholder": "Filter by feature name...",
+      "id": "Identifier",
+      "name": "Name",
+      "slug": "Slug",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "ListPage": {
+      "title": "All features"
+    },
+    "CreatePage": {
+      "title": "Create a feature flag",
+      "description": "Fill in the form below to create a new feature",
+      "feature_name": "Feature name",
+      "feature_name_placeholder": "Enter feature name",
+      "feature_name_required": "Feature name is required",
+      "feature_name_length": "Feature name must contain at least 2 characters",
+      "feature_description": "Feature description",
+      "feature_description_placeholder": "Describe the feature",
+      "feature_description_required": "Description is required",
+      "feature_description_length": "Description must contain at least 10 characters",
+      "create": "Create feature",
+      "go_back": "Go back",
+      "success": "All good! The feature was created successfully!",
+      "error": "An error occurred while creating the feature"
+    }
   }
 }

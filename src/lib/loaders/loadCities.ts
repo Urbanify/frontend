@@ -3,7 +3,7 @@ import { fetcher } from '@/services/api';
 import type { City } from '@/types/City';
 
 export const loadCities = async () => {
-  const response = await fetcher('http://localhost:3000/cities', {
+  const response = await fetcher('/cities', {
     method: 'GET',
   });
   let data = [];

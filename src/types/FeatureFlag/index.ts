@@ -1,9 +1,7 @@
 export type FeatureFlag = {
-  cityId: string;
-  featureFlagId: string;
+  id?: string;
   slug: string;
   description: string;
-  status: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 };

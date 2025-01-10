@@ -92,6 +92,36 @@
       "error": "Ocurrió un error al crear la ciudad"
     }
   },
+  "Features": {
+    "table": {
+      "filterPlaceholder": "Filtrar por nombre de la característica...",
+      "id": "Identificador",
+      "name": "Nombre",
+      "slug": "Slug",
+      "actions": "Acciones",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "ListPage": {
+      "title": "Todas las características"
+    },
+    "CreatePage": {
+      "title": "Crear una bandera de característica",
+      "description": "Complete el formulario a continuación para crear una nueva característica",
+      "feature_name": "Nombre de la característica",
+      "feature_name_placeholder": "Ingrese el nombre de la característica",
+      "feature_name_required": "El nombre de la característica es obligatorio",
+      "feature_name_length": "El nombre de la característica debe contener al menos 2 caracteres",
+      "feature_description": "Descripción de la característica",
+      "feature_description_placeholder": "Describa la característica",
+      "feature_description_required": "La descripción es obligatoria",
+      "feature_description_length": "La descripción debe contener al menos 10 caracteres",
+      "create": "Crear característica",
+      "go_back": "Volver",
+      "success": "¡Todo bien! ¡La característica fue creada exitosamente!",
+      "error": "Ocurrió un error al crear la característica"
+    }
+  },
   "Components": {
     "LocaleSwitcher": {
       "label": "Seleccionar idioma"
