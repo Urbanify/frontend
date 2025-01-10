@@ -54,7 +54,7 @@ describe('loadCities', () => {
 
     const result = await loadCities();
 
-    expect(fetcher).toHaveBeenCalledWith('http://localhost:3000/cities', {
+    expect(fetcher).toHaveBeenCalledWith('/cities', {
       method: 'GET',
     });
     expect(result).toEqual(mockCities);
@@ -68,7 +68,7 @@ describe('loadCities', () => {
 
     const result = await loadCities();
 
-    expect(fetcher).toHaveBeenCalledWith('http://localhost:3000/cities', {
+    expect(fetcher).toHaveBeenCalledWith('/cities', {
       method: 'GET',
     });
     expect(result).toEqual([]);
@@ -81,7 +81,7 @@ describe('loadCities', () => {
 
     const result = await loadCities();
 
-    expect(fetcher).toHaveBeenCalledWith('http://localhost:3000/cities', {
+    expect(fetcher).toHaveBeenCalledWith('/cities', {
       method: 'GET',
     });
     expect(result).toEqual([]);
