@@ -78,6 +78,22 @@
     "ListPage": {
       "title": "Todas as cidades"
     },
+    "EditPage": {
+      "title": "Editar cidade",
+      "description": "Preencha o formulário abaixo para editar a cidade",
+      "city_name": "Nome da cidade",
+      "city_name_placeholder": "Digite o nome da cidade",
+      "name_required": "Nome da cidade é obrigatório",
+      "name_length": "Nome da cidade deve conter pelo menos 2 caracteres",
+      "save": "Salvar alterações",
+      "go_back": "Voltar",
+      "success": "Tudo certo! A cidade foi editada com sucesso!",
+      "error": "Ocorreu um erro ao editar a cidade",
+      "features": {
+        "title": "Feature Flags",
+        "description": "Selecione as features que deseja ativar para esta cidade"
+      }
+    },
     "CreatePage": {
       "title": "Crie uma cidade",
       "description": "Preencha o formulário abaixo para criar uma nova cidade",
@@ -135,12 +151,14 @@
         "cities": {
           "title": "Cidades",
           "create": "Criar",
-          "list": "Listar"
+          "list": "Listar",
+          "edit": "Editar"
         },
         "features": {
           "title": "Feature Flags",
           "create": "Criar",
-          "list": "Listar"
+          "list": "Listar",
+          "edit": "Editar"
         }
       }
     }

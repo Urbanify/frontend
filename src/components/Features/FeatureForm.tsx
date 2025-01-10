@@ -1,5 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -12,7 +13,6 @@ import { Label } from '@/components/ui/label/label';
 
 import { createFeatureSchema } from '@/schemas/feature/create.schema';
 import { fetcher } from '@/services/api';
-import { redirectTo } from '@/utils/redirectTo';
 import { slugify } from '@/utils/slugify';
 
 type FeatureFormData = {
@@ -22,6 +22,7 @@ type FeatureFormData = {
 
 export default function FeatureForm() {
   const { data: session } = useSession();
+  const router = useRouter();
   const t = useTranslations('Features.CreatePage');
   const formSchema = createFeatureSchema(t as unknown as (arg: string) => string);
 
@@ -53,7 +54,7 @@ export default function FeatureForm() {
       }
 
       toast.success(t('success'));
-      await redirectTo('/features');
+      router.push('/features');
     } catch {
       toast.error(t('error'));
     }

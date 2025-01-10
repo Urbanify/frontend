@@ -90,6 +90,22 @@
       "go_back": "Go back",
       "success": "All good! The city was created successfully!",
       "error": "An error occurred while creating the city"
+    },
+    "EditPage": {
+      "title": "Edit city",
+      "description": "Fill in the form below to edit the city",
+      "city_name": "City name",
+      "city_name_placeholder": "Enter city name",
+      "name_required": "City name is required",
+      "name_length": "City name must contain at least 2 characters",
+      "save": "Save changes",
+      "go_back": "Go back",
+      "success": "All good! The city was edited successfully!",
+      "error": "An error occurred while editing the city",
+      "features": {
+        "title": "Feature Flags",
+        "description": "Select the features you want to enable for this city"
+      }
     }
   },
   "Components": {
@@ -105,12 +121,14 @@
         "cities": {
           "title": "Cities",
           "create": "Create",
-          "list": "List"
+          "list": "List",
+          "edit": "Edit"
         },
         "features": {
           "title": "Feature Flags",
           "create": "Create",
-          "list": "List"
+          "list": "List",
+          "edit": "Edit"
         }
       }
     }

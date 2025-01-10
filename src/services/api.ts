@@ -30,7 +30,12 @@ export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, toke
   console.log(`🚀 =====================================`);
   console.log(`🚀 REQUEST ${init?.method} ${input} ~ ${JSON.stringify(requestInit, null, 2)}`);
 
-  const response = await fetch(url, requestInit);
-  console.log(`🚀 RESPONSE ~ ${JSON.stringify(response, null, 2)}`);
-  return response;
+  try {
+    const response = await fetch(url, requestInit);
+    console.log(`🚀 RESPONSE ~ ${JSON.stringify(response, null, 2)}`);
+    return response;
+  } catch (error) {
+    console.error(`🚀 ERROR ~ ${JSON.stringify(error, null, 2)}`);
+    return Promise.reject(error);
+  }
 };

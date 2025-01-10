@@ -1,6 +1,7 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { LatLngExpression, LatLngLiteral } from 'leaflet';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -18,7 +19,6 @@ import { Label } from '@/components/ui/label/label';
 import { BRAZIL_POSITION } from '@/constants/BRAZIL_POSITION';
 import { createCitySchema } from '@/schemas/city/create.schema';
 import { fetcher } from '@/services/api';
-import { redirectTo } from '@/utils/redirectTo';
 
 type CityFormData = {
   name: string;
@@ -29,6 +29,7 @@ type CityFormData = {
 export default function CityForm() {
   const [position, setPosition] = useState<LatLngExpression>(BRAZIL_POSITION);
   const { data: session } = useSession();
+  const router = useRouter();
   const t = useTranslations('Cities.CreatePage');
   const formSchema = createCitySchema(t as unknown as (arg: string) => string);
 
@@ -63,7 +64,7 @@ export default function CityForm() {
       }
 
       toast.success(t('success'));
-      await redirectTo('/cities');
+      router.push('/cities');
     } catch {
       toast.error(t('error'));
     }

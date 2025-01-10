@@ -1,5 +1,6 @@
 'use client';
 import { Edit, Key, MoreHorizontal, Power } from 'lucide-react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -69,9 +70,11 @@ export function CitiesTable({ cities }: CitiesTableProps) {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
 
-                    <DropdownMenuItem disabled>
-                      <Edit size={16} className="mr-2" />
-                      {t('edit')}
+                    <DropdownMenuItem asChild className="cursor-pointer">
+                      <Link href={`/cities/edit/${city.id}`}>
+                        <Edit size={16} className="mr-2" />
+                        {t('edit')}
+                      </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem disabled>
