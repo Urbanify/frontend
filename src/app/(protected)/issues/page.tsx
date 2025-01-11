@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <div>
       <h1>Issues</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre className="max-w-[300px] overflow-hidden md:max-w-[unset]">{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }

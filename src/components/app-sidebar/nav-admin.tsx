@@ -6,8 +6,10 @@ import {
   Flag,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import type { Session } from 'next-auth';
+import { getSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible/collapsible';
 import {
@@ -25,10 +27,11 @@ import {
 import { parseJwt } from '@/utils/decodeJWT';
 
 export function NavAdmin() {
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
   const t = useTranslations('Components.Sidebar.Admin');
-  const { data } = useSession();
 
-  const parsedJWT = parseJwt(data?.access_token);
+  const parsedJWT = parseJwt(session?.access_token);
   const userRole = parsedJWT?.user?.role;
   // TODO: UPDATE HERE TO USE THE CORRECT TYPE
   const isAdmin = userRole === 'ADMIN';
@@ -68,7 +71,16 @@ export function NavAdmin() {
     },
   ];
 
-  if (!isAdmin) {
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+      setLoading(false);
+    };
+    fetchSession();
+  }, []);
+
+  if (loading || !isAdmin) {
     return null;
   }
 

@@ -153,7 +153,12 @@ export default function EditCityForm({ city }: { city: City }) {
                       </div>
                     </Autocomplete>
                   )
-                : <Skeleton className="h-10" />}
+                : (
+                    <>
+                      <Skeleton className="h-4 max-w-32" />
+                      <Skeleton className="h-10" />
+                    </>
+                  )}
             </div>
 
             <div className="relative grid gap-2">

@@ -71,6 +71,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className="size-full">
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
       <meta name="version" content={PACKAGE.version} key="meta:name:version" />
       <body data-testid="rootlayout-component" className="size-full">
         <NextIntlClientProvider messages={messages}>
