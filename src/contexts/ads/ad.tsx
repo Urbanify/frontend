@@ -4,61 +4,28 @@ import React, { useEffect, useState } from 'react';
 import { AdContext } from './context';
 import type { Ad } from './useAd';
 
-const DEFAULT_TIMEOUT = 30000;
+const ADS_PER_BLOCK = 60;
+const AD_DURATION = 30000; // 30 segundos em milissegundos
+const BLOCK_DURATION = 6 * 60 * 60 * 1000; // 6 horas em milissegundos
+const DAY_DURATION = 24 * 60 * 60 * 1000; // 24 horas em milissegundos
 
-const mockAds: Ad[] = [
-  {
-    banner: {
-      href: 'https://www.google.com/search?q=banner-1',
-      mobile: 'https://picsum.photos/id/1/300/100',
-      desktop: 'https://picsum.photos/id/1/728/90',
-    },
-    fixed: {
-      href: 'https://www.google.com/search?q=fixed-1',
-      mobile: 'https://picsum.photos/id/1/320/50',
-      desktop: 'https://picsum.photos/id/1/728/66',
-    },
-    vertical: {
-      href: 'https://www.google.com/search?q=vertical-1',
-      mobile: 'https://picsum.photos/id/1/120/240',
-      desktop: 'https://picsum.photos/id/1/160/600',
-    },
+const mockAds: Ad[] = Array.from({ length: ADS_PER_BLOCK * 4 }, (_, index) => ({
+  banner: {
+    href: `https://www.google.com/search?q=banner-${index + 1}`,
+    mobile: `https://picsum.photos/id/${index + 1}/300/100`,
+    desktop: `https://picsum.photos/id/${index + 1}/728/90`,
   },
-  {
-    banner: {
-      href: 'https://www.google.com/search?q=banner-2',
-      mobile: 'https://picsum.photos/id/2/300/100',
-      desktop: 'https://picsum.photos/id/2/728/90',
-    },
-    fixed: {
-      href: 'https://www.google.com/search?q=fixed-2',
-      mobile: 'https://picsum.photos/id/2/320/50',
-      desktop: 'https://picsum.photos/id/2/728/66',
-    },
-    vertical: {
-      href: 'https://www.google.com/search?q=vertical-2',
-      mobile: 'https://picsum.photos/id/2/120/240',
-      desktop: 'https://picsum.photos/id/2/160/600',
-    },
+  fixed: {
+    href: `https://www.google.com/search?q=fixed-${index + 1}`,
+    mobile: `https://picsum.photos/id/${index + 1}/320/50`,
+    desktop: `https://picsum.photos/id/${index + 1}/728/66`,
   },
-  {
-    banner: {
-      href: 'https://www.google.com/search?q=banner-3',
-      mobile: 'https://picsum.photos/id/3/300/100',
-      desktop: 'https://picsum.photos/id/3/728/90',
-    },
-    fixed: {
-      href: 'https://www.google.com/search?q=fixed-3',
-      mobile: 'https://picsum.photos/id/3/320/50',
-      desktop: 'https://picsum.photos/id/3/728/66',
-    },
-    vertical: {
-      href: 'https://www.google.com/search?q=vertical-3',
-      mobile: 'https://picsum.photos/id/3/120/240',
-      desktop: 'https://picsum.photos/id/3/160/600',
-    },
+  vertical: {
+    href: `https://www.google.com/search?q=vertical-${index + 1}`,
+    mobile: `https://picsum.photos/id/${index + 1}/120/240`,
+    desktop: `https://picsum.photos/id/${index + 1}/160/600`,
   },
-];
+}));
 
 const loadImage = (src: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
@@ -69,45 +36,54 @@ const loadImage = (src: string): Promise<HTMLImageElement> => {
   });
 };
 
-export const AdProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentAdIndex, setCurrentAdIndex] = useState(0);
-  const [preloadedImages, setPreloadedImages] = useState<Map<string, boolean>>(new Map());
+const getCurrentAdIndex = (_adsLength: number): number => {
+  const now = Date.now();
+  const timeOfDay = now % DAY_DURATION; // Horário atual em milissegundos desde o início do dia
+  const blockIndex = Math.floor(timeOfDay / BLOCK_DURATION); // Índice do bloco de 6 horas (0 a 3)
+  const blockStart = blockIndex * BLOCK_DURATION; // Hora de início do bloco atual
+  const elapsedInBlock = timeOfDay - blockStart; // Tempo decorrido no bloco atual
+  const adIndex = Math.floor(elapsedInBlock / AD_DURATION) % ADS_PER_BLOCK; // Índice do anúncio no bloco
+  return blockIndex * ADS_PER_BLOCK + adIndex; // Índice global do anúncio
+};
 
-  // TODO: THIS SHOULD COME FROM API
-  const ads = mockAds;
+export const AdProvider = ({ children }: { children: React.ReactNode }) => {
+  const [preloadedImages, setPreloadedImages] = useState<Map<string, boolean>>(new Map());
+  const [currentAdIndex, setCurrentAdIndex] = useState(getCurrentAdIndex(mockAds.length));
 
   useEffect(() => {
-    const currentAd = ads[currentAdIndex];
-    const imageUrls = [
-      currentAd?.square?.desktop,
-      currentAd?.square?.mobile,
-      currentAd?.banner?.desktop,
-      currentAd?.banner?.mobile,
-      currentAd?.fixed?.desktop,
-      currentAd?.fixed?.mobile,
-      currentAd?.vertical?.desktop,
-      currentAd?.vertical?.mobile,
-    ];
+    const preloadImages = () => {
+      const currentAd = mockAds[currentAdIndex];
+      const imageUrls = [
+        currentAd?.banner?.desktop,
+        currentAd?.banner?.mobile,
+        currentAd?.fixed?.desktop,
+        currentAd?.fixed?.mobile,
+        currentAd?.vertical?.desktop,
+        currentAd?.vertical?.mobile,
+      ];
 
-    // Pré-carregar as imagens em segundo plano
-    imageUrls.forEach((url = '') => {
-      if (!preloadedImages.has(url)) {
-        loadImage(url)
-          .then(() => {
-            setPreloadedImages(prev => new Map(prev.set(url, true)));
-          })
-          .catch(err => console.error(`Erro ao carregar a imagem ${url}:`, err));
-      }
-    });
+      imageUrls.forEach((url = '') => {
+        if (!preloadedImages.has(url)) {
+          loadImage(url)
+            .then(() => {
+              setPreloadedImages(prev => new Map(prev.set(url, true)));
+            })
+            .catch(err => console.error(`Erro ao carregar a imagem ${url}:`, err));
+        }
+      });
+    };
 
-    const interval = setInterval(() => {
-      setCurrentAdIndex(prevIndex => (prevIndex + 1) % ads.length);
-    }, DEFAULT_TIMEOUT);
+    preloadImages();
 
-    return () => clearInterval(interval);
-  }, [currentAdIndex, preloadedImages]);
+    const remainingTime = AD_DURATION - (Date.now() % AD_DURATION); // Tempo restante até o próximo anúncio
+    const interval = setTimeout(() => {
+      setCurrentAdIndex(getCurrentAdIndex(mockAds.length));
+    }, remainingTime);
 
-  const currentAd = ads[currentAdIndex] as Ad;
+    return () => clearTimeout(interval);
+  }, [currentAdIndex]);
+
+  const currentAd = mockAds[currentAdIndex] as Ad;
 
   return (
     <AdContext value={{ currentAd, preloadedImages, setAdIndex: setCurrentAdIndex }}>
