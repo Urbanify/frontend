@@ -7,7 +7,7 @@ import type { RegisterFormData } from '@/components/Auth/register-form';
 import { fetcher } from '@/services/api';
 
 // eslint-disable-next-line ts/no-unsafe-function-type
-export const handleSubmit = async (data: RegisterFormData, t: Function) => {
+export const handleSubmit = async (data: RegisterFormData, t: Function): Promise<Response> => {
   try {
     const response = await fetcher('/auth/signup', {
       method: 'POST',
@@ -15,12 +15,15 @@ export const handleSubmit = async (data: RegisterFormData, t: Function) => {
     });
 
     if (!response.ok) {
-      throw new Error(t('error')); // Use a translated error message
+      throw new Error(t('error'));
     }
 
-    toast.success(t('success')); // Use a translated success message
     return redirect('/login');
-  } catch {
-    toast.error(t('error')); // Use the same translated error message
+  } catch (error: any) {
+    if (error.message !== 'NEXT_REDIRECT') {
+      toast.error(t('error'));
+      throw new Error(t('error'));
+    }
+    return Promise.reject(error);
   }
 };

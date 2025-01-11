@@ -11,7 +11,7 @@ vi.mock('next-intl', () => ({
 describe('CityStatusBadge', () => {
   const mockTranslations: { [key: string]: string } = {
     active: 'Active',
-    disabled: 'Disabled',
+    inactive: 'inactive',
   };
 
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('CityStatusBadge', () => {
   it('renders correctly for Disabled status', () => {
     render(<CityStatusBadge status="DISABLED" />);
 
-    const badge = screen.getByText(String(mockTranslations.disabled));
+    const badge = screen.getByText(String(mockTranslations.inactive));
 
     expect(badge).toBeInTheDocument();
     expect(badge).toHaveClass('text-yellow-800');

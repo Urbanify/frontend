@@ -43,6 +43,7 @@ export function RegisterForm({
     reValidateMode: 'onChange',
     defaultValues: {
       cpf: '',
+      cityId: '',
       password: '',
       email: '',
       name: '',

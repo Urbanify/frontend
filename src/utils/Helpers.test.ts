@@ -20,6 +20,7 @@ describe('Helpers', () => {
     });
 
     it('should return production URL for production environment', () => {
+      process.env.NEXT_PUBLIC_APP_URL = undefined;
       process.env.VERCEL_ENV = 'production';
       process.env.VERCEL_PROJECT_PRODUCTION_URL = 'production-url.vercel.app';
 
@@ -27,6 +28,7 @@ describe('Helpers', () => {
     });
 
     it('should return VERCEL_URL if defined in other environments', () => {
+      process.env.NEXT_PUBLIC_APP_URL = undefined;
       process.env.VERCEL_URL = 'staging-url.vercel.app';
 
       expect(getBaseUrl()).toBe('https://staging-url.vercel.app');

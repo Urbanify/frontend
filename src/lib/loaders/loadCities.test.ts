@@ -56,6 +56,11 @@ describe('loadCities', () => {
 
     expect(fetcher).toHaveBeenCalledWith('/cities', {
       method: 'GET',
+      next: {
+        tags: [
+          'list-cities',
+        ],
+      },
     });
     expect(result).toEqual(mockCities);
   });
@@ -70,6 +75,11 @@ describe('loadCities', () => {
 
     expect(fetcher).toHaveBeenCalledWith('/cities', {
       method: 'GET',
+      next: {
+        tags: [
+          'list-cities',
+        ],
+      },
     });
     expect(result).toEqual([]);
   });
@@ -83,6 +93,11 @@ describe('loadCities', () => {
 
     expect(fetcher).toHaveBeenCalledWith('/cities', {
       method: 'GET',
+      next: {
+        tags: [
+          'list-cities',
+        ],
+      },
     });
     expect(result).toEqual([]);
   });

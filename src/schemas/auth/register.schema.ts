@@ -13,4 +13,5 @@ export const registerSchema = (t: (arg: string) => string) => z.object({
     .min(2, t('surname_length')),
   email: z.string({ required_error: t('email_required') })
     .email(t('email_invalid')),
+  cityId: z.string(),
 });

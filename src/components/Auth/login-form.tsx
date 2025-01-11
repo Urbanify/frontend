@@ -2,6 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
@@ -26,6 +27,7 @@ export function LoginForm({
   const t = useTranslations('Auth.Login');
   const terms = useTranslations('Auth.terms_and_policy');
   const formSchema = loginSchema(t as unknown as (arg: string) => string);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { register, ...methods } = useForm<LoginFormData>({
     resolver: zodResolver(formSchema),
@@ -39,6 +41,17 @@ export function LoginForm({
   const disableButton = !methods.formState.isValid
     || methods.formState.isSubmitting;
 
+  const onSubmit = async (data: LoginFormData) => {
+    setErrorMessage(null);
+    try {
+      await handleSubmit(data);
+    } catch (error: any) {
+      if (error.message !== 'NEXT_REDIRECT') {
+        setErrorMessage(t('invalid_credentials'));
+      }
+    }
+  };
+
   return (
     <FormProvider {...methods} register={register}>
       <div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -50,7 +63,7 @@ export function LoginForm({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={methods.handleSubmit(handleSubmit)}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 <div className="grid gap-8">
                   <div className="relative grid gap-2">
@@ -78,18 +91,24 @@ export function LoginForm({
                     {methods.formState.errors.password && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.password.message}</span>}
                   </div>
 
-                  <input type="hidden" name="redirectTo" value="/issues" />
+                  <div className="flex flex-col items-center gap-2">
+                    <Button
+                      disabled={
+                        disableButton
+                      }
+                      isLoading={methods.formState.isSubmitting}
+                      type="submit"
+                      className="w-full"
+                    >
+                      {t('button')}
+                    </Button>
 
-                  <Button
-                    disabled={
-                      disableButton
-                    }
-                    isLoading={methods.formState.isSubmitting}
-                    type="submit"
-                    className="w-full"
-                  >
-                    {t('button')}
-                  </Button>
+                    {errorMessage && (
+                      <span className="text-center text-sm text-red-500">
+                        {errorMessage}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="text-center text-sm">
                   {t('no_account')}
