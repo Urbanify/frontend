@@ -62,6 +62,21 @@
       "success": "All good! An email with password reset instructions has been sent to {email}",
       "error": "An error occurred while sending the password reset email"
     },
+    "UpdatePassword": {
+      "title": "Password Reset",
+      "description": "Set a new password and confirm it to update",
+      "password": "New Password",
+      "password_required": "Password is required",
+      "password_length": "The password must be between 8 and 32 characters",
+      "password_confirmation": "Confirm Password",
+      "password_confirmation_required": "Password confirmation is required",
+      "password_confirmation_length": "The password must be between 8 and 32 characters",
+      "passwords_must_match": "The password and confirmation password do not match",
+      "button": "Update Password",
+      "go_login": "Go to login",
+      "success": "All good! Your password has been updated and you can now log in to your account!",
+      "error": "An error occurred while trying to reset the password"
+    },
     "terms_and_policy": {
       "text": "By clicking continue, you agree to our",
       "terms": "Terms of Service",

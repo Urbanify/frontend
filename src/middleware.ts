@@ -6,6 +6,7 @@ const authRoutes: string[] = [
   '/login',
   '/register',
   '/forgot-password',
+  '/update-password',
 ];
 
 const publicRoutes: string[] = [

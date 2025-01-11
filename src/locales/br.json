@@ -10,7 +10,7 @@
       "cpf_only_numbers": "O CPF deve conter apenas números",
       "password": "Senha",
       "password_required": "A senha é obrigatória",
-      "password_length": "O senha deve conter entre 8 e 32 caracteres",
+      "password_length": "A senha deve conter entre 8 e 32 caracteres",
       "button": "Entrar",
       "forgot_password": "Esqueceu sua senha?",
       "no_account": "Não tem uma conta?",
@@ -61,6 +61,21 @@
       "go_login": "Ir para o login",
       "success": "Tudo certo! Um email com as instruções de redefinição de senha foram enviadas para {email}",
       "error": "Ocorreu um erro ao enviar o email de redefinição de senha"
+    },
+    "UpdatePassword": {
+      "title": "Redefinição de senha",
+      "description": "Defina uma nova senha e confirme para atualizá-la",
+      "password": "Nova Senha",
+      "password_required": "A senha é obrigatória",
+      "password_length": "A senha deve conter entre 8 e 32 caracteres",
+      "password_confirmation": "Confirme a senha",
+      "password_confirmation_required": "A confirmação de senha é obrigatória",
+      "password_confirmation_length": "A senha deve conter entre 8 e 32 caracteres",
+      "passwords_must_match": "A senha e a confirmação de senha não coincidem",
+      "button": "Atualizar senha",
+      "go_login": "Ir para o login",
+      "success": "Tudo certo! Sua senha foi atualizada e você já pode entrar em sua conta!",
+      "error": "Ocorreu um erro ao tentar realizar a redefinição de senha"
     },
     "terms_and_policy": {
       "text": "Ao clicar em continuar, você concorda com nossos",

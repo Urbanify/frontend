@@ -62,6 +62,21 @@
       "success": "¡Todo bien! Se ha enviado un correo electrónico con las instrucciones para restablecer la contraseña a {email}",
       "error": "Ocurrió un error al enviar el correo electrónico de restablecimiento de contraseña"
     },
+    "UpdatePassword": {
+      "title": "Restablecimiento de contraseña",
+      "description": "Establezca una nueva contraseña y confírmela para actualizarla",
+      "password": "Nueva contraseña",
+      "password_required": "Se requiere contraseña",
+      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
+      "password_confirmation": "Confirmar contraseña",
+      "password_confirmation_required": "Se requiere confirmación de contraseña",
+      "password_confirmation_length": "La contraseña debe tener entre 8 y 32 caracteres",
+      "passwords_must_match": "La contraseña y la confirmación de la contraseña no coinciden",
+      "button": "Actualizar contraseña",
+      "go_login": "Ir a iniciar sesión",
+      "success": "¡Todo bien! ¡Su contraseña ha sido actualizada y ya puede iniciar sesión en su cuenta!",
+      "error": "Ocurrió un error al intentar restablecer la contraseña"
+    },
     "terms_and_policy": {
       "text": "Al hacer clic en continuar, aceptas nuestra",
       "terms": "Términos de servicio",
