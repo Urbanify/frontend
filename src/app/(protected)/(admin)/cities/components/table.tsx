@@ -3,9 +3,10 @@ import { Edit, Key, MoreHorizontal, Power } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
 
+import { BannerAd } from '@/components/ui/ads/banner';
 import { Button } from '@/components/ui/button/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu/dropdown-menu';
 import { Input } from '@/components/ui/input/input';
@@ -18,6 +19,7 @@ import {
   TableRow,
 } from '@/components/ui/table/table';
 
+import { useAd } from '@/contexts/ads/useAd';
 import { fetcher } from '@/services/api';
 import { customRevalidateTag } from '@/utils/revalidateTag';
 
@@ -30,6 +32,7 @@ type CitiesTableProps = {
 };
 export function CitiesTable({ cities }: CitiesTableProps) {
   const { data } = useSession();
+  const { currentAd } = useAd();
   const t = useTranslations('Cities.table');
   const [filter, setFilter] = useState('');
 
@@ -64,6 +67,7 @@ export function CitiesTable({ cities }: CitiesTableProps) {
       toast.error(t('status_error'));
     }
   };
+
   return (
     <>
       <Input
@@ -83,47 +87,61 @@ export function CitiesTable({ cities }: CitiesTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredCities.map(city => (
-            <TableRow key={city.id}>
-              <TableCell className="w-fit min-w-24 max-w-24 truncate font-medium md:max-w-72">{city.id}</TableCell>
-              <TableCell>{city.name}</TableCell>
-              <TableCell><CityStatusBadge status={city.status} /></TableCell>
-              <TableCell>
-                {city.featureFlags.filter(ff => ff.status).length}
-                /
-                {city.featureFlags.length}
-              </TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="size-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
+          {filteredCities.map((city, index) => (
+            <Fragment key={city.id}>
+              <TableRow>
+                <TableCell className="w-fit min-w-24 max-w-24 truncate font-medium md:max-w-72">{city.id}</TableCell>
+                <TableCell>{city.name}</TableCell>
+                <TableCell><CityStatusBadge status={city.status} /></TableCell>
+                <TableCell>
+                  {city.featureFlags.filter(ff => ff.status).length}
+                  /
+                  {city.featureFlags.length}
+                </TableCell>
+                <TableCell className="text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="size-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <MoreHorizontal />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
 
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                      <Link href={`/cities/edit/${city.id}`}>
-                        <Edit size={16} className="mr-2" />
-                        {t('edit')}
-                      </Link>
-                    </DropdownMenuItem>
+                      <DropdownMenuItem asChild className="cursor-pointer">
+                        <Link href={`/cities/edit/${city.id}`}>
+                          <Edit size={16} className="mr-2" />
+                          {t('edit')}
+                        </Link>
+                      </DropdownMenuItem>
 
-                    <DropdownMenuItem onClick={() => toggleCityStatus(city)}>
-                      <Power size={16} className="mr-2" />
-                      {t(city.status === 'ACTIVE' ? 'deactivate' : 'activate')}
-                    </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => toggleCityStatus(city)}>
+                        <Power size={16} className="mr-2" />
+                        {t(city.status === 'ACTIVE' ? 'deactivate' : 'activate')}
+                      </DropdownMenuItem>
 
-                    <DropdownMenuItem disabled>
-                      <Key size={16} className="mr-2" />
-                      {t('access')}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
+                      <DropdownMenuItem disabled>
+                        <Key size={16} className="mr-2" />
+                        {t('access')}
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+              {(index + 1) % 3 === 0
+              && (
+                <TableRow className="flex justify-center py-4">
+                  <TableCell>
+                    <BannerAd
+                      href={currentAd?.banner?.href ?? ''}
+                      desktopMedia={currentAd?.banner?.desktop ?? ''}
+                      mobileMedia={currentAd?.banner?.mobile ?? ''}
+                    />
+                  </TableCell>
+                </TableRow>
+              )}
+            </Fragment>
           ))}
         </TableBody>
       </Table>
