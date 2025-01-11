@@ -14,7 +14,8 @@
       "button": "Enter",
       "forgot_password": "Forgot your password?",
       "no_account": "Don't have an account?",
-      "sign_up": "Get Registered"
+      "sign_up": "Get Registered",
+      "invalid_credentials": "Invalid username and/or password"
     },
     "Register": {
       "create": "Create your account!",
@@ -47,6 +48,19 @@
       "go_login": "Go to login",
       "success": "Your account was successfully created!",
       "error": "There was an error creating your account"
+    },
+    "ForgotPassword": {
+      "title": "Forgot your password?",
+      "description": "Enter your CPF and we will send you an email with instructions to reset your password",
+      "cpf": "CPF",
+      "cpf_placeholder": "Enter your CPF",
+      "cpf_required": "CPF is mandatory",
+      "cpf_length": "The CPF must counter 11 numbers",
+      "cpf_only_numbers": "The CPF should count only numbers",
+      "button": "Send email",
+      "go_login": "Go to login",
+      "success": "All good! An email with password reset instructions has been sent to {email}",
+      "error": "An error occurred while sending the password reset email"
     },
     "terms_and_policy": {
       "text": "By clicking continue, you agree to our",

@@ -5,6 +5,7 @@ import { auth } from '@/auth';
 const authRoutes: string[] = [
   '/login',
   '/register',
+  '/forgot-password',
 ];
 
 const publicRoutes: string[] = [

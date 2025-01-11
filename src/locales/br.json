@@ -14,7 +14,8 @@
       "button": "Entrar",
       "forgot_password": "Esqueceu sua senha?",
       "no_account": "Não tem uma conta?",
-      "sign_up": "Cadastrar-se"
+      "sign_up": "Cadastrar-se",
+      "invalid_credentials": "Usuário e/ou senha incorreto(s)"
     },
     "Register": {
       "create": "Crie sua conta!",
@@ -47,6 +48,19 @@
       "go_login": "Ir para o login",
       "success": "Sua conta foi criada com sucesso!",
       "error": "Ocorreu um erro ao criar sua conta"
+    },
+    "ForgotPassword": {
+      "title": "Esqueceu sua senha?",
+      "description": "Insira seu CPF e enviaremos um email com instruções para redefinir sua senha",
+      "cpf": "CPF",
+      "cpf_placeholder": "Insira seu CPF",
+      "cpf_required": "CPF é obrigatório",
+      "cpf_length": "O CPF deve conter 11 números",
+      "cpf_only_numbers": "O CPF deve conter apenas números",
+      "button": "Enviar email",
+      "go_login": "Ir para o login",
+      "success": "Tudo certo! Um email com as instruções de redefinição de senha foram enviadas para {email}",
+      "error": "Ocorreu um erro ao enviar o email de redefinição de senha"
     },
     "terms_and_policy": {
       "text": "Ao clicar em continuar, você concorda com nossos",

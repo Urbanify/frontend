@@ -13,7 +13,6 @@ now create tests for it following the pattern
 
 ## Autenticação
 - Update Password
-- Forgot Password
 
 # BUGS
 - Atualizar descrição da Feature para TextArea

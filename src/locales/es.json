@@ -14,7 +14,8 @@
       "button": "Ingresar",
       "forgot_password": "¿Olvidaste tu contraseña?",
       "no_account": "¿No tienes una cuenta?",
-      "sign_up": "Regístrese"
+      "sign_up": "Regístrese",
+      "invalid_credentials": "Usuario y/o contraseña incorrectos"
     },
     "Register": {
       "create": "¡Crea tu cuenta!",
@@ -47,6 +48,19 @@
       "go_login": "Ir a iniciar sesión",
       "success": "¡Su cuenta fue creada exitosamente!",
       "error": "Hubo un error al crear tu cuenta."
+    },
+    "ForgotPassword": {
+      "title": "¿Olvidaste tu contraseña?",
+      "description": "Ingrese su CPF y le enviaremos un correo electrónico con instrucciones para restablecer su contraseña",
+      "cpf": "CPF",
+      "cpf_placeholder": "Introduzca su CPF",
+      "cpf_required": "CPF es obligatorio",
+      "cpf_length": "El CPF debe contrarrestar 11 números",
+      "cpf_only_numbers": "El CPF debería contar sólo números",
+      "button": "Enviar correo electrónico",
+      "go_login": "Ir a iniciar sesión",
+      "success": "¡Todo bien! Se ha enviado un correo electrónico con las instrucciones para restablecer la contraseña a {email}",
+      "error": "Ocurrió un error al enviar el correo electrónico de restablecimiento de contraseña"
     },
     "terms_and_policy": {
       "text": "Al hacer clic en continuar, aceptas nuestra",
