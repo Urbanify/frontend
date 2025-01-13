@@ -3,15 +3,12 @@ import { toast } from 'sonner';
 
 import type { UpdatePasswordFormData } from '@/components/Auth/update-password-form';
 
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api';
 
 // eslint-disable-next-line ts/no-unsafe-function-type
 export const handleSubmit = async (data: UpdatePasswordFormData, t: Function) => {
   try {
-    const response = await fetcher('/auth/update-password', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
+    const response = await api.auth.updatePassword(data);
 
     if (!response.ok) {
       throw new Error(t('error'));

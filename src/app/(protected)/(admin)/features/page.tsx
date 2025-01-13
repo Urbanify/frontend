@@ -1,15 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 
-import { loadFeatures } from '@/lib/loaders/loadFeatures';
-
 import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
+
+import { api } from '@/services/api';
 
 import { FeaturesTable } from './components/table';
 
 export default async function ListFeatures() {
   const t = await getTranslations('Components.Sidebar.Admin.features');
   const pageT = await getTranslations('Features.ListPage');
-  const features = await loadFeatures();
+  const { data: features } = await api.ff.getAll();
 
   return (
     <>

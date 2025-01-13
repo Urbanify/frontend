@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Autocomplete, Marker, useLoadScript } from '@react-google-maps/api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -22,11 +21,12 @@ import { Switch } from '@/components/ui/switch/switch';
 
 import CityStatusBadge from '@/app/(protected)/(admin)/cities/components/city-status-badge';
 import { editCitySchema } from '@/schemas/city/edit.schema';
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api';
 
 import type { City, CityFeatureFlag } from '@/types/City';
 
-type EditCityFormData = {
+export type EditCityFormData = {
+  id: string;
   name: string;
   latitude: string;
   longitude: string;
@@ -34,7 +34,6 @@ type EditCityFormData = {
 };
 
 export default function EditCityForm({ city }: { city: City }) {
-  const { data: session } = useSession();
   const router = useRouter();
   const t = useTranslations('Cities.EditPage');
   const formSchema = editCitySchema(t as unknown as (arg: string) => string);
@@ -73,10 +72,7 @@ export default function EditCityForm({ city }: { city: City }) {
 
   const handleSubmit = async (data: EditCityFormData) => {
     try {
-      const response = await fetcher(`/cities/${city.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      }, session?.access_token);
+      const response = await api.city.update(data);
 
       if (!response.ok) {
         throw new Error(t('error'));

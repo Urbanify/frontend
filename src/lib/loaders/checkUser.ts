@@ -1,4 +1,4 @@
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api';
 
 type CheckUserParams = {
   cityId?: string;
@@ -8,13 +8,13 @@ type CheckUserParams = {
 
 export const checkUser = async ({ cityId, isAdmin, token }: CheckUserParams) => {
   if (isAdmin) {
-    return await fetcher(`/cities`, {
+    return await api.instance(`/cities`, {
       method: 'POST',
     }, token);
   }
 
   if (cityId) {
-    return await fetcher(`/cities/${cityId}`, {
+    return await api.instance(`/cities/${cityId}`, {
       method: 'GET',
     }, token);
   }

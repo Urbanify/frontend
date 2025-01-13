@@ -1,14 +1,7 @@
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api';
 
 export default async function Page() {
-  const response = await fetcher('/cities', {
-    method: 'GET',
-  });
-
-  let data = [];
-  if (response.ok) {
-    data = await response.json() ?? [];
-  }
+  const { data } = await api.city.getAll();
 
   return (
     <div>

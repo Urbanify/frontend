@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-
+import { logger } from '@/lib/logger';
 import { Env } from '@/libs/Env';
 
 const mainAPI = Env.API_URL ?? Env.NEXT_PUBLIC_API_URL;
@@ -27,12 +26,12 @@ export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, toke
     headers,
   };
 
-  console.log(`🚀 =====================================`);
-  console.log(`🚀 REQUEST ${init?.method} ${input} ~ ${JSON.stringify(requestInit, null, 2)}`);
+  logger(`🚀 =====================================`);
+  logger(`🚀 REQUEST ${init?.method} ${input} ~ ${JSON.stringify(requestInit, null, 2)}`);
 
   try {
     const response = await fetch(url, requestInit);
-    console.log(`🚀 RESPONSE ~ ${JSON.stringify(response, null, 2)}`);
+    logger(`🚀 RESPONSE ~ ${JSON.stringify(response, null, 2)}`);
     return response;
   } catch (error) {
     console.error(`🚀 ERROR ~ ${JSON.stringify(error, null, 2)}`);

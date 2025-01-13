@@ -1,15 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 
-import { loadCities } from '@/lib/loaders/loadCities';
-
 import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
+
+import { api } from '@/services/api';
 
 import { CitiesTable } from './components/table';
 
 export default async function ListCities() {
   const t = await getTranslations('Components.Sidebar.Admin.cities');
   const pageT = await getTranslations('Cities.ListPage');
-  const cities = await loadCities();
+  const { data: cities } = await api.city.getAll();
 
   return (
     <>

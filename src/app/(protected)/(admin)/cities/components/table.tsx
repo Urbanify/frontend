@@ -1,7 +1,6 @@
 'use client';
 import { Edit, Key, MoreHorizontal, Power } from 'lucide-react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
@@ -20,8 +19,8 @@ import {
 } from '@/components/ui/table/table';
 
 import { useAd } from '@/contexts/ads/useAd';
-import { fetcher } from '@/services/api';
-import { customRevalidateTag } from '@/utils/revalidateTag';
+import { api } from '@/services/api';
+import { mutate } from '@/utils/revalidateTag';
 
 import CityStatusBadge from './city-status-badge';
 
@@ -31,7 +30,6 @@ type CitiesTableProps = {
   cities: City[];
 };
 export function CitiesTable({ cities }: CitiesTableProps) {
-  const { data } = useSession();
   const { currentAd } = useAd();
   const t = useTranslations('Cities.table');
   const [filter, setFilter] = useState('');
@@ -43,25 +41,21 @@ export function CitiesTable({ cities }: CitiesTableProps) {
   const toggleCityStatus = async (city: City) => {
     try {
       if (city.status === 'ACTIVE') {
-        const response = await fetcher(`/cities/${city.id}/deactivate`, {
-          method: 'POST',
-        }, data?.access_token);
+        const response = await api.city.deactivate(city.id);
 
         if (!response.ok) {
           throw new Error(t('status_error'));
         }
       }
       if (city.status === 'DISABLED') {
-        const response = await fetcher(`/cities/${city.id}/activate`, {
-          method: 'POST',
-        }, data?.access_token);
+        const response = await api.city.activate(city.id);
 
         if (!response.ok) {
           throw new Error(t('status_error'));
         }
       }
 
-      customRevalidateTag('list-cities');
+      mutate('list-cities');
       toast.success(t('status_success'));
     } catch {
       toast.error(t('status_error'));

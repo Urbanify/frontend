@@ -2,7 +2,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -13,16 +12,16 @@ import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
 
 import { createFeatureSchema } from '@/schemas/feature/create.schema';
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api';
 import { slugify } from '@/utils/slugify';
 
-type FeatureFormData = {
+export type FeatureFormData = {
   name: string;
   description: string;
+  slug: string;
 };
 
 export default function FeatureForm() {
-  const { data: session } = useSession();
   const router = useRouter();
   const t = useTranslations('Features.CreatePage');
   const formSchema = createFeatureSchema(t as unknown as (arg: string) => string);
@@ -34,21 +33,20 @@ export default function FeatureForm() {
     defaultValues: {
       name: '',
       description: '',
+      slug: '',
     },
   });
+
   const disableButton = !methods.formState.isValid
     || methods.formState.isSubmitting;
 
   const handleSubmit = async (data: FeatureFormData) => {
     try {
-      const response = await fetcher('/feature-flags', {
-        method: 'POST',
-        body: JSON.stringify({
-          name: data.name,
-          description: data.description,
-          slug: slugify(data.name),
-        }),
-      }, session?.access_token);
+      const response = await api.ff.create({
+        name: data.name,
+        description: data.description,
+        slug: slugify(data.name),
+      });
 
       if (!response.ok) {
         throw new Error(t('error'));

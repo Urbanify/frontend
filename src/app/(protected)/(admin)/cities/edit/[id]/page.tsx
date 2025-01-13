@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
-import { loadCity } from '@/lib/loaders/loadCity';
-
 import EditCityForm from '@/components/Cities/EditCityForm';
 import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
+
+import { api } from '@/services/api';
 
 export default async function EditCity({
   params,
@@ -11,7 +11,7 @@ export default async function EditCity({
   params: Promise<{ id: string }>;
 }) {
   const cityId = (await params).id;
-  const city = await loadCity(cityId);
+  const { data: city } = await api.city.getById(cityId);
   const t = await getTranslations('Components.Sidebar.Admin.cities');
   // const pageT = await getTranslations('Cities.CreatePage');
 

@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Autocomplete, Marker, useLoadScript } from '@react-google-maps/api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -21,9 +20,9 @@ import { Skeleton } from '@/components/ui/skeleton/skeleton';
 
 import { BRAZIL_POSITION } from '@/constants/BRAZIL_POSITION';
 import { createCitySchema } from '@/schemas/city/create.schema';
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api';
 
-type CityFormData = {
+export type CityFormData = {
   name: string;
   latitude: string;
   longitude: string;
@@ -34,7 +33,6 @@ export default function CityForm() {
     lat: BRAZIL_POSITION.lat,
     lng: BRAZIL_POSITION.lng,
   });
-  const { data: session } = useSession();
   const router = useRouter();
   const t = useTranslations('Cities.CreatePage');
   const formSchema = createCitySchema(t as unknown as (arg: string) => string);
@@ -64,10 +62,7 @@ export default function CityForm() {
 
   const handleSubmit = async (data: CityFormData) => {
     try {
-      const response = await fetcher('/cities', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }, session?.access_token);
+      const response = await api.city.create(data);
 
       if (!response.ok) {
         throw new Error(t('error'));

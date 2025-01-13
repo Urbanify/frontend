@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
-import { loadCities } from '@/lib/loaders/loadCities';
-
 import { RegisterForm } from '@/components/Auth/register-form';
 
+import { api } from '@/services/api';
+
 export default async function RegisterPage() {
-  const cities = await loadCities();
+  const { data: cities } = await api.city.getAll();
   const citiesOptions = cities?.map(city => ({
     value: city.id,
     label: city.name,

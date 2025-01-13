@@ -3,15 +3,12 @@ import { toast } from 'sonner';
 
 import type { ForgotPasswordFormData } from '@/components/Auth/forgot-password-form';
 
-import { fetcher } from '@/services/api';
+import { api } from '@/services/api/index';
 
 // eslint-disable-next-line ts/no-unsafe-function-type
 export const handleSubmit = async (data: ForgotPasswordFormData, t: Function) => {
   try {
-    const response = await fetcher('/auth/forgot-password', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
+    const response = await api.auth.forgotPassword(data);
 
     if (!response.ok) {
       throw new Error(t('error'));

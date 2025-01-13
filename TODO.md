@@ -11,12 +11,17 @@ now create tests for it following the pattern
 - Atualizar FF (admin only)
 - Deletar FF (admin only)
 
-## Autenticação
-- Update Password
-
 # BUGS
 - Atualizar descrição da Feature para TextArea
-- Modificar para usar SWR ou ReactQuery
 - Adicionar campo de endereço no problema
   - Ao carregar a página, geolocalizar a pessoa, caso n, city location
   - Input de localizador de endereço (pesquisa e troca a localização no mapa)
+
+## MISSING
+
+- Tests
+- Calendar
+- Carousel
+- Checkbox
+- Data Table
+- TextArea
