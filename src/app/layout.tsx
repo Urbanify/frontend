@@ -12,10 +12,10 @@ import { ThemeProvider } from '@/providers/ThemeProvider';
 import PACKAGE from '../../package.json';
 
 const siteConfig = {
-  title: 'Fixed My City',
+  title: 'Urbanify',
   description:
-    'Fixed My City description',
-  url: 'https://fixedmycity.com',
+    'Urbanify description',
+  url: 'https://urbanify.com',
 };
 
 export const metadata: Metadata = {
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   authors: [
     {
-      name: 'Fixed My City',
-      url: 'https://fixedmycity.com',
+      name: 'Urbanify',
+      url: 'https://urbanify.com',
     },
   ],
 };

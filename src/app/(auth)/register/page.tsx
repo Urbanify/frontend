@@ -19,7 +19,7 @@ export default async function RegisterPage() {
             {/* <GalleryVerticalEnd className="size-4" /> */}
             LOGO
           </div>
-          Fixed My City
+          Urbanify
         </Link>
         <RegisterForm cities={citiesOptions} />
       </div>

@@ -11,7 +11,7 @@ export default function UpdatePasswordPage() {
             {/* <GalleryVerticalEnd className="size-4" /> */}
             LOGO
           </div>
-          Fixed My City
+          Urbanify
         </Link>
         <UpdatePasswordForm />
       </div>

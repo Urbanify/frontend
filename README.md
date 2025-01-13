@@ -1,4 +1,4 @@
-# Fixed My City 2.0
+# Urbanify 2.0
 
 🚀 Next.js with App Router, Tailwind CSS, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Vitest, Testing Library, Cypress, Commitlint, VSCode, Tailwind CSS, Authentication with NextAuth, Storybook, Multi-language (i18n) and more.
 
