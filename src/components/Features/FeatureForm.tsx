@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card/card';
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
+import { Textarea } from '@/components/ui/textarea/textarea';
 
 import { createFeatureSchema } from '@/schemas/feature/create.schema';
 import { api } from '@/services/api';
@@ -85,7 +86,7 @@ export default function FeatureForm() {
             {/* TODO: UPDATE LATER TO A TEXTAREA */}
             <div className="relative grid gap-2">
               <Label htmlFor="feature-description">{t('feature_description')}</Label>
-              <Input id="feature-description" type="text" placeholder={t('feature_description_placeholder')} required {...register('description')} />
+              <Textarea id="feature-description" placeholder={t('feature_description_placeholder')} required {...register('description')} />
               {methods.formState.errors.description && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.description.message}</span>}
             </div>
 

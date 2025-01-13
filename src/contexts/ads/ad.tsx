@@ -67,8 +67,7 @@ export const AdProvider = ({ children }: { children: React.ReactNode }) => {
           loadImage(url)
             .then(() => {
               setPreloadedImages(prev => new Map(prev.set(url, true)));
-            })
-            .catch(err => console.error(`Erro ao carregar a imagem ${url}:`, err));
+            });
         }
       });
     };

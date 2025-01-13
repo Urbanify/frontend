@@ -12,5 +12,12 @@ export async function getUserLocale() {
 }
 
 export async function setUserLocale(locale: Locale) {
-  (await cookies()).set(COOKIE_NAME, locale);
+  if (typeof window !== 'undefined') {
+    // Client-side: Use document.cookie
+    document.cookie = `${COOKIE_NAME}=${locale}; path=/`;
+  } else {
+    // Server-side: Use Next.js cookies API
+    const cookieStore = await cookies();
+    cookieStore.set(COOKIE_NAME, locale);
+  }
 }

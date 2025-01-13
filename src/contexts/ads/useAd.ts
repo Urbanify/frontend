@@ -7,7 +7,6 @@ type AdMedia = {
   href: string;
   mobile: string;
   desktop: string;
-
 };
 
 export type Ad = {

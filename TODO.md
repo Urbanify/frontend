@@ -24,4 +24,3 @@ now create tests for it following the pattern
 - Carousel
 - Checkbox
 - Data Table
-- TextArea
