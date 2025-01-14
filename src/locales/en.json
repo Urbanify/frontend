@@ -2,91 +2,91 @@
   "Auth": {
     "Login": {
       "welcome": "Welcome back!",
-      "login_with": "Enter your CPF and password",
+      "login_with": "Log in with your CPF and password",
       "cpf": "CPF",
       "cpf_placeholder": "Enter your CPF",
-      "cpf_required": "CPF is mandatory",
-      "cpf_length": "The CPF must counter 11 numbers",
-      "cpf_only_numbers": "The CPF should count only numbers",
+      "cpf_required": "CPF is required",
+      "cpf_length": "CPF must be 11 digits",
+      "cpf_only_numbers": "CPF must contain only numbers",
       "password": "Password",
       "password_required": "Password is required",
-      "password_length": "The password must be between 8 and 32 characters",
-      "button": "Enter",
+      "password_length": "Password must be between 8 and 32 characters",
+      "button": "Log in",
       "forgot_password": "Forgot your password?",
       "no_account": "Don't have an account?",
-      "sign_up": "Get Registered",
-      "invalid_credentials": "Invalid username and/or password"
+      "sign_up": "Sign up",
+      "invalid_credentials": "Incorrect username and/or password"
     },
     "Register": {
       "create": "Create your account!",
-      "welcome": "Your day starts here!",
+      "welcome": "Your journey starts here!",
       "cpf": "CPF",
       "cpf_placeholder": "Enter your CPF",
-      "cpf_required": "CPF is mandatory",
-      "cpf_length": "The CPF must counter 11 numbers",
-      "cpf_only_numbers": "The CPF should count only numbers",
+      "cpf_required": "CPF is required",
+      "cpf_length": "CPF must be 11 digits",
+      "cpf_only_numbers": "CPF must contain only numbers",
       "password": "Password",
       "password_required": "Password is required",
-      "password_length": "The password must be between 8 and 32 characters",
-      "name": "Name",
-      "name_placeholder": "Enter your name",
-      "name_required": "Name is required",
-      "name_length": "The name must contain at least 2 characters",
-      "surname": "Nicknames",
-      "surname_placeholder": "Enter your nickname",
-      "surname_required": "Nickname is required",
-      "surname_length": "The nickname must contain at least 2 characters",
+      "password_length": "Password must be between 8 and 32 characters",
+      "name": "First name",
+      "name_placeholder": "Enter your first name",
+      "name_required": "First name is required",
+      "name_length": "First name must contain at least 2 characters",
+      "surname": "Surname",
+      "surname_placeholder": "Enter your surname",
+      "surname_required": "Surname is required",
+      "surname_length": "Surname must contain at least 2 characters",
       "email": "Email",
       "email_placeholder": "Enter your email",
       "email_required": "Email is required",
-      "email_invalid": "The entered email is invalid",
+      "email_invalid": "The email entered is invalid",
       "city": "City",
       "city_placeholder": "Select a city...",
-      "city_required": "City is a must",
+      "city_required": "City is required",
       "button": "Create account",
       "have_account": "Already have an account?",
       "go_login": "Go to login",
-      "success": "Your account was successfully created!",
-      "error": "There was an error creating your account"
+      "success": "Your account has been created successfully!",
+      "error": "An error occurred while creating your account"
     },
     "ForgotPassword": {
       "title": "Forgot your password?",
       "description": "Enter your CPF and we will send you an email with instructions to reset your password",
       "cpf": "CPF",
       "cpf_placeholder": "Enter your CPF",
-      "cpf_required": "CPF is mandatory",
-      "cpf_length": "The CPF must counter 11 numbers",
-      "cpf_only_numbers": "The CPF should count only numbers",
+      "cpf_required": "CPF is required",
+      "cpf_length": "CPF must be 11 digits",
+      "cpf_only_numbers": "CPF must contain only numbers",
       "button": "Send email",
       "go_login": "Go to login",
-      "success": "All good! An email with password reset instructions has been sent to {email}",
+      "success": "All set! An email with password reset instructions has been sent to {email}",
       "error": "An error occurred while sending the password reset email"
     },
     "UpdatePassword": {
-      "title": "Password Reset",
+      "title": "Password reset",
       "description": "Set a new password and confirm it to update",
       "password": "New Password",
       "password_required": "Password is required",
-      "password_length": "The password must be between 8 and 32 characters",
+      "password_length": "Password must be between 8 and 32 characters",
       "password_confirmation": "Confirm Password",
       "password_confirmation_required": "Password confirmation is required",
-      "password_confirmation_length": "The password must be between 8 and 32 characters",
+      "password_confirmation_length": "Password must be between 8 and 32 characters",
       "passwords_must_match": "The password and confirmation password do not match",
-      "button": "Update Password",
+      "button": "Update password",
       "go_login": "Go to login",
-      "success": "All good! Your password has been updated and you can now log in to your account!",
+      "success": "All set! Your password has been updated and you can now log into your account!",
       "error": "An error occurred while trying to reset the password"
     },
     "terms_and_policy": {
       "text": "By clicking continue, you agree to our",
       "terms": "Terms of Service",
-      "and": "in",
+      "and": "and",
       "privacy_policy": "Privacy Policy"
     },
     "counter_link": "Counter",
     "portfolio_link": "Portfolio",
-    "sign_in_link": "Enter",
-    "sign_up_link": "Get Registered"
+    "sign_in_link": "Log in",
+    "sign_up_link": "Sign up"
   },
   "Cities": {
     "table": {
@@ -94,13 +94,13 @@
       "id": "Identifier",
       "name": "Name",
       "status": "Status",
+      "status_success": "City status updated successfully",
+      "status_error": "An error occurred while updating the city status",
       "actions": "Actions",
       "edit": "Edit",
-      "deactivate": "Disable",
-      "activate": "Ativar",
-      "access": "Accessing",
-      "status_success": "City status updated successfully",
-      "status_error": "An error occurred while updating the city status"
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "access": "Access"
     },
     "status": {
       "active": "active",
@@ -109,9 +109,25 @@
     "ListPage": {
       "title": "All cities"
     },
+    "EditPage": {
+      "title": "Edit city",
+      "description": "Fill out the form below to edit the city",
+      "city_name": "City name",
+      "city_name_placeholder": "Enter city name",
+      "name_required": "City name is required",
+      "name_length": "City name must contain at least 2 characters",
+      "save": "Save changes",
+      "go_back": "Go back",
+      "success": "All set! The city was edited successfully!",
+      "error": "An error occurred while editing the city",
+      "features": {
+        "title": "Feature Flags",
+        "description": "Select the features you want to activate for this city"
+      }
+    },
     "CreatePage": {
       "title": "Create a city",
-      "description": "Fill in the form below to create a new city",
+      "description": "Fill out the form below to create a new city",
       "city_name": "City name",
       "city_name_placeholder": "Enter city name",
       "name_required": "City name is required",
@@ -119,24 +135,98 @@
       "map_position_required": "Map position is required",
       "create": "Create city",
       "go_back": "Go back",
-      "success": "All good! The city was created successfully!",
+      "success": "All set! The city was created successfully!",
       "error": "An error occurred while creating the city"
+    }
+  },
+  "Features": {
+    "table": {
+      "filterPlaceholder": "Filter by feature name...",
+      "id": "Identifier",
+      "name": "Name",
+      "slug": "Slug",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete"
     },
-    "EditPage": {
-      "title": "Edit city",
-      "description": "Fill in the form below to edit the city",
-      "city_name": "City name",
-      "city_name_placeholder": "Enter city name",
-      "name_required": "City name is required",
-      "name_length": "City name must contain at least 2 characters",
-      "save": "Save changes",
+    "ListPage": {
+      "title": "All features"
+    },
+    "CreatePage": {
+      "title": "Create a feature flag",
+      "description": "Fill out the form below to create a new feature",
+      "feature_name": "Feature name",
+      "feature_name_placeholder": "Enter feature name",
+      "feature_name_required": "Feature name is required",
+      "feature_name_length": "Feature name must contain at least 2 characters",
+      "feature_description": "Feature description",
+      "feature_description_placeholder": "Describe the feature",
+      "feature_description_required": "Description is required",
+      "feature_description_length": "Description must contain at least 10 characters",
+      "create": "Create feature",
       "go_back": "Go back",
-      "success": "All good! The city was edited successfully!",
-      "error": "An error occurred while editing the city",
-      "features": {
-        "title": "Feature Flags",
-        "description": "Select the features you want to enable for this city"
-      }
+      "success": "All set! The feature was created successfully!",
+      "error": "An error occurred while creating the feature"
+    }
+  },
+  "Issues": {
+    "types": {
+      "INFRASTRUCTURE": "Infrastructure",
+      "ROAD_POTHOLE": "Pothole",
+      "DAMAGED_SIGNAGE": "Damaged signage (signs, traffic lights)",
+      "DAMAGED_SIDEWALK": "Damaged or obstructed sidewalk",
+      "STREETLIGHT_OUT": "Streetlight out or damaged",
+      "FALLEN_WIRES": "Fallen or broken electrical wires",
+      "WALL_RISK_OF_COLLAPSE": "Wall or building at risk of collapse",
+      "EROSION": "Erosion in public areas or riverbanks",
+      "ABANDONED_CONSTRUCTION": "Abandoned public construction",
+      "ENVIRONMENT": "Environment",
+      "FALLEN_TREE": "Fallen tree",
+      "TREE_COLLAPSE_RISK": "Risk of tree or pole collapse",
+      "ILLEGAL_DEFORESTATION": "Illegal deforestation",
+      "GARBAGE_ACCUMULATION": "Garbage accumulation",
+      "ILLEGAL_WASTE_DISPOSAL": "Illegal waste disposal",
+      "SEWAGE_LEAK": "Sewage leak",
+      "LACK_OF_SANITATION": "Lack of sanitation",
+      "DEAD_ANIMALS": "Dead animals in public streets",
+      "FLOODING": "Flooding or flood risk",
+      "TRANSPORTATION": "Transportation",
+      "DAMAGED_BUS_STOP": "Damaged or uncovered bus stop",
+      "OBSTRUCTED_BIKE_LANE": "Obstructed or damaged bike lane",
+      "ILLEGAL_PARKING": "Illegal or abusive parking",
+      "ABANDONED_VEHICLE": "Abandoned vehicle on public road",
+      "FADED_PEDESTRIAN_CROSSWALK": "Faded pedestrian crosswalk",
+      "SAFETY": "Safety",
+      "DARK_AREA": "Area considered dangerous due to lack of lighting",
+      "VANDALISM": "Vandalism in public property",
+      "GRAFFITI": "Graffiti in public or private places",
+      "STRUCTURAL_RISK": "Structural risk in public or private buildings",
+      "COMUNITY": "Community",
+      "ILLEGAL_OCCUPATION": "Illegal occupation",
+      "ILLEGAL_CONSTRUCTION": "Illegal construction"
+    },
+    "ReportPage": {
+      "title": "Report a problem",
+      "description": "Fill out the form below to report a problem",
+      "issueType": "What type of problem is it?",
+      "issueType_placeholder": "Search or select a type...",
+      "issueType_required": "Selecting a type is required",
+      "issue_description": "Describe the problem",
+      "issue_description_placeholder": "Provide as many details as possible",
+      "issue_description_required": "Description is required",
+      "issue_description_length": "Description must contain at least 30 characters",
+      "photos": "How about adding some photos? (optional)",
+      "photos_placeholder": "Add up to 5 images",
+      "photos_limit_error": "You can only upload up to 5 images",
+      "location": "Where did the problem occur?",
+      "location_description": "You can search in the field below and/or click on the map to add the location",
+      "address": "Search the location here",
+      "address_placeholder": "e.g., Rua 54, nº 1300",
+      "map_position_required": "Map position is required",
+      "create": "Report problem",
+      "go_back": "Go back",
+      "success": "All set! The problem was reported successfully!",
+      "error": "An error occurred while reporting the problem"
     }
   },
   "Components": {
@@ -161,37 +251,15 @@
           "list": "List",
           "edit": "Edit"
         }
+      },
+      "General": {
+        "title": "General",
+        "issues": {
+          "title": "Problems",
+          "report": "Report",
+          "all": "All"
+        }
       }
-    }
-  },
-  "Features": {
-    "table": {
-      "filterPlaceholder": "Filter by feature name...",
-      "id": "Identifier",
-      "name": "Name",
-      "slug": "Slug",
-      "actions": "Actions",
-      "edit": "Edit",
-      "delete": "Delete"
-    },
-    "ListPage": {
-      "title": "All features"
-    },
-    "CreatePage": {
-      "title": "Create a feature flag",
-      "description": "Fill in the form below to create a new feature",
-      "feature_name": "Feature name",
-      "feature_name_placeholder": "Enter feature name",
-      "feature_name_required": "Feature name is required",
-      "feature_name_length": "Feature name must contain at least 2 characters",
-      "feature_description": "Feature description",
-      "feature_description_placeholder": "Describe the feature",
-      "feature_description_required": "Description is required",
-      "feature_description_length": "Description must contain at least 10 characters",
-      "create": "Create feature",
-      "go_back": "Go back",
-      "success": "All good! The feature was created successfully!",
-      "error": "An error occurred while creating the feature"
     }
   }
 }

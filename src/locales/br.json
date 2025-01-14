@@ -169,6 +169,66 @@
       "error": "Ocorreu um erro ao criar a feature"
     }
   },
+  "Issues": {
+    "types": {
+      "INFRASTRUCTURE": "Infraestrutura",
+      "ROAD_POTHOLE": "Buraco na pista",
+      "DAMAGED_SIGNAGE": "Sinalização danificada (placas, semáforos)",
+      "DAMAGED_SIDEWALK": "Calçada danificada ou obstruída",
+      "STREETLIGHT_OUT": "Iluminação pública apagada ou danificada",
+      "FALLEN_WIRES": "Queda ou rompimento de fios elétricos",
+      "WALL_RISK_OF_COLLAPSE": "Muro ou parede com risco de queda",
+      "EROSION": "Erosão em áreas públicas ou margens de rios",
+      "ABANDONED_CONSTRUCTION": "Obras públicas paradas ou abandonadas",
+      "ENVIRONMENT": "Meio ambiente",
+      "FALLEN_TREE": "Árvore caída",
+      "TREE_COLLAPSE_RISK": "Risco de queda de árvores ou postes",
+      "ILLEGAL_DEFORESTATION": "Desmatamento irregular",
+      "GARBAGE_ACCUMULATION": "Lixo acumulado",
+      "ILLEGAL_WASTE_DISPOSAL": "Despejo irregular de resíduos",
+      "SEWAGE_LEAK": "Esgoto vazando",
+      "LACK_OF_SANITATION": "Falta de saneamento básico",
+      "DEAD_ANIMALS": "Animais mortos em vias públicas",
+      "FLOODING": "Alagamento ou risco de enchente",
+      "TRANSPORTATION": "Transporte",
+      "DAMAGED_BUS_STOP": "Ponto de ônibus danificado ou sem cobertura",
+      "OBSTRUCTED_BIKE_LANE": "Ciclovia obstruída ou danificada",
+      "ILLEGAL_PARKING": "Estacionamento irregular ou abusivo",
+      "ABANDONED_VEHICLE": "Veículo abandonado em via pública",
+      "FADED_PEDESTRIAN_CROSSWALK": "Faixa de pedestres apagada",
+      "SAFETY": "Segurança",
+      "DARK_AREA": "Área considerada perigosa por falta de iluminação",
+      "VANDALISM": "Vandalismo em bens públicos",
+      "GRAFFITI": "Pichação em locais públicos ou privados",
+      "STRUCTURAL_RISK": "Risco estrutural em prédios públicos ou privados",
+      "COMUNITY": "Comunidade",
+      "ILLEGAL_OCCUPATION": "Ocupação irregular",
+      "ILLEGAL_CONSTRUCTION": "Construção irregular"
+    },
+    "ReportPage": {
+      "title": "Reportar um problema",
+      "description": "Preencha o formulário abaixo para reportar um problema",
+      "issueType": "Qual o tipo de problema?",
+      "issueType_placeholder": "Busque ou selecione um tipo...",
+      "issueType_required": "Selecionar um tipo é obrigatório",
+      "issue_description": "Descreva o problema",
+      "issue_description_placeholder": "Informe o máximo de detalhes que puder",
+      "issue_description_required": "A descrição é obrigatória",
+      "issue_description_length": "A descrição deve conter pelo menos 30 caracteres",
+      "photos": "Que tal adicionar algumas fotos? (opcional)",
+      "photos_placeholder": "Adicione até 5 imagens",
+      "photos_limit_error": "Você só pode enviar até 5 imagens",
+      "location": "Onde ocorreu o problema?",
+      "location_description": "Você pode pesquisar no campo abaixo e/ou clicar no mapa para adicionar a localização",
+      "address": "Pesquise aqui o local",
+      "address_placeholder": "ex: Rua 54, nº 1300",
+      "map_position_required": "Posição no mapa é obrigatória",
+      "create": "Reportar problema",
+      "go_back": "Voltar",
+      "success": "Tudo certo! O problema foi reportado com sucesso!",
+      "error": "Ocorreu um erro ao reportar o problema"
+    }
+  },
   "Components": {
     "LocaleSwitcher": {
       "label": "Selecionar idioma"
@@ -190,6 +250,14 @@
           "create": "Criar",
           "list": "Listar",
           "edit": "Editar"
+        }
+      },
+      "General": {
+        "title": "Geral",
+        "issues": {
+          "title": "Problemas",
+          "report": "Reportar",
+          "all": "Todos"
         }
       }
     }

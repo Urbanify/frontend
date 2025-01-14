@@ -12,7 +12,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { Separator } from '@/components/ui/separator/separator';
-import { Sheet, SheetContent } from '@/components/ui/sheet/sheet';
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet/sheet';
 import { Skeleton } from '@/components/ui/skeleton/skeleton';
 import {
   Tooltip,
@@ -163,6 +163,7 @@ const Sidebar = (
           }
           side={side}
         >
+          <SheetTitle className="hidden">Sidebar</SheetTitle>
           <div className="flex size-full flex-col">{children}</div>
         </SheetContent>
       </Sheet>

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card/card';
-import { Combobox } from '@/components/ui/combobox/combobox';
+import { Combobox, type ComboboxOptions } from '@/components/ui/combobox/combobox';
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
 
@@ -25,7 +25,7 @@ export type RegisterFormData = {
 };
 
 type FormProps = {
-  cities: Array<{ value: string; label: string }>;
+  cities: ComboboxOptions;
 };
 
 export function RegisterForm({
@@ -131,6 +131,7 @@ export function RegisterForm({
                       placeholder={t('city_placeholder')}
                       setValue={value => methods.setValue('cityId', value)}
                       value={methods.watch('cityId')}
+                      shouldTranslate={false}
                     />
                     {methods.formState.errors.cityId && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.cityId.message}</span>}
                   </div>

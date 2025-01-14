@@ -24,3 +24,5 @@ now create tests for it following the pattern
 - Carousel
 - Checkbox
 - Data Table
+- Refatorar para o Maps ser mais performático
+- Modificar o marker do maps

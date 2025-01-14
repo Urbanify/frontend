@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/sidebar/sidebar';
 
 import { NavAdmin } from './nav-admin';
-import { NavProjects } from './nav-projects';
+import { NavGeneral } from './nav-general';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 
@@ -84,7 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
+        <NavGeneral />
         <NavAdmin />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>

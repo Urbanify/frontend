@@ -83,7 +83,6 @@ export default function FeatureForm() {
               </span>
             </div>
 
-            {/* TODO: UPDATE LATER TO A TEXTAREA */}
             <div className="relative grid gap-2">
               <Label htmlFor="feature-description">{t('feature_description')}</Label>
               <Textarea id="feature-description" placeholder={t('feature_description_placeholder')} required {...register('description')} />

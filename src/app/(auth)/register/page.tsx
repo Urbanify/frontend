@@ -1,12 +1,13 @@
 import Link from 'next/link';
 
 import { RegisterForm } from '@/components/Auth/register-form';
+import type { ComboboxOptions } from '@/components/ui/combobox/combobox';
 
 import { api } from '@/services/api';
 
 export default async function RegisterPage() {
   const { data: cities } = await api.city.getAll();
-  const citiesOptions = cities?.map(city => ({
+  const citiesOptions: ComboboxOptions = cities?.map(city => ({
     value: city.id,
     label: city.name,
   }));

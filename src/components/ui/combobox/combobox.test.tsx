@@ -4,7 +4,7 @@ import React from 'react';
 
 import messages from '@/locales/en.json';
 
-import { Combobox } from './combobox';
+import { Combobox, type ComboboxOptions } from './combobox';
 
 describe('Components -> Combobox', () => {
   beforeAll(() => {
@@ -21,7 +21,7 @@ describe('Components -> Combobox', () => {
     global.HTMLElement.prototype.scrollIntoView = vi.fn();
   });
 
-  const options = [
+  const options: ComboboxOptions = [
     { value: 'apple', label: 'Apple' },
     { value: 'banana', label: 'Banana' },
     { value: 'cherry', label: 'Cherry' },
@@ -38,6 +38,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Select a fruit"
           value=""
@@ -56,6 +57,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Select a fruit"
           value=""
@@ -75,6 +77,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Select a fruit"
           value=""
@@ -101,6 +104,7 @@ describe('Components -> Combobox', () => {
   //   render(
   //     <Wrapper>
   //       <Combobox
+  //         shouldTranslate={false}
   //         options={options}
   //         placeholder="Select a fruit"
   //         value={value}
@@ -129,6 +133,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Select a fruit"
           value={value}
@@ -151,6 +156,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Select a fruit"
           value={value}
@@ -170,6 +176,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Search a fruit"
           value={value}
@@ -192,6 +199,7 @@ describe('Components -> Combobox', () => {
     render(
       <Wrapper>
         <Combobox
+          shouldTranslate={false}
           options={options}
           placeholder="Select a fruit"
           value=""

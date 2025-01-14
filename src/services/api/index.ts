@@ -3,6 +3,7 @@ import * as city from './city';
 import * as ff from './ff';
 import { get } from './get';
 import { fetcher } from './instance';
+import * as issues from './issues';
 
 export const api = {
   get,
@@ -10,4 +11,5 @@ export const api = {
   auth,
   city,
   ff,
+  issues,
 };

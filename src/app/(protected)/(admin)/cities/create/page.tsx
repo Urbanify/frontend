@@ -5,7 +5,6 @@ import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
 export default async function CreateCity() {
   const t = await getTranslations('Components.Sidebar.Admin.cities');
-  // const pageT = await getTranslations('Cities.CreatePage');
 
   return (
     <div className="px-4">
