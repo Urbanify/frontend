@@ -38,6 +38,34 @@ export function NavGeneral() {
         },
       ],
     },
+    // {
+    //   title: t('crime.title'),
+    //   url: '/crimes',
+    //   icon: Siren,
+    //   isActive: true,
+    //   items: [
+    //     {
+    //       title: t('crime.report'),
+    //       url: '/crimes/report',
+    //     },
+    //     {
+    //       title: t('crime.all'),
+    //       url: '/crimes',
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: t('building.title'),
+    //   url: '/building',
+    //   icon: Pickaxe,
+    //   isActive: true,
+    //   items: [
+    //     {
+    //       title: t('building.all'),
+    //       url: '/building',
+    //     },
+    //   ],
+    // },
   ];
 
   return (

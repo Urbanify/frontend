@@ -21,7 +21,10 @@ import {
 } from '@/components/ui/sidebar/sidebar';
 
 import { NavAdmin } from './nav-admin';
+import { NavFinancial } from './nav-financial';
 import { NavGeneral } from './nav-general';
+import { NavManager } from './nav-manager';
+import { NavOwner } from './nav-owner';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 
@@ -85,6 +88,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavGeneral />
+        <NavFinancial />
+        <NavManager />
+        <NavOwner />
         <NavAdmin />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
