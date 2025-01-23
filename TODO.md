@@ -7,15 +7,23 @@ now create tests for it following the pattern
 ## Cidade
 - Acessar uma cidade (admin only)
 
-## Feature Flag
-- Atualizar FF (admin only)
-- Deletar FF (admin only)
+## Issue
+
+- Filtrar
+- Listar abertas para o gestor
+- Acessar uma issue
+- Meus Reports
+- Assign to me
+- Close an issue
+- Marcar como procedente
+- Adicionar resolução
+- Resolver issue
 
 # BUGS
-- Atualizar descrição da Feature para TextArea
-- Adicionar campo de endereço no problema
-  - Ao carregar a página, geolocalizar a pessoa, caso n, city location
-  - Input de localizador de endereço (pesquisa e troca a localização no mapa)
+
+- Na listagem de issues, a tela está dando overflow em todo o conteúdo e deveria ser somente na tabela
+- Na listagem de cidades, a tela está dando overflow em todo o conteúdo e deveria ser somente na tabela
+- Na listagem de features, a tela está dando overflow em todo o conteúdo e deveria ser somente na tabela
 
 ## MISSING
 

@@ -147,7 +147,12 @@
       "slug": "Slug",
       "actions": "Actions",
       "edit": "Edit",
-      "delete": "Delete"
+      "delete": "Delete",
+      "confirm_delete_title": "Are you sure you want to delete this feature?",
+      "confirm_delete_description": "Once deleted, the feature <bold>{featureName}</bold> cannot be recovered!",
+      "cancel_delete": "Cancel",
+      "delete_success": "Feature successfully deleted",
+      "delete_error": "An error occurred while deleting the feature"
     },
     "ListPage": {
       "title": "All features"
@@ -167,9 +172,34 @@
       "go_back": "Go back",
       "success": "All set! The feature was created successfully!",
       "error": "An error occurred while creating the feature"
+    },
+    "EditPage": {
+      "title": "Edit a feature flag",
+      "description": "Fill out the form below to create a new feature",
+      "feature_name": "Feature name",
+      "feature_name_placeholder": "Enter the feature name",
+      "feature_name_required": "Feature name is required",
+      "feature_name_length": "Feature name must be at least 2 characters long",
+      "feature_description": "Feature description",
+      "feature_description_placeholder": "Describe the feature",
+      "feature_description_required": "Description is required",
+      "feature_description_length": "The description must be at least 10 characters long",
+      "save": "Save changes",
+      "go_back": "Go back",
+      "success": "All set! The feature has been successfully edited!",
+      "error": "An error occurred while editing the feature"
     }
   },
   "Issues": {
+    "status": {
+      "WAITING_FOR_FISCAL": "Waiting for a fiscal",
+      "WAITING_FOR_PROCEDURE": "Waiting for procedure",
+      "WAITING_FOR_MANAGER": "Waiting for a manager",
+      "WAITING_FOR_MANAGER_RESOLUTION": "Waiting for manager resolution",
+      "WAITING_FOR_RESOLUTION_VALIDATION": "Waiting for resolution validation",
+      "SOLVED": "Solved",
+      "CLOSED": "Closed"
+    },
     "types": {
       "INFRASTRUCTURE": "Infrastructure",
       "ROAD_POTHOLE": "Pothole",
@@ -205,6 +235,9 @@
       "ILLEGAL_OCCUPATION": "Illegal occupation",
       "ILLEGAL_CONSTRUCTION": "Illegal construction"
     },
+    "ListPage": {
+      "title": "All issues (last 30 days)"
+    },
     "ReportPage": {
       "title": "Report a problem",
       "description": "Fill out the form below to report a problem",
@@ -227,6 +260,16 @@
       "go_back": "Go back",
       "success": "All set! The problem was reported successfully!",
       "error": "An error occurred while reporting the problem"
+    },
+    "table": {
+      "filterPlaceholder": "Filter by feature name...",
+      "id": "Identifier",
+      "category": "Category",
+      "type": "Type",
+      "createdAt": "Created at",
+      "status": "Status",
+      "actions": "Actions",
+      "access": "Access"
     }
   },
   "Components": {

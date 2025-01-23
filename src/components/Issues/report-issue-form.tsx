@@ -36,7 +36,7 @@ export type ReportIssueData = {
   longitude: string;
   photos: string[];
   category: string;
-  issueType: string;
+  type: string;
   description: string;
 };
 
@@ -61,7 +61,7 @@ export function ReportIssueForm() {
       photos: [],
       category: '',
       description: '',
-      issueType: '',
+      type: '',
     },
   });
 
@@ -87,7 +87,7 @@ export function ReportIssueForm() {
       .find(option => option.isHeading)
       ?.label ?? '';
 
-    methods.setValue('issueType', value);
+    methods.setValue('type', value);
     methods.setValue('category', category);
   };
 
@@ -129,7 +129,7 @@ export function ReportIssueForm() {
       const responses = await Promise.all(uploadPromises);
       const photoUrls = responses.map(response => response?.data.url).filter(Boolean) as string[];
 
-      const payload = { ...data, photos: photoUrls };
+      const payload = { ...data, category: data.category.split('.').at(-1) ?? '', photos: photoUrls };
 
       const response = await api.issues.report(payload);
 
@@ -203,15 +203,15 @@ export function ReportIssueForm() {
           <CardContent className="flex flex-col gap-8">
 
             <div className="relative grid gap-2">
-              <Label htmlFor="issueType">{t('issueType')}</Label>
+              <Label htmlFor="type">{t('issueType')}</Label>
               <Combobox
                 placeholder={t('issueType_placeholder')}
                 options={issueCategories}
-                value={methods.watch('issueType')}
+                value={methods.watch('type')}
                 setValue={handleSelectIssueType}
                 popoverClassName="w-[370px] sm:max-w-[600px] sm:w-[600px] max-h-[240px]"
               />
-              {methods.formState.errors.issueType && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.issueType.message}</span>}
+              {methods.formState.errors.type && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.type.message}</span>}
             </div>
 
             <div className="relative grid gap-2">

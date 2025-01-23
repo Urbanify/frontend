@@ -147,7 +147,12 @@
       "slug": "Slug",
       "actions": "Ações",
       "edit": "Editar",
-      "delete": "Deletar"
+      "delete": "Deletar",
+      "confirm_delete_title": "Tem certeza que deseja deletar esta feature?",
+      "confirm_delete_description": "Uma vez deletada, a feature <bold>{featureName}</bold> não poderá ser recuperada!",
+      "cancel_delete": "Cancelar",
+      "delete_success": "Feature deletada com sucesso",
+      "delete_error": "Ocorreu um erro ao deletar a feature"
     },
     "ListPage": {
       "title": "Todas as features"
@@ -167,9 +172,34 @@
       "go_back": "Voltar",
       "success": "Tudo certo! A feature foi criada com sucesso!",
       "error": "Ocorreu um erro ao criar a feature"
+    },
+    "EditPage": {
+      "title": "Editar uma feature flag",
+      "description": "Preencha o formulário abaixo para criar uma nova feature",
+      "feature_name": "Nome da feature",
+      "feature_name_placeholder": "Digite o nome da feature",
+      "feature_name_required": "Nome da feature é obrigatório",
+      "feature_name_length": "Nome da feature deve conter pelo menos 2 caracteres",
+      "feature_description": "Descrição da feature",
+      "feature_description_placeholder": "Descreva a feature",
+      "feature_description_required": "Descrição é obrigatória",
+      "feature_description_length": "A descrição deve conter pelo menos 10 caracteres",
+      "save": "Salvar alterações",
+      "go_back": "Voltar",
+      "success": "Tudo certo! A feature foi editada com sucesso!",
+      "error": "Ocorreu um erro ao editar a feature"
     }
   },
   "Issues": {
+    "status": {
+      "WAITING_FOR_FISCAL": "Aguardando um fiscal",
+      "WAITING_FOR_PROCEDURE": "Aguardando procedimento",
+      "WAITING_FOR_MANAGER": "Aguardando um gestor",
+      "WAITING_FOR_MANAGER_RESOLUTION": "Aguardando resolução do gestor",
+      "WAITING_FOR_RESOLUTION_VALIDATION": "Aguardando validação da resolução",
+      "SOLVED": "Resolvido",
+      "CLOSED": "Fechado"
+    },
     "types": {
       "INFRASTRUCTURE": "Infraestrutura",
       "ROAD_POTHOLE": "Buraco na pista",
@@ -205,6 +235,9 @@
       "ILLEGAL_OCCUPATION": "Ocupação irregular",
       "ILLEGAL_CONSTRUCTION": "Construção irregular"
     },
+    "ListPage": {
+      "title": "Todos os problemas (nos últimos 30 dias)"
+    },
     "ReportPage": {
       "title": "Reportar um problema",
       "description": "Preencha o formulário abaixo para reportar um problema",
@@ -227,6 +260,16 @@
       "go_back": "Voltar",
       "success": "Tudo certo! O problema foi reportado com sucesso!",
       "error": "Ocorreu um erro ao reportar o problema"
+    },
+    "table": {
+      "filterPlaceholder": "Filtre pelo nome da feature...",
+      "id": "Identificador",
+      "category": "Categoria",
+      "type": "Tipo",
+      "createdAt": "Criado em",
+      "status": "Status",
+      "actions": "Ações",
+      "access": "Acessar"
     }
   },
   "Components": {

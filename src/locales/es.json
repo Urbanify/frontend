@@ -147,7 +147,12 @@
       "slug": "Slug",
       "actions": "Acciones",
       "edit": "Editar",
-      "delete": "Eliminar"
+      "delete": "Eliminar",
+      "confirm_delete_title": "¿Estás seguro de que deseas eliminar esta característica?",
+      "confirm_delete_description": "¡Una vez eliminada, la característica <bold>{featureName}</bold> no podrá ser recuperada!",
+      "cancel_delete": "Cancelar",
+      "delete_success": "Característica eliminada con éxito",
+      "delete_error": "Ocurrió un error al eliminar la característica"
     },
     "ListPage": {
       "title": "Todas las características"
@@ -167,9 +172,34 @@
       "go_back": "Volver",
       "success": "¡Todo listo! La característica fue creada con éxito",
       "error": "Ocurrió un error al crear la característica"
+    },
+    "EditPage": {
+      "title": "Editar una feature flag",
+      "description": "Rellena el formulario a continuación para crear una nueva característica",
+      "feature_name": "Nombre de la característica",
+      "feature_name_placeholder": "Introduce el nombre de la característica",
+      "feature_name_required": "El nombre de la característica es obligatorio",
+      "feature_name_length": "El nombre de la característica debe tener al menos 2 caracteres",
+      "feature_description": "Descripción de la característica",
+      "feature_description_placeholder": "Describe la característica",
+      "feature_description_required": "La descripción es obligatoria",
+      "feature_description_length": "La descripción debe tener al menos 10 caracteres",
+      "save": "Guardar cambios",
+      "go_back": "Volver",
+      "success": "¡Todo listo! ¡La característica ha sido editada con éxito!",
+      "error": "Ocurrió un error al editar la característica"
     }
   },
   "Issues": {
+    "status": {
+      "WAITING_FOR_FISCAL": "Esperando a un fiscal",
+      "WAITING_FOR_PROCEDURE": "Esperando procedimiento",
+      "WAITING_FOR_MANAGER": "Esperando a un gerente",
+      "WAITING_FOR_MANAGER_RESOLUTION": "Esperando resolución del gerente",
+      "WAITING_FOR_RESOLUTION_VALIDATION": "Esperando validación de la resolución",
+      "SOLVED": "Resuelto",
+      "CLOSED": "Cerrado"
+    },
     "types": {
       "INFRASTRUCTURE": "Infraestructura",
       "ROAD_POTHOLE": "Bache",
@@ -205,6 +235,9 @@
       "ILLEGAL_OCCUPATION": "Ocupación ilegal",
       "ILLEGAL_CONSTRUCTION": "Construcción ilegal"
     },
+    "ListPage": {
+      "title": "Todos los problemas (últimos 30 días)"
+    },
     "ReportPage": {
       "title": "Reportar un problema",
       "description": "Llena el formulario a continuación para reportar un problema",
@@ -227,6 +260,16 @@
       "go_back": "Volver",
       "success": "¡Todo listo! El problema fue reportado con éxito",
       "error": "Ocurrió un error al reportar el problema"
+    },
+    "table": {
+      "filterPlaceholder": "Filtra por el nombre de la característica...",
+      "id": "Identificador",
+      "category": "Categoría",
+      "type": "Tipo",
+      "createdAt": "Creado en",
+      "status": "Estado",
+      "actions": "Acciones",
+      "access": "Acceder"
     }
   },
   "Components": {

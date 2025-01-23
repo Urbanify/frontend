@@ -77,3 +77,28 @@ export const issueCategories: ComboboxOptions = [
   { value: 'ILLEGAL_OCCUPATION', label: 'Issues.types.ILLEGAL_OCCUPATION' },
   { value: 'ILLEGAL_CONSTRUCTION', label: 'Issues.types.ILLEGAL_CONSTRUCTION' },
 ];
+
+export type IssueStatus =
+  | 'WAITING_FOR_FISCAL'
+  | 'WAITING_FOR_PROCEDURE'
+  | 'WAITING_FOR_MANAGER'
+  | 'WAITING_FOR_MANAGER_RESOLUTION'
+  | 'WAITING_FOR_RESOLUTION_VALIDATION'
+  | 'SOLVED'
+  | 'CLOSED';
+
+export type Issue = {
+  id: string;
+  status: IssueStatus;
+  cityId: string;
+  latitude: string;
+  longitude: string;
+  category: IssueCategory;
+  type: IssueType;
+  description: string;
+  reporterId: string;
+  fiscalId: string;
+  managerId: string;
+  createdAt: string;
+  updatedAt: string;
+};
