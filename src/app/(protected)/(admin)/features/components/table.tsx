@@ -1,5 +1,6 @@
 'use client';
-import { Edit, Key, MoreHorizontal } from 'lucide-react';
+import { Edit, MoreHorizontal, Trash2 } from 'lucide-react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -17,19 +18,24 @@ import {
 
 import { unslugify } from '@/utils/slugify';
 
+import { DeleteFeatureDialog } from './delete-dialog';
+
 import type { FeatureFlag } from '@/types/FeatureFlag';
 
 type FeaturesTableProps = {
   features: FeatureFlag[];
 };
+
 export function FeaturesTable({ features }: FeaturesTableProps) {
   const t = useTranslations('Features.table');
   const [filter, setFilter] = useState('');
+  const [featureToDelete, setFeatureToDelete] = useState<FeatureFlag | null>(null);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const filteredFeatures = features.filter((feature) => {
     return unslugify(feature.slug).toLowerCase().includes(filter.toLowerCase());
-  },
-  );
+  });
+
   return (
     <>
       <Input
@@ -64,13 +70,19 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
 
-                    <DropdownMenuItem disabled>
-                      <Edit size={16} className="mr-2" />
-                      {t('edit')}
+                    <DropdownMenuItem asChild className="cursor-pointer">
+                      <Link href={`/features/edit/${feature.id}`}>
+                        <Edit size={16} className="mr-2" />
+                        {t('edit')}
+                      </Link>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem disabled>
-                      <Key size={16} className="mr-2" />
+                    <DropdownMenuItem onClick={() => {
+                      setFeatureToDelete(feature);
+                      setOpenDialog(true);
+                    }}
+                    >
+                      <Trash2 size={16} className="mr-2" />
                       {t('delete')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -80,6 +92,8 @@ export function FeaturesTable({ features }: FeaturesTableProps) {
           ))}
         </TableBody>
       </Table>
+
+      <DeleteFeatureDialog setOpen={setOpenDialog} open={openDialog} feature={featureToDelete} />
     </>
   );
 }

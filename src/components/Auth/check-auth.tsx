@@ -12,7 +12,7 @@ export default function CheckAuth() {
 
   const parsedJWT = parseJwt(data?.access_token);
   const role = parsedJWT?.user?.role;
-  const cityId = parsedJWT?.user?.role;
+  const cityId = parsedJWT?.user?.cityId ?? '';
   // TODO: UPDATE HERE TO USE THE CORRECT TYPE
   const isAdmin = role === 'ADMIN';
 

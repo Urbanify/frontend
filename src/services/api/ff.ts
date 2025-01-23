@@ -1,5 +1,6 @@
 import { getSession } from 'next-auth/react';
 
+import type { EditFeatureFormData } from '@/components/Features/EditFeatureForm';
 import type { FeatureFormData } from '@/components/Features/FeatureForm';
 
 import { api } from '.';
@@ -38,4 +39,19 @@ export const getById = async (ffId: string) => {
     data: data as FeatureFlag,
     mutate,
   };
+};
+
+export const update = async (data: EditFeatureFormData) => {
+  const session = await getSession();
+  return api.instance(`/feature-flags/${data.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  }, session?.access_token);
+};
+
+export const deleteById = async (ffId: string) => {
+  const session = await getSession();
+  return api.instance(`/feature-flags/${ffId}`, {
+    method: 'DELETE',
+  }, session?.access_token);
 };
