@@ -1,18 +1,15 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
 import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
 import { api } from '@/services/api';
 
-import { IssuesTable } from './components/table';
+import { IssuesTable } from '../components/table';
 
 export default async function Page() {
   const t = await getTranslations('Components.Sidebar.General.issues');
-  const pageT = await getTranslations('Issues.ListPage');
-  const { data: issues } = await api.issues.getAllIssuesPerPeriod({
-    start: dayjs().subtract(1, 'month').toISOString(),
-    end: dayjs().toISOString(),
+  const pageT = await getTranslations('Issues.MyIssuesPage');
+  const { data: issues } = await api.issues.getAllMyIssues({
     page: 1,
   });
 
@@ -21,7 +18,7 @@ export default async function Page() {
       <BreadcrumbSetter
         breadcrumbs={[
           { label: t('title'), href: '/issues' },
-          { label: t('all') },
+          { label: t('mine') },
         ]}
       />
       <div className="px-4">

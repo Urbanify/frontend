@@ -200,6 +200,15 @@
       "SOLVED": "Resolvido",
       "CLOSED": "Fechado"
     },
+    "actions": {
+      "REPORTED_ISSUE": "{userName} reportou a issue",
+      "ASSIGNED_AS_FISCAL": "{userName} se atribuiu como fiscal",
+      "ASSIGNED_AS_MANAGER": "{userName} se atribuiu como gestor responsável",
+      "MARKED_AS_UNFOUNDED": "{userName} marcou como improcedente",
+      "MARKED_AS_VALID": "{userName} marcou como válido",
+      "ADDED_RESOLUTION": "{userName} adicionou uma resolução",
+      "MARKED_AS_SOLVED'": "{userName} marcou como Resolvido"
+    },
     "types": {
       "INFRASTRUCTURE": "Infraestrutura",
       "ROAD_POTHOLE": "Buraco na pista",
@@ -234,6 +243,19 @@
       "COMUNITY": "Comunidade",
       "ILLEGAL_OCCUPATION": "Ocupação irregular",
       "ILLEGAL_CONSTRUCTION": "Construção irregular"
+    },
+    "AccessPage": {
+      "description": "Descrição",
+      "photos": "Fotos",
+      "location": "Localização",
+      "history": "Histórico",
+      "history_close": "Fechar"
+    },
+    "MyIssuesPage": {
+      "title": "Todos os problemas reportados por você"
+    },
+    "OpenIssuesPage": {
+      "title": "Em aberto (nos últimos 30 dias)"
     },
     "ListPage": {
       "title": "Todos os problemas (nos últimos 30 dias)"
@@ -295,12 +317,18 @@
           "edit": "Editar"
         }
       },
+      "Manager": {
+        "title": "Gestor",
+        "open_issues": "Problemas em aberto"
+      },
       "General": {
         "title": "Geral",
         "issues": {
           "title": "Problemas",
           "report": "Reportar",
-          "all": "Todos"
+          "all": "Todos",
+          "mine": "Meus",
+          "access": "Acessar"
         }
       }
     }

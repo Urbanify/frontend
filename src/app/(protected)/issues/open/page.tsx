@@ -5,12 +5,12 @@ import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
 import { api } from '@/services/api';
 
-import { IssuesTable } from './components/table';
+import { IssuesTable } from '../components/table';
 
 export default async function Page() {
-  const t = await getTranslations('Components.Sidebar.General.issues');
-  const pageT = await getTranslations('Issues.ListPage');
-  const { data: issues } = await api.issues.getAllIssuesPerPeriod({
+  const t = await getTranslations('Components.Sidebar');
+  const pageT = await getTranslations('Issues.OpenIssuesPage');
+  const { data: issues } = await api.issues.getAllOpenIssuesPerPeriod({
     start: dayjs().subtract(1, 'month').toISOString(),
     end: dayjs().toISOString(),
     page: 1,
@@ -20,8 +20,8 @@ export default async function Page() {
     <>
       <BreadcrumbSetter
         breadcrumbs={[
-          { label: t('title'), href: '/issues' },
-          { label: t('all') },
+          { label: t('General.issues.title'), href: '/issues' },
+          { label: t('Manager.open_issues') },
         ]}
       />
       <div className="px-4">

@@ -200,6 +200,15 @@
       "SOLVED": "Resuelto",
       "CLOSED": "Cerrado"
     },
+    "actions": {
+      "REPORTED_ISSUE": "{userName} reportó el problema",
+      "ASSIGNED_AS_FISCAL": "{userName} se asignó como auditor",
+      "ASSIGNED_AS_MANAGER": "{userName} se asignó como gerente responsable",
+      "MARKED_AS_UNFOUNDED": "{userName} marcó como infundado",
+      "MARKED_AS_VALID": "{userName} marcó como válido",
+      "ADDED_RESOLUTION": "{userName} añadió una resolución",
+      "MARKED_AS_SOLVED": "{userName} marcó como resuelto"
+    },
     "types": {
       "INFRASTRUCTURE": "Infraestructura",
       "ROAD_POTHOLE": "Bache",
@@ -234,6 +243,19 @@
       "COMUNITY": "Comunidad",
       "ILLEGAL_OCCUPATION": "Ocupación ilegal",
       "ILLEGAL_CONSTRUCTION": "Construcción ilegal"
+    },
+    "AccessPage": {
+      "description": "Descripción",
+      "photos": "Fotos",
+      "location": "Ubicación",
+      "history": "Historial",
+      "history_close": "Cerrar"
+    },
+    "MyIssuesPage": {
+      "title": "Todos los problemas reportados por ti"
+    },
+    "OpenIssuesPage": {
+      "title": "Abierto (en los últimos 30 días)"
     },
     "ListPage": {
       "title": "Todos los problemas (últimos 30 días)"
@@ -295,12 +317,18 @@
           "edit": "Editar"
         }
       },
+      "Manager": {
+        "title": "Gerente",
+        "open_issues": "Problemas abiertos"
+      },
       "General": {
         "title": "General",
         "issues": {
           "title": "Problemas",
           "report": "Reportar",
-          "all": "Todos"
+          "all": "Todos",
+          "mine": "Míos",
+          "access": "Acceder"
         }
       }
     }

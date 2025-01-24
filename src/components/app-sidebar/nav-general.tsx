@@ -36,6 +36,10 @@ export function NavGeneral() {
           title: t('issues.all'),
           url: '/issues',
         },
+        {
+          title: t('issues.mine'),
+          url: '/issues/mine',
+        },
       ],
     },
     // {

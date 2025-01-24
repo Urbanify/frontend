@@ -1,6 +1,7 @@
 'use client';
 import dayjs from 'dayjs';
 import { DoorOpen, MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
 
@@ -73,9 +74,11 @@ export function IssuesTable({ issues = defaultIssues }: IssuesTableProps) {
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>{t('table.actions')}</DropdownMenuLabel>
 
-                      <DropdownMenuItem disabled>
-                        <DoorOpen size={16} className="mr-2" />
-                        {t('table.access')}
+                      <DropdownMenuItem asChild>
+                        <Link href={`/issues/view/${issue.id}`} className="cursor-pointer">
+                          <DoorOpen size={16} className="mr-2" />
+                          {t('table.access')}
+                        </Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

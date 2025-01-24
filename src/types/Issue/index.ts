@@ -102,3 +102,24 @@ export type Issue = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type IssueHistoryAction =
+  | 'REPORTED_ISSUE'
+  | 'ASSIGNED_AS_FISCAL'
+  | 'ASSIGNED_AS_MANAGER'
+  | 'MARKED_AS_UNFOUNDED'
+  | 'MARKED_AS_VALID'
+  | 'ADDED_RESOLUTION'
+  | 'MARKED_AS_SOLVED';
+
+export type IssueHistory = {
+  id: string;
+  userId: string;
+  userName: string;
+  action: IssueHistoryAction;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type IssueDetails = Issue & { photos?: string[]; history: IssueHistory[] };

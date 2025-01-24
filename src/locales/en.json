@@ -200,6 +200,15 @@
       "SOLVED": "Solved",
       "CLOSED": "Closed"
     },
+    "actions": {
+      "REPORTED_ISSUE": "{userName} reported the issue",
+      "ASSIGNED_AS_FISCAL": "{userName} assigned themselves as the auditor",
+      "ASSIGNED_AS_MANAGER": "{userName} assigned themselves as the responsible manager",
+      "MARKED_AS_UNFOUNDED": "{userName} marked as unfounded",
+      "MARKED_AS_VALID": "{userName} marked as valid",
+      "ADDED_RESOLUTION": "{userName} added a resolution",
+      "MARKED_AS_SOLVED": "{userName} marked as solved"
+    },
     "types": {
       "INFRASTRUCTURE": "Infrastructure",
       "ROAD_POTHOLE": "Pothole",
@@ -234,6 +243,19 @@
       "COMUNITY": "Community",
       "ILLEGAL_OCCUPATION": "Illegal occupation",
       "ILLEGAL_CONSTRUCTION": "Illegal construction"
+    },
+    "AccessPage": {
+      "description": "Description",
+      "photos": "Photos",
+      "location": "Location",
+      "history": "History",
+      "history_close": "Close"
+    },
+    "MyIssuesPage": {
+      "title": "All issues reported by you"
+    },
+    "OpenIssuesPage": {
+      "title": "Open (in the last 30 days)"
     },
     "ListPage": {
       "title": "All issues (last 30 days)"
@@ -295,12 +317,18 @@
           "edit": "Edit"
         }
       },
+      "Manager": {
+        "title": "Manager",
+        "open_issues": "Open issues"
+      },
       "General": {
         "title": "General",
         "issues": {
           "title": "Problems",
           "report": "Report",
-          "all": "All"
+          "all": "All",
+          "mine": "Mine",
+          "access": "Access"
         }
       }
     }
