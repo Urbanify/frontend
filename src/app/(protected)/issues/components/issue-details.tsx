@@ -75,11 +75,13 @@ export function IssueDetailment({ issue }: IssuesTableProps) {
             <Textarea className="pointer-events-none resize-none" id="issue_description" defaultValue={issue.description} />
           </div>
 
-          <BannerAd
-            href={currentAd?.banner?.href ?? ''}
-            desktopMedia={currentAd?.banner?.desktop ?? ''}
-            mobileMedia={currentAd?.banner?.mobile ?? ''}
-          />
+          <div className="mx-auto">
+            <BannerAd
+              href={currentAd?.banner?.href ?? ''}
+              desktopMedia={currentAd?.banner?.desktop ?? ''}
+              mobileMedia={currentAd?.banner?.mobile ?? ''}
+            />
+          </div>
 
           {!!issue.photos?.length && (
             <div className="relative grid gap-2">

@@ -4,6 +4,7 @@ import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
 import { api } from '@/services/api';
 
+import AssignBanner from '../../components/assign-banner';
 import { IssueDetailment } from '../../components/issue-details';
 
 export default async function AccessIssue({
@@ -24,6 +25,7 @@ export default async function AccessIssue({
         ]}
       />
 
+      <AssignBanner issue={issue} />
       <IssueDetailment issue={issue} />
     </div>
   );

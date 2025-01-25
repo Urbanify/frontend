@@ -19,6 +19,8 @@ import {
 
 import { useAd } from '@/contexts/ads/useAd';
 
+import IssueStatusBadge from './issue-status-badge';
+
 import type { Issue } from '@/types/Issue';
 
 type IssuesTableProps = {
@@ -61,8 +63,8 @@ export function IssuesTable({ issues = defaultIssues }: IssuesTableProps) {
                 <TableCell className="w-fit min-w-24 max-w-24 truncate font-medium md:max-w-72">{issue.id}</TableCell>
                 <TableCell>{t(`types.${issue.category}`)}</TableCell>
                 <TableCell>{t(`types.${issue.type}`)}</TableCell>
-                <TableCell>{t(`status.${issue.status}`)}</TableCell>
-                <TableCell>{dayjs(issue.createdAt).format('DD/MM/YYYY HH:mm')}</TableCell>
+                <TableCell className="text-center"><IssueStatusBadge status={issue.status} /></TableCell>
+                <TableCell className="text-center">{dayjs(issue.createdAt).format('DD/MM/YYYY HH:mm')}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

@@ -1,13 +1,7 @@
 'use client';
 
-import {
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-} from 'lucide-react';
+import { Command } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
 import * as React from 'react';
 
 import {
@@ -19,53 +13,52 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar/sidebar';
+import { Skeleton } from '@/components/ui/skeleton/skeleton';
+
+import { api } from '@/services/api';
+import { parseJwt } from '@/utils/decodeJWT';
 
 import { NavAdmin } from './nav-admin';
 import { NavFinancial } from './nav-financial';
 import { NavGeneral } from './nav-general';
 import { NavManager } from './nav-manager';
 import { NavOwner } from './nav-owner';
-import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
 
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: 'https://avatars.githubusercontent.com/u/34353982?v=4',
-  },
-  navSecondary: [
-    {
-      title: 'Support',
-      url: '#',
-      icon: LifeBuoy,
-    },
-    {
-      title: 'Feedback',
-      url: '#',
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: 'Design Engineering',
-      url: '#',
-      icon: Frame,
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: Map,
-    },
-  ],
-};
+import type { City } from '@/types/City';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data } = useSession();
+  const [city, setCity] = React.useState<City | null>(null);
+
+  const parsedJWT = parseJwt(data?.access_token);
+  const role = parsedJWT?.user?.role;
+  const cityId = parsedJWT?.user?.cityId ?? '';
+  const isAdmin = role === 'ADMIN';
+
+  React.useEffect(() => {
+    const fetchCity = async () => {
+      if (cityId) {
+        const response = await api.instance(`/cities/${cityId}`, {
+          method: 'GET',
+        }, data?.access_token);
+
+        if (response.status === 401) {
+          return signOut({
+            redirect: true,
+            redirectTo: '/login',
+          });
+        }
+
+        if (response.ok) {
+          const userCity = await response.json() as City;
+          setCity(userCity);
+        }
+      }
+    };
+    fetchCity();
+  }, [cityId]);
+
   return (
     <Sidebar className="px-0" variant="inset" {...props}>
       <SidebarHeader>
@@ -79,7 +72,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Urbanify</span>
-                  <span className="truncate text-xs">CITY NAME</span>
+                  <span className="truncate text-xs">
+                    {isAdmin
+                      ? 'ADMIN'
+                      : city === null ? <Skeleton className="h-4 w-2/3" /> : city.name}
+
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -92,11 +90,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavManager />
         <NavOwner />
         <NavAdmin />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      {!!parsedJWT?.user && (
+        <SidebarFooter>
+          <NavUser user={parsedJWT.user} />
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 }

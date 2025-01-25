@@ -12,12 +12,10 @@ traduza o seguinte json de internacionalização para EN e ES
 ## Issue
 
 - Filtrar
-- Assign to me (gestor e fiscal)
-- Close an issue (gestor e fiscal)
-- Marcar como procedente (gestor e fiscal)
-- Adicionar resolução (gestor)
-- Resolver issue (gestor)
+- Close an issue (gestor)
 - Compartilhar issue
+- Adicionar nova resolução (gestor)
+- Solicitar nova resolução (fiscal e reporter)
 
 # BUGS
 
@@ -35,3 +33,4 @@ traduza o seguinte json de internacionalização para EN e ES
 - Data Table
 - Refatorar para o Maps ser mais performático
 - Modificar o marker do maps
+- Trocar fetch para SWR ou similar

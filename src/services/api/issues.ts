@@ -124,3 +124,50 @@ export const getById = async (issueId: string) => {
     mutate,
   };
 };
+
+export const assignMe = async (issueId: string) => {
+  const session = await getSession();
+  return api.instance(`/issues/${issueId}/assign/me`, {
+    method: 'POST',
+  }, session?.access_token);
+};
+
+export const accept = async (issueId: string, description: string) => {
+  const session = await getSession();
+  return api.instance(`/issues/${issueId}/accept`, {
+    method: 'POST',
+    body: JSON.stringify({ description }),
+  }, session?.access_token);
+};
+
+export const close = async (issueId: string, description: string) => {
+  const session = await getSession();
+  return api.instance(`/issues/${issueId}/close`, {
+    method: 'POST',
+    body: JSON.stringify({ description }),
+  }, session?.access_token);
+};
+
+export const resolution = async (issueId: string, description: string) => {
+  const session = await getSession();
+  return api.instance(`/issues/${issueId}/resolution`, {
+    method: 'POST',
+    body: JSON.stringify({ description }),
+  }, session?.access_token);
+};
+
+export const solve = async (issueId: string, description: string) => {
+  const session = await getSession();
+  return api.instance(`/issues/${issueId}/solve`, {
+    method: 'POST',
+    body: JSON.stringify({ description }),
+  }, session?.access_token);
+};
+
+export const askNewSolution = async (issueId: string, description: string) => {
+  const session = await getSession();
+  return api.instance(`/issues/${issueId}/ask-new-solution`, {
+    method: 'POST',
+    body: JSON.stringify({ description }),
+  }, session?.access_token);
+};

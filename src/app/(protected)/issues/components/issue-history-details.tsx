@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
+import { cn } from '@/lib/utils';
+
 import { Button } from '@/components/ui/button/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog/dialog';
 import { Separator } from '@/components/ui/separator/separator';
@@ -21,15 +23,12 @@ export const IssueHistoryDetails = ({ issue, open, setOpen }: IssueHistoryDetail
       <DialogContent showClose={false}>
         <DialogHeader className="flex gap-4">
           <DialogTitle>{t('AccessPage.history')}</DialogTitle>
-          <DialogDescription>
-            {issue.history.map(history => (
-              <div key={history.id} className="flex flex-col gap-2">
+          <DialogDescription className="max-h-[50vh] overflow-y-auto !text-left">
+            {issue.history.map((history, index) => (
+              <div key={history.id} className={cn('flex flex-col gap-2', index > 0 && 'mt-2')}>
                 <div className="flex flex-row gap-2">
                   <span>
-                    {dayjs(history.updatedAt).format('DD/MM/YYYY')}
-                    {' '}
-                    -
-                    {' '}
+                    {dayjs(history.updatedAt).format('DD/MM/YYYY HH:mm')}
                   </span>
                   <span className="italic">
                     {t(`actions.${history.action}`, {
@@ -55,7 +54,7 @@ export const IssueHistoryDetails = ({ issue, open, setOpen }: IssueHistoryDetail
             ))}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="mt-8 flex flex-row !justify-between gap-4">
+        <DialogFooter className="mt-8 flex flex-row justify-end gap-4">
           <DialogClose asChild onClick={() => setOpen(false)}>
             <Button>{t('AccessPage.history_close')}</Button>
           </DialogClose>

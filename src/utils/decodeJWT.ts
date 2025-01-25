@@ -1,4 +1,7 @@
 'use client';
+
+import type { TokenData } from '@/types/JWT';
+
 const atobUniversal = (base64: string): string => {
   /* c8 ignore start */
   if (typeof window !== 'undefined' && window.atob) {
@@ -9,7 +12,7 @@ const atobUniversal = (base64: string): string => {
   return Buffer.from(base64, 'base64').toString('binary');
 };
 
-export const parseJwt = (token?: string): ParseResponse => {
+export const parseJwt = (token?: string): TokenData | null => {
   if (!token) {
     return null;
   }
@@ -21,13 +24,3 @@ export const parseJwt = (token?: string): ParseResponse => {
 
   return JSON.parse(jsonPayload);
 };
-
-type ParseResponse = {
-  exp: number;
-  iat: number;
-  // TODO: Add user properties
-  user: {
-    role: string;
-    cityId: string | null;
-  };
-} | null;
