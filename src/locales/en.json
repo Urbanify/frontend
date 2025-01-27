@@ -252,6 +252,8 @@
       "history_close": "Close",
       "no_fiscal_yet": "No auditor assigned yet. Click here to assign yourself!",
       "no_manager_yet": "No manager assigned yet. Click here to assign yourself!",
+      "cant_assign_yet": "You cannot assign yourself as the manager of this issue yet! Please wait a bit longer!",
+      "close_after_7days": "If your solution is not validated, you can close the issue in {days} days and {hours} hours",
       "assigning": "Assigning you...",
       "assign_error": "An error occurred while trying to assign you to this issue!",
       "assign_success": "All set! You have been assigned to this issue!",

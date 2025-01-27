@@ -252,6 +252,8 @@
       "history_close": "Cerrar",
       "no_fiscal_yet": "Ningún auditor asignado aún. ¡Haz clic aquí para asignarte!",
       "no_manager_yet": "Ningún gestor asignado aún. ¡Haz clic aquí para asignarte!",
+      "cant_assign_yet": "¡Aún no puedes asignarte como gestor de este problema! ¡Espera un poco más!",
+      "close_after_7days": "Si tu solución no es validada, puedes cerrar el problema en {days} días y {hours} horas",
       "assigning": "Asignándote...",
       "assign_error": "¡Ocurrió un error al intentar asignarte a este problema!",
       "assign_success": "¡Todo listo! ¡Te has asignado a este problema!",

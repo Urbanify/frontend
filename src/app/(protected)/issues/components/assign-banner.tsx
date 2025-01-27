@@ -1,11 +1,14 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+
+import { cn } from '@/lib/utils';
 
 import BannerMessage from '@/components/banner/banner';
 import { Button } from '@/components/ui/button/button';
@@ -189,7 +192,11 @@ export default function AssignBanner({ issue }: AssignBannerProps) {
     return <BannerMessage message={t('no_fiscal_yet')} onClick={handleAssignMe} />;
   }
 
-  if (isAManager && !isReporter && !issue.managerId) {
+  if (isAManager && !isReporter && !issue.managerId && issue.status !== 'WAITING_FOR_MANAGER') {
+    return <BannerMessage message={t('cant_assign_yet')} />;
+  }
+
+  if (isAManager && !isReporter && !issue.managerId && issue.status === 'WAITING_FOR_MANAGER') {
     return <BannerMessage message={t('no_manager_yet')} onClick={handleAssignMe} />;
   }
 
@@ -275,7 +282,19 @@ export default function AssignBanner({ issue }: AssignBannerProps) {
   }
 
   if ((isFiscal || isReporter || isTheManager) && issue.status === 'WAITING_FOR_RESOLUTION_VALIDATION') {
-    const solutions = issue.history?.filter(history => history.action === 'ADDED_RESOLUTION').reverse();
+    const lastSolution = issue.history?.filter(history => history.action === 'ADDED_RESOLUTION').reverse()[0];
+
+    const lastCreatedAt = lastSolution?.createdAt;
+
+    const sevenDaysLater = dayjs(lastCreatedAt).add(7, 'day');
+    const now = dayjs();
+
+    const totalHoursRemaining = sevenDaysLater.diff(now, 'hour');
+    const daysRemaining = Math.floor(totalHoursRemaining / 24);
+    const hoursRemaining = totalHoursRemaining % 24;
+
+    const disableManagerSolve = totalHoursRemaining > 0;
+
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
@@ -291,7 +310,7 @@ export default function AssignBanner({ issue }: AssignBannerProps) {
             <div className="!mt-12 w-full !text-left">
               <div className="relative grid gap-2">
                 <Label htmlFor="resolution">{t('last_resolution')}</Label>
-                <Textarea id="resolution" className="pointer-events-none resize-none" defaultValue={solutions[0]?.description} />
+                <Textarea id="resolution" className="pointer-events-none resize-none" defaultValue={lastSolution?.description} />
               </div>
             </div>
 
@@ -299,7 +318,7 @@ export default function AssignBanner({ issue }: AssignBannerProps) {
               {actionForm()}
             </div>
           </DialogHeader>
-          <DialogFooter className="mt-8 flex-row !justify-between gap-4">
+          <DialogFooter className={cn('mt-8 flex-row !justify-between gap-4', isTheManager && '!justify-end')}>
             {!isTheManager && (
               <Button
                 isLoading={isLoading}
@@ -310,13 +329,36 @@ export default function AssignBanner({ issue }: AssignBannerProps) {
                 {t('does_not_solve')}
               </Button>
             )}
-            <Button
-              isLoading={isLoading}
-              disabled={disableButton}
-              onClick={handleSolve}
-            >
-              {t('it_does_solve')}
-            </Button>
+            {!isTheManager
+            && (
+              <Button
+                isLoading={isLoading}
+                disabled={disableButton}
+                onClick={handleSolve}
+              >
+                {t('it_does_solve')}
+              </Button>
+            )}
+
+            {isTheManager && (
+              <div className="flex flex-col items-end gap-2 text-center">
+                <Button
+                  className="w-fit"
+                  isLoading={isLoading}
+                  disabled={disableButton || disableManagerSolve}
+                  onClick={(disableButton || disableManagerSolve) ? () => ({}) : handleSolve}
+                >
+                  {t('it_does_solve')}
+                </Button>
+
+                <small className="text-xs text-muted-foreground">
+                  {t('close_after_7days', {
+                    days: daysRemaining,
+                    hours: hoursRemaining,
+                  })}
+                </small>
+              </div>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

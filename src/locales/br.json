@@ -252,6 +252,8 @@
       "history_close": "Fechar",
       "no_fiscal_yet": "Nenhum fiscal atribuído ainda. Clique aqui para se atribuir!",
       "no_manager_yet": "Nenhum gestor atribuído ainda. Clique aqui para se atribuir!",
+      "cant_assign_yet": "Você ainda não pode se atribuir como gestor desse problema! Aguarde um pouco mais!",
+      "close_after_7days": "Caso sua solução não seja validada, você pode fechar o problema em {days} dias e {hours} horas",
       "assigning": "Atribuindo você...",
       "assign_error": "Ocorreu um erro ao tentar atribuir você a este problema!",
       "assign_success": "Tudo certo! Você foi atribuído a este problema!",
