@@ -25,7 +25,7 @@ describe('CityStatusBadge', () => {
     const badge = screen.getByText(String(mockTranslations.active));
 
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('text-green-800');
+    expect(badge).toHaveClass('bg-accent text-accent-foreground');
   });
 
   it('renders correctly for Disabled status', () => {
@@ -34,7 +34,7 @@ describe('CityStatusBadge', () => {
     const badge = screen.getByText(String(mockTranslations.inactive));
 
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('text-yellow-800');
+    expect(badge).toHaveClass('bg-muted text-muted-foreground');
   });
 
   it('throws an error for unsupported status', () => {

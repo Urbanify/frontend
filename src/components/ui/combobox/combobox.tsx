@@ -1,5 +1,6 @@
 'use client';
 
+import type { LucideIcon } from 'lucide-react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
@@ -21,11 +22,14 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover/popover';
 
-export type ComboboxOptions = {
+export type ComboboxOption = {
   value: string;
   label: string;
   isHeading?: boolean;
-}[];
+  icon?: LucideIcon;
+};
+
+export type ComboboxOptions = ComboboxOption[];
 
 export type ComboboxProps = {
   options: ComboboxOptions;
@@ -69,8 +73,8 @@ export function Combobox({
   };
 
   const getGroupedOptions = () => {
-    const groups: { heading: string | null; options: ComboboxOptions }[] = [];
-    let currentGroup: { heading: string | null; options: ComboboxOptions } | null = null;
+    const groups: { heading: ComboboxOption | null; options: ComboboxOptions }[] = [];
+    let currentGroup: { heading: ComboboxOption | null; options: ComboboxOptions } | null = null;
 
     filteredOptions.forEach((option) => {
       if (option.isHeading) {
@@ -78,7 +82,7 @@ export function Combobox({
         if (currentGroup) {
           groups.push(currentGroup);
         }
-        currentGroup = { heading: option.label, options: [] };
+        currentGroup = { heading: option, options: [] };
       } else {
         // Adicionar a opção ao grupo atual
         if (!currentGroup) {
@@ -98,6 +102,7 @@ export function Combobox({
   };
 
   const groupedOptions = getGroupedOptions();
+  const selectedOption = options.find(option => option.value === value);
 
   const handleSelect = (currentValue: string) => {
     setValue(currentValue === value ? '' : currentValue);
@@ -115,8 +120,13 @@ export function Combobox({
           className="justify-between"
         >
           {value
-            ? getLabel(
-                options.find(option => option.value === value)?.label ?? '',
+            ? (
+                <span className="flex items-center gap-2">
+                  {selectedOption?.icon && (
+                    <selectedOption.icon className="size-4 text-muted-foreground" />
+                  )}
+                  {getLabel(selectedOption?.label ?? '')}
+                </span>
               )
             : placeholder}
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -134,9 +144,16 @@ export function Combobox({
               .map((group, index) => (
                 <CommandGroup
                   // eslint-disable-next-line react/no-array-index-key
-                  key={`${group.heading}-${index}`}
-                  heading={group.heading ? getLabel(group.heading ?? '') : undefined}
+                  key={`${group.heading?.value ?? 'group'}-${index}`}
                 >
+                  {group.heading && (
+                    <div className="flex items-center gap-2 px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                      {group.heading.icon && (
+                        <group.heading.icon className="size-3.5" />
+                      )}
+                      {getLabel(group.heading.label ?? '')}
+                    </div>
+                  )}
                   {group.options.map(option => (
                     <CommandItem
                       key={option.value}
@@ -149,6 +166,9 @@ export function Combobox({
                           value === option.value ? 'opacity-100' : 'opacity-0',
                         )}
                       />
+                      {option.icon && (
+                        <option.icon className="size-4 text-muted-foreground" />
+                      )}
                       {getLabel(option.label ?? '')}
                     </CommandItem>
                   ))}

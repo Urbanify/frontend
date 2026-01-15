@@ -55,10 +55,10 @@ export function LoginForm({
   return (
     <FormProvider {...methods} register={register}>
       <div className={cn('flex flex-col gap-6', className)} {...props}>
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">{t('welcome')}</CardTitle>
-            <CardDescription>
+        <Card className="border-border/60 bg-card/90 shadow-lg">
+          <CardHeader className="text-left">
+            <CardTitle className="text-2xl">{t('welcome')}</CardTitle>
+            <CardDescription className="text-muted-foreground">
               {t('login_with')}
             </CardDescription>
           </CardHeader>
@@ -75,20 +75,20 @@ export function LoginForm({
                       required
                       {...register('cpf')}
                     />
-                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.cpf.message}</span>}
+                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.cpf.message}</span>}
                   </div>
                   <div className="relative grid gap-2">
                     <div className="flex items-center">
                       <Label htmlFor="password">{t('password')}</Label>
                       <a
                         href="/forgot-password"
-                        className="ml-auto text-sm underline-offset-4 hover:underline"
+                        className="ml-auto text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
                       >
                         {t('forgot_password')}
                       </a>
                     </div>
                     <Input id="password" type="password" placeholder="********" required {...register('password')} />
-                    {methods.formState.errors.password && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.password.message}</span>}
+                    {methods.formState.errors.password && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.password.message}</span>}
                   </div>
 
                   <div className="flex flex-col items-center gap-2">
@@ -104,7 +104,7 @@ export function LoginForm({
                     </Button>
 
                     {errorMessage && (
-                      <span className="text-center text-sm text-red-500">
+                      <span className="text-center text-sm text-destructive">
                         {errorMessage}
                       </span>
                     )}

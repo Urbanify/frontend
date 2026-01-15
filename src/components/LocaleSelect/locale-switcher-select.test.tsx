@@ -6,8 +6,8 @@ describe('Components -> LocaleSwitcherSelect', () => {
   const defaultProps = {
     defaultValue: 'en',
     items: [
-      { value: 'en', label: 'EN' },
-      { value: 'es', label: 'ES' },
+      { value: 'en', label: 'English', flag: '🇺🇸' },
+      { value: 'es', label: 'Español', flag: '🇪🇸' },
     ],
     label: 'Language',
   };
@@ -15,7 +15,7 @@ describe('Components -> LocaleSwitcherSelect', () => {
   it('should render the LocaleSwitcherSelect properly', () => {
     render(<LocaleSwitcherSelect {...defaultProps} />);
 
-    const selectTrigger = screen.getByText('EN');
+    const selectTrigger = screen.getByText('English');
 
     expect(selectTrigger).toBeInTheDocument();
   });
@@ -31,12 +31,12 @@ describe('Components -> LocaleSwitcherSelect', () => {
   it('should change the selected value when a new option is clicked', () => {
     render(<LocaleSwitcherSelect {...defaultProps} />);
 
-    const selectTrigger = screen.getByText('EN');
+    const selectTrigger = screen.getByText('English');
     fireEvent.click(selectTrigger);
 
-    const newOption = screen.getByText('ES');
+    const newOption = screen.getByText('Español');
     fireEvent.click(newOption);
 
-    expect(screen.getByText('ES')).toBeInTheDocument();
+    expect(screen.getByText('Español')).toBeInTheDocument();
   });
 });

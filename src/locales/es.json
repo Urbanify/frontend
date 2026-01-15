@@ -90,7 +90,11 @@
   },
   "Cities": {
     "table": {
-      "filterPlaceholder": "Filtra por nombre de ciudad...",
+      "title": "Ciudades",
+      "subtitle": "Mostrando {count} de {total} ciudades",
+      "filterPlaceholder": "Buscar por nombre de ciudad...",
+      "empty_title": "No se encontraron ciudades",
+      "empty_description": "Ajusta la búsqueda o inténtalo más tarde.",
       "id": "Identificador",
       "name": "Nombre",
       "status": "Estado",
@@ -323,7 +327,11 @@
       "error": "Ocurrió un error al reportar el problema"
     },
     "table": {
-      "filterPlaceholder": "Filtra por el nombre de la característica...",
+      "title": "Problemas",
+      "subtitle": "Mostrando {count} de {total} problemas",
+      "filterPlaceholder": "Buscar por ID, categoría o tipo...",
+      "empty_title": "No se encontraron problemas",
+      "empty_description": "Ajusta los filtros o inténtalo más tarde.",
       "id": "Identificador",
       "category": "Categoría",
       "type": "Tipo",
@@ -341,6 +349,17 @@
       "not_found": "No se encontraron opciones"
     },
     "Sidebar": {
+      "Common": {
+        "toggle": "Alternar",
+        "more": "Más"
+      },
+      "User": {
+        "toggle_theme": "Alternar tema",
+        "account": "Cuenta",
+        "billing": "Facturación",
+        "notifications": "Notificaciones",
+        "logout": "Cerrar sesión"
+      },
       "Admin": {
         "title": "Administrador",
         "cities": {
@@ -369,6 +388,70 @@
           "mine": "Míos",
           "access": "Acceder"
         }
+      }
+    }
+  },
+  "SEO": {
+    "Home": {
+      "title": "Urbanify - Gestion urbana inteligente",
+      "description": "Conecte ciudadanos, inspectores y gestores con un flujo claro para registrar, validar y resolver problemas urbanos."
+    },
+    "Visit": {
+      "title": "Visitar una ciudad - Mapa y servicios",
+      "description": "Descubra puntos turisticos, UBSs, hospitales y obras con un mapa interactivo para visitantes."
+    },
+    "Auth": {
+      "Login": {
+        "title": "Iniciar sesion - Urbanify",
+        "description": "Acceda al panel de Urbanify para gestionar incidencias, ciudades e indicadores urbanos."
+      },
+      "Register": {
+        "title": "Crear cuenta - Urbanify",
+        "description": "Cree su cuenta para iniciar la gestion urbana con Urbanify."
+      },
+      "ForgotPassword": {
+        "title": "Recuperar acceso - Urbanify",
+        "description": "Solicite un enlace seguro para restablecer su contrasena."
+      },
+      "UpdatePassword": {
+        "title": "Restablecer contrasena - Urbanify",
+        "description": "Defina una nueva contrasena para proteger su cuenta."
+      }
+    },
+    "Issues": {
+      "List": {
+        "title": "Todas las incidencias - Urbanify",
+        "description": "Monitoree todas las incidencias reportadas y su estado en la ciudad."
+      },
+      "Open": {
+        "title": "Incidencias abiertas - Urbanify",
+        "description": "Siga las incidencias que requieren validacion o accion."
+      },
+      "Mine": {
+        "title": "Mis incidencias - Urbanify",
+        "description": "Revise las incidencias asignadas a su usuario."
+      },
+      "Report": {
+        "title": "Reportar incidencia - Urbanify",
+        "description": "Registre una nueva incidencia con ubicacion, categoria y detalles."
+      },
+      "View": {
+        "title": "Incidencia #{id} - Urbanify",
+        "description": "Vea detalles completos, historial y estado de la incidencia."
+      }
+    },
+    "Cities": {
+      "List": {
+        "title": "Ciudades - Urbanify",
+        "description": "Gestione ciudades, estados y configuraciones en el panel admin."
+      },
+      "Create": {
+        "title": "Crear ciudad - Urbanify",
+        "description": "Agregue una nueva ciudad y configure su posicion en el mapa."
+      },
+      "Edit": {
+        "title": "Editar ciudad #{id} - Urbanify",
+        "description": "Actualice datos de la ciudad y coordenadas."
       }
     }
   }

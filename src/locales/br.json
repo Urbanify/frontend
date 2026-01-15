@@ -90,7 +90,11 @@
   },
   "Cities": {
     "table": {
-      "filterPlaceholder": "Filtre pelo nome da cidade...",
+      "title": "Cidades",
+      "subtitle": "Mostrando {count} de {total} cidades",
+      "filterPlaceholder": "Buscar pelo nome da cidade...",
+      "empty_title": "Nenhuma cidade encontrada",
+      "empty_description": "Ajuste a busca ou tente novamente mais tarde.",
       "id": "Identificador",
       "name": "Nome",
       "status": "Status",
@@ -201,7 +205,7 @@
       "CLOSED": "Fechado"
     },
     "actions": {
-      "REPORTED_ISSUE": "{userName} reportou a issue",
+      "REPORTED_ISSUE": "{userName} reportou o problema",
       "ASSIGNED_AS_FISCAL": "{userName} se atribuiu como fiscal",
       "ASSIGNED_AS_MANAGER": "{userName} se atribuiu como gestor responsável",
       "MARKED_AS_UNFOUNDED": "{userName} marcou como improcedente",
@@ -323,7 +327,11 @@
       "error": "Ocorreu um erro ao reportar o problema"
     },
     "table": {
-      "filterPlaceholder": "Filtre pelo nome da feature...",
+      "title": "Problemas",
+      "subtitle": "Mostrando {count} de {total} problemas",
+      "filterPlaceholder": "Buscar por ID, categoria ou tipo...",
+      "empty_title": "Nenhum problema encontrado",
+      "empty_description": "Ajuste os filtros ou tente novamente mais tarde.",
       "id": "Identificador",
       "category": "Categoria",
       "type": "Tipo",
@@ -341,6 +349,17 @@
       "not_found": "Nenhuma opção encontrada"
     },
     "Sidebar": {
+      "Common": {
+        "toggle": "Alternar",
+        "more": "Mais"
+      },
+      "User": {
+        "toggle_theme": "Alternar tema",
+        "account": "Conta",
+        "billing": "Cobrança",
+        "notifications": "Notificações",
+        "logout": "Sair"
+      },
       "Admin": {
         "title": "Admin",
         "cities": {
@@ -369,6 +388,70 @@
           "mine": "Meus",
           "access": "Acessar"
         }
+      }
+    }
+  },
+  "SEO": {
+    "Home": {
+      "title": "Urbanify - Gestao urbana inteligente",
+      "description": "Conecte moradores, fiscais e gestores com um fluxo claro para registrar, validar e resolver problemas urbanos."
+    },
+    "Visit": {
+      "title": "Visitar uma cidade - Mapa e servicos",
+      "description": "Veja pontos turisticos, UBSs, hospitais e obras em um mapa interativo para visitantes."
+    },
+    "Auth": {
+      "Login": {
+        "title": "Entrar - Urbanify",
+        "description": "Acesse o painel do Urbanify para gerenciar ocorrencias, cidades e indicadores urbanos."
+      },
+      "Register": {
+        "title": "Criar conta - Urbanify",
+        "description": "Crie sua conta para iniciar a gestao urbana com o Urbanify."
+      },
+      "ForgotPassword": {
+        "title": "Recuperar acesso - Urbanify",
+        "description": "Solicite um link seguro para redefinir sua senha."
+      },
+      "UpdatePassword": {
+        "title": "Redefinir senha - Urbanify",
+        "description": "Defina uma nova senha para proteger sua conta."
+      }
+    },
+    "Issues": {
+      "List": {
+        "title": "Todos os problemas - Urbanify",
+        "description": "Monitore todos os problemas reportados e acompanhe o status na cidade."
+      },
+      "Open": {
+        "title": "Problemas em aberto - Urbanify",
+        "description": "Acompanhe os problemas que precisam de validacao ou acao."
+      },
+      "Mine": {
+        "title": "Meus problemas - Urbanify",
+        "description": "Veja os problemas atribuidos ao seu usuario."
+      },
+      "Report": {
+        "title": "Reportar problema - Urbanify",
+        "description": "Registre um novo problema com localizacao, categoria e detalhes."
+      },
+      "View": {
+        "title": "Problema #{id} - Urbanify",
+        "description": "Veja detalhes completos, historico e status do problema."
+      }
+    },
+    "Cities": {
+      "List": {
+        "title": "Cidades - Urbanify",
+        "description": "Gerencie cidades, status e configuracoes no painel admin."
+      },
+      "Create": {
+        "title": "Criar cidade - Urbanify",
+        "description": "Adicione uma nova cidade e configure sua posicao no mapa."
+      },
+      "Edit": {
+        "title": "Editar cidade #{id} - Urbanify",
+        "description": "Atualize dados da cidade e coordenadas."
       }
     }
   }

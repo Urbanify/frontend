@@ -1,6 +1,8 @@
 import { logger } from '@/lib/logger';
 import { Env } from '@/libs/Env';
 
+import { parseJwtUniversal } from '@/utils/decodeJWTUniversal';
+
 const mainAPI = Env.API_URL ?? Env.NEXT_PUBLIC_API_URL;
 
 const buildURL = (input: RequestInfo | URL): string => {
@@ -15,10 +17,14 @@ const buildURL = (input: RequestInfo | URL): string => {
 
 export const fetcher = async (input: RequestInfo | URL, init?: RequestInit, token?: string) => {
   const url = buildURL(input);
+  const parsedJWT = token ? parseJwtUniversal(token) : null;
+  const isAdmin = parsedJWT?.user?.role === 'ADMIN';
+  const adminCityId = parsedJWT?.user?.cityId;
   const headers = {
     'Content-Type': `application/json`,
     ...init?.headers,
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(isAdmin && adminCityId ? { 'x-cityid': adminCityId } : {}),
   };
 
   const requestInit = {

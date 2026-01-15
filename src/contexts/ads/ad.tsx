@@ -25,6 +25,11 @@ const mockAds: Ad[] = Array.from({ length: ADS_PER_BLOCK * 4 }, (_, index) => ({
     mobile: `https://picsum.photos/id/${index + 1}/120/240`,
     desktop: `https://picsum.photos/id/${index + 1}/160/600`,
   },
+  square: {
+    href: `https://www.google.com/search?q=square-${index + 1}`,
+    mobile: `https://picsum.photos/id/${index + 1}/300`,
+    desktop: `https://picsum.photos/id/${index + 1}/300`,
+  },
 }));
 
 const loadImage = (src: string): Promise<HTMLImageElement> => {

@@ -103,13 +103,13 @@ export const WithHelper: Story = {
 export const CustomStyledDropdown: Story = {
   render: () => (
     <DropdownMenu>
-      <DropdownMenuTrigger className="cursor-pointer rounded-lg bg-blue-500 p-2 text-white">
+      <DropdownMenuTrigger className="cursor-pointer rounded-lg bg-primary p-2 text-primary-foreground">
         Custom Styled Dropdown
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="rounded-lg bg-yellow-200 p-2">
-        <DropdownMenuItem className="bg-green-200 p-2">Item 1</DropdownMenuItem>
-        <DropdownMenuItem className="bg-red-200 p-2">Item 2</DropdownMenuItem>
-        <DropdownMenuItem className="bg-blue-200 p-2">Item 3</DropdownMenuItem>
+      <DropdownMenuContent className="rounded-lg bg-secondary p-2">
+        <DropdownMenuItem className="bg-accent p-2 text-accent-foreground">Item 1</DropdownMenuItem>
+        <DropdownMenuItem className="bg-destructive p-2 text-destructive-foreground">Item 2</DropdownMenuItem>
+        <DropdownMenuItem className="bg-muted p-2 text-muted-foreground">Item 3</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ),

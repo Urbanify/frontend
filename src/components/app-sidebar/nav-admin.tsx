@@ -3,7 +3,6 @@
 import {
   Building2,
   ChevronRight,
-  Flag,
 } from 'lucide-react';
 import Link from 'next/link';
 import type { Session } from 'next-auth';
@@ -50,22 +49,6 @@ export function NavAdmin() {
         {
           title: t('cities.list'),
           url: '/cities',
-        },
-      ],
-    },
-    {
-      title: t('features.title'),
-      url: '/features',
-      icon: Flag,
-      isActive: true,
-      items: [
-        {
-          title: t('features.create'),
-          url: '/features/create',
-        },
-        {
-          title: t('features.list'),
-          url: '/features',
         },
       ],
     },

@@ -31,15 +31,15 @@ export function NavFinancial() {
   const roles: UserRole[] = ['ADMIN', 'OWNER', 'FINANCIAL'];
   const isFinancial = roles.includes(userRole);
 
-  const links = [
-    {
-      title: 'FINANCIAL LINKS',
-      url: '/',
-      // icon: Building2,
-      isActive: true,
-      items: [
-      ],
-    },
+  const links: Array<{ title: string; url: string }> = [
+    // {
+    //   title: 'FINANCIAL LINKS',
+    //   url: '/',
+    //   // icon: Building2,
+    //   isActive: true,
+    //   items: [
+    //   ],
+    // },
   ];
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function NavFinancial() {
     fetchSession();
   }, []);
 
-  if (loading || !isFinancial) {
+  if (loading || !isFinancial || links.length === 0) {
     return null;
   }
 

@@ -60,9 +60,9 @@ export function UpdatePasswordForm() {
   if (success) {
     return (
       <div className="flex flex-col gap-6">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">{t('title')}</CardTitle>
+        <Card className="border-border/60 bg-card/90 shadow-lg">
+          <CardHeader className="text-left">
+            <CardTitle className="text-2xl">{t('title')}</CardTitle>
           </CardHeader>
           <CardContent className="flex h-60 flex-1 flex-col items-center justify-around">
             <span className="text-center text-base text-accent-foreground">{t('success')}</span>
@@ -84,10 +84,10 @@ export function UpdatePasswordForm() {
   return (
     <FormProvider {...methods} register={register}>
       <div className="flex flex-col gap-6">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">{t('title')}</CardTitle>
-            <CardDescription>
+        <Card className="border-border/60 bg-card/90 shadow-lg">
+          <CardHeader className="text-left">
+            <CardTitle className="text-2xl">{t('title')}</CardTitle>
+            <CardDescription className="text-muted-foreground">
               {t('description')}
             </CardDescription>
           </CardHeader>
@@ -99,13 +99,13 @@ export function UpdatePasswordForm() {
                     {/* TODO: UPDATE TRANSLATE */}
                     <Label htmlFor="password">{t('password')}</Label>
                     <Input id="password" type="password" placeholder="********" required {...register('newPassword')} />
-                    {methods.formState.errors.newPassword && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.newPassword.message}</span>}
+                    {methods.formState.errors.newPassword && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.newPassword.message}</span>}
                   </div>
                   <div className="relative grid gap-2">
                     {/* TODO: UPDATE TRANSLATE */}
                     <Label htmlFor="passwordConfirmation">{t('password_confirmation')}</Label>
                     <Input id="passwordConfirmation" type="password" placeholder="********" required {...register('newPasswordConfirmation')} />
-                    {methods.formState.errors.newPasswordConfirmation && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.newPasswordConfirmation.message}</span>}
+                    {methods.formState.errors.newPasswordConfirmation && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.newPasswordConfirmation.message}</span>}
                   </div>
 
                   <div className="flex flex-col items-center gap-2">
@@ -121,7 +121,7 @@ export function UpdatePasswordForm() {
                     </Button>
 
                     {errorMessage && (
-                      <span className="text-center text-sm text-red-500">
+                      <span className="text-center text-sm text-destructive">
                         {errorMessage}
                       </span>
                     )}

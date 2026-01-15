@@ -8,9 +8,16 @@ export default function LocaleSwitcher() {
   const locale = useLocale();
   const t = useTranslations('Components.LocaleSwitcher');
 
+  const languageMap: Record<string, { label: string; flag: string }> = {
+    br: { label: 'Português (BR)', flag: '🇧🇷' },
+    en: { label: 'English', flag: '🇺🇸' },
+    es: { label: 'Español', flag: '🇪🇸' },
+  };
+
   const languages = AppConfig.locales.map(lang => ({
-    label: lang.toUpperCase(),
+    label: languageMap[lang]?.label ?? lang.toUpperCase(),
     value: lang,
+    flag: languageMap[lang]?.flag ?? '',
   }));
 
   return (

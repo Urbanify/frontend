@@ -112,56 +112,61 @@ export default function CityForm() {
   return (
     <FormProvider {...methods} register={register}>
       <form onSubmit={methods.handleSubmit(handleSubmit)} className="flex justify-center">
-        <Card className="w-full max-w-3xl bg-primary-foreground">
+        <Card className="w-full max-w-3xl border-border/60 bg-card shadow-sm">
           <CardHeader>
             <CardTitle>{t('title')}</CardTitle>
             <CardDescription>
               {t('description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8">
-            <div className="relative grid gap-2">
-              {isLoaded
-                ? (
-                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                      <div>
-                        <Label htmlFor="city-name">{t('city_name')}</Label>
-                        <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
-                        {methods.formState.errors.name && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.name.message}</span>}
-                      </div>
-                    </Autocomplete>
-                  )
-                : (
-                    <>
-                      <Skeleton className="h-4 max-w-32" />
-                      <Skeleton className="h-10" />
-                    </>
-                  )}
-            </div>
-
-            <div className="relative grid gap-2">
-              <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
+          <CardContent className="flex flex-col gap-6">
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
                 {isLoaded
                   ? (
-                      <GoogleMaps
-                        center={position}
-                        zoom={4}
-                        onClick={handleChangePosition}
-                        options={{
-                          controlSize: 30,
-                          draggableCursor: 'pointer',
-                          draggingCursor: 'all-scroll',
-                        }}
-                      >
-                        <Marker
-                          position={position}
-                          animation={google.maps.Animation.DROP}
-                        />
-                      </GoogleMaps>
+                      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                        <div>
+                          <Label htmlFor="city-name">{t('city_name')}</Label>
+                          <p className="text-xs text-muted-foreground">{t('city_name_placeholder')}</p>
+                          <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
+                          {methods.formState.errors.name && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.name.message}</span>}
+                        </div>
+                      </Autocomplete>
                     )
-                  : <Skeleton className="h-[50dvh]" />}
+                  : (
+                      <>
+                        <Skeleton className="h-4 max-w-32" />
+                        <Skeleton className="h-10" />
+                      </>
+                    )}
               </div>
-              {methods.formState.errors.latitude && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.latitude.message}</span>}
+            </div>
+
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
+                  {isLoaded
+                    ? (
+                        <GoogleMaps
+                          center={position}
+                          zoom={4}
+                          onClick={handleChangePosition}
+                          options={{
+                            controlSize: 30,
+                            draggableCursor: 'pointer',
+                            draggingCursor: 'all-scroll',
+                          }}
+                        >
+                          <Marker
+                            position={position}
+                            animation={google.maps.Animation.DROP}
+                          />
+                        </GoogleMaps>
+                      )
+                    : <Skeleton className="h-[50dvh]" />}
+                </div>
+                {methods.formState.errors.latitude && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.latitude.message}</span>}
+              </div>
             </div>
 
           </CardContent>

@@ -38,7 +38,7 @@ export const Playground: Story = {
       <TooltipTrigger>
         <Button>Hover me</Button>
       </TooltipTrigger>
-      <TooltipContent {...args} className="bg-gray-800 text-white">
+      <TooltipContent {...args} className="bg-secondary text-secondary-foreground">
         This is a tooltip
       </TooltipContent>
     </Tooltip>
@@ -53,7 +53,7 @@ export const Examples: Story = {
           <TooltipTrigger>
             <Button>Top Tooltip</Button>
           </TooltipTrigger>
-          <TooltipContent {...args} side="top" className="bg-gray-800 text-white">
+          <TooltipContent {...args} side="top" className="bg-secondary text-secondary-foreground">
             Tooltip on Top
           </TooltipContent>
         </Tooltip>
@@ -63,7 +63,7 @@ export const Examples: Story = {
           <TooltipTrigger>
             <Button>Bottom Tooltip</Button>
           </TooltipTrigger>
-          <TooltipContent {...args} side="bottom" className="bg-gray-800 text-white">
+          <TooltipContent {...args} side="bottom" className="bg-secondary text-secondary-foreground">
             Tooltip on Bottom
           </TooltipContent>
         </Tooltip>
@@ -73,7 +73,7 @@ export const Examples: Story = {
           <TooltipTrigger>
             <Button>Left Tooltip</Button>
           </TooltipTrigger>
-          <TooltipContent {...args} side="left" className="bg-gray-800 text-white">
+          <TooltipContent {...args} side="left" className="bg-secondary text-secondary-foreground">
             Tooltip on Left
           </TooltipContent>
         </Tooltip>
@@ -83,7 +83,7 @@ export const Examples: Story = {
           <TooltipTrigger>
             <Button>Right Tooltip</Button>
           </TooltipTrigger>
-          <TooltipContent {...args} side="right" className="bg-gray-800 text-white">
+          <TooltipContent {...args} side="right" className="bg-secondary text-secondary-foreground">
             Tooltip on Right
           </TooltipContent>
         </Tooltip>

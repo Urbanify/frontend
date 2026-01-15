@@ -22,6 +22,7 @@ export function NavManager() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const t = useTranslations('Components.Sidebar.Manager');
+  const tCommon = useTranslations('Components.Sidebar.Common');
 
   const parsedJWT = parseJwt(session?.access_token);
   const userRole = parsedJWT?.user?.role as UserRole;
@@ -63,7 +64,7 @@ export function NavManager() {
             </SidebarMenuButton>
             <SidebarMenuAction>
               <ChevronRight />
-              <span className="sr-only">More</span>
+              <span className="sr-only">{tCommon('more')}</span>
             </SidebarMenuAction>
           </SidebarMenuItem>
         ))}

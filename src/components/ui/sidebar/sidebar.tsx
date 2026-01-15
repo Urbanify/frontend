@@ -155,6 +155,7 @@ const Sidebar = (
         <SheetContent
           data-sidebar="sidebar"
           data-mobile="true"
+          hideOverlay
           className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
           style={
             {

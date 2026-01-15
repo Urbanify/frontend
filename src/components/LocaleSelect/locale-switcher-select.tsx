@@ -9,7 +9,7 @@ import type { Locale } from '@/utils/AppConfig';
 
 type Props = {
   defaultValue: string;
-  items: Array<{ value: string; label: string }>;
+  items: Array<{ value: string; label: string; flag?: string }>;
   label: string;
 };
 
@@ -28,18 +28,25 @@ export default function LocaleSwitcherSelect({
   };
 
   return (
-    <div className="max-w-60">
-      <span>{label}</span>
+    <div className="flex max-w-72 flex-col gap-2">
+      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </span>
       <Select defaultValue={defaultValue} onValueChange={handleChange}>
-        <SelectTrigger>
+        <SelectTrigger className="h-9 rounded-full border-border/60 bg-background/70 px-4 shadow-sm backdrop-blur transition-colors hover:bg-background">
           <SelectValue placeholder={label} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="rounded-xl border-border/60 bg-popover/95 shadow-xl backdrop-blur">
           <SelectGroup>
-            <SelectLabel>{label}</SelectLabel>
+            <SelectLabel className="text-xs uppercase tracking-wide text-muted-foreground">
+              {label}
+            </SelectLabel>
             {items.map(lang => (
               <SelectItem key={lang.value} value={lang.value}>
-                {lang.label}
+                <span className="flex items-center gap-2">
+                  {lang.flag && <span aria-hidden="true">{lang.flag}</span>}
+                  <span>{lang.label}</span>
+                </span>
               </SelectItem>
             ))}
           </SelectGroup>

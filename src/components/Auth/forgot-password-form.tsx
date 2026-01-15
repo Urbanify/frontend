@@ -52,9 +52,9 @@ export function ForgotPasswordForm() {
   if (sentTo) {
     return (
       <div className="flex flex-col gap-6">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">{t('title')}</CardTitle>
+        <Card className="border-border/60 bg-card/90 shadow-lg">
+          <CardHeader className="text-left">
+            <CardTitle className="text-2xl">{t('title')}</CardTitle>
           </CardHeader>
           <CardContent className="flex h-60 flex-1 flex-col items-center justify-around">
             <span className="text-center text-base text-accent-foreground">{t('success', { email: sentTo })}</span>
@@ -77,10 +77,10 @@ export function ForgotPasswordForm() {
   return (
     <FormProvider {...methods} register={register}>
       <div className="flex flex-col gap-6">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">{t('title')}</CardTitle>
-            <CardDescription>
+        <Card className="border-border/60 bg-card/90 shadow-lg">
+          <CardHeader className="text-left">
+            <CardTitle className="text-2xl">{t('title')}</CardTitle>
+            <CardDescription className="text-muted-foreground">
               {t('description')}
             </CardDescription>
           </CardHeader>
@@ -97,7 +97,7 @@ export function ForgotPasswordForm() {
                       required
                       {...register('cpf')}
                     />
-                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.cpf.message}</span>}
+                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.cpf.message}</span>}
                   </div>
 
                   <div className="flex flex-col items-center gap-2">
@@ -113,14 +113,14 @@ export function ForgotPasswordForm() {
                     </Button>
 
                     {errorMessage && (
-                      <span className="text-center text-sm text-red-500">
+                      <span className="text-center text-sm text-destructive">
                         {errorMessage}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="text-center text-sm">
-                  <Link href="/login" className="underline underline-offset-4">
+                  <Link href="/login" className="text-muted-foreground underline underline-offset-4 hover:text-foreground">
                     {t('go_login')}
                   </Link>
                 </div>

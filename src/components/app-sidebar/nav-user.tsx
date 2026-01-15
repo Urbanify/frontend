@@ -6,11 +6,14 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 
 import LocaleSwitcher from '@/components/LocaleSelect';
-import { ToggleTheme } from '@/components/toggle-theme/toggle-theme';
 import {
   Avatar,
   AvatarFallback,
@@ -40,12 +43,15 @@ export function NavUser({
   user: TokenData['user'];
 }) {
   const { isMobile } = useSidebar();
+  const t = useTranslations('Components.Sidebar.User');
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
-        <ToggleTheme />
-      </SidebarMenuItem>
       <SidebarMenuItem>
         <LocaleSwitcher />
       </SidebarMenuItem>
@@ -105,18 +111,23 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={toggleTheme}>
+              {theme === 'light' ? <Moon /> : <Sun />}
+              {t('toggle_theme')}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
-                Account
+                {t('account')}
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard />
-                Billing
+                {t('billing')}
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
-                Notifications
+                {t('notifications')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -126,7 +137,7 @@ export function NavUser({
             })}
             >
               <LogOut />
-              Log out
+              {t('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

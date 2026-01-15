@@ -66,7 +66,7 @@ export const States: Story = {
         <Textarea
           id="custom"
           {...args}
-          className="border-red-500 focus-visible:ring-red-500"
+          className="border-destructive focus-visible:ring-destructive"
           placeholder="Custom Styled Textarea"
         />
       </div>

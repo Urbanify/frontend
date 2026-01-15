@@ -63,30 +63,36 @@ export default function FeatureForm() {
   return (
     <FormProvider {...methods} register={register}>
       <form onSubmit={methods.handleSubmit(handleSubmit)} className="flex justify-center">
-        <Card className="w-full max-w-3xl bg-primary-foreground">
+        <Card className="w-full max-w-3xl border-border/60 bg-card shadow-sm">
           <CardHeader>
             <CardTitle>{t('title')}</CardTitle>
             <CardDescription>
               {t('description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8">
-            <div className="relative grid gap-2">
-              <Label htmlFor="feature-name">{t('feature_name')}</Label>
-              <Input id="feature-name" type="text" placeholder={t('feature_name_placeholder')} required {...register('name')} />
-              {methods.formState.errors.name && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.name.message}</span>}
+          <CardContent className="flex flex-col gap-6">
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <Label htmlFor="feature-name">{t('feature_name')}</Label>
+                <p className="text-xs text-muted-foreground">{t('feature_name_placeholder')}</p>
+                <Input id="feature-name" type="text" placeholder={t('feature_name_placeholder')} required {...register('name')} />
+                {methods.formState.errors.name && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.name.message}</span>}
 
-              <span>
-                slug:
-                {' '}
-                {slugify(methods.watch('name'))}
-              </span>
+                <span className="text-xs text-muted-foreground">
+                  slug:
+                  {' '}
+                  {slugify(methods.watch('name'))}
+                </span>
+              </div>
             </div>
 
-            <div className="relative grid gap-2">
-              <Label htmlFor="feature-description">{t('feature_description')}</Label>
-              <Textarea id="feature-description" placeholder={t('feature_description_placeholder')} required {...register('description')} />
-              {methods.formState.errors.description && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.description.message}</span>}
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <Label htmlFor="feature-description">{t('feature_description')}</Label>
+                <p className="text-xs text-muted-foreground">{t('feature_description_placeholder')}</p>
+                <Textarea id="feature-description" placeholder={t('feature_description_placeholder')} required {...register('description')} />
+                {methods.formState.errors.description && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.description.message}</span>}
+              </div>
             </div>
 
           </CardContent>

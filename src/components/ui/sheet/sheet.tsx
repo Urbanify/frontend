@@ -18,7 +18,7 @@ const SheetPortal = SheetPrimitive.Portal;
 const SheetOverlay = ({ ref, className, ...props }: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay> & { ref?: React.RefObject<React.ElementRef<typeof SheetPrimitive.Overlay>> }) => (
   <SheetPrimitive.Overlay
     className={cn(
-      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'fixed inset-0 z-50 bg-foreground/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className,
     )}
     {...props}
@@ -48,9 +48,21 @@ const sheetVariants = cva(
 
 type SheetContentProps = {} & React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> & VariantProps<typeof sheetVariants>;
 
-const SheetContent = ({ ref, side = 'right', className, children, ...props }: SheetContentProps & { ref?: React.RefObject<React.ElementRef<typeof SheetPrimitive.Content>> }) => (
+const SheetContent = ({
+  ref,
+  side = 'right',
+  className,
+  children,
+  overlayClassName,
+  hideOverlay = false,
+  ...props
+}: SheetContentProps & {
+  ref?: React.RefObject<React.ElementRef<typeof SheetPrimitive.Content>>;
+  overlayClassName?: string;
+  hideOverlay?: boolean;
+}) => (
   <SheetPortal>
-    <SheetOverlay />
+    {!hideOverlay && <SheetOverlay className={overlayClassName} />}
     <SheetPrimitive.Content
       ref={ref}
       className={cn(sheetVariants({ side }), className)}

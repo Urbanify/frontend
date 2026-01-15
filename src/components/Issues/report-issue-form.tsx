@@ -193,118 +193,131 @@ export function ReportIssueForm() {
   return (
     <FormProvider {...methods} register={register}>
       <form onSubmit={methods.handleSubmit(handleSubmit)} className="flex flex-wrap justify-center gap-4">
-        <Card className="w-full max-w-3xl flex-1 bg-primary-foreground sm:min-w-[630px]">
+        <Card className="w-full max-w-3xl flex-1 border-border/60 bg-card shadow-sm sm:min-w-[630px]">
           <CardHeader>
             <CardTitle>{t('title')}</CardTitle>
             <CardDescription>
               {t('description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8">
-
-            <div className="relative grid gap-2">
-              <Label htmlFor="type">{t('issueType')}</Label>
-              <Combobox
-                placeholder={t('issueType_placeholder')}
-                options={issueCategories}
-                value={methods.watch('type')}
-                setValue={handleSelectIssueType}
-                popoverClassName="w-[370px] sm:max-w-[600px] sm:w-[600px] max-h-[240px]"
-              />
-              {methods.formState.errors.type && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.type.message}</span>}
-            </div>
-
-            <div className="relative grid gap-2">
-              <Label htmlFor="issue_description">{t('issue_description')}</Label>
-              <Textarea id="issue_description" placeholder={t('issue_description_placeholder')} required {...register('description')} />
-              {methods.formState.errors.description && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.description.message}</span>}
-            </div>
-
-            <div className="relative grid gap-2">
-              <Label htmlFor="photos">{t('photos')}</Label>
-              <Input
-                id="photos"
-                multiple
-                type="file"
-                accept="image/png, image/gif, image/jpeg"
-                onChange={e => handleAddPhotos(e.target.files!)}
-              />
-              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                {localPhotos.map((photo, index) => (
-                  <div key={photo.name} className="relative">
-                    <Image
-                      src={URL.createObjectURL(photo)}
-                      alt={`Preview ${index + 1}`}
-                      className="size-32 rounded-lg border border-accent-foreground object-cover"
-                      width={0}
-                      height={0}
-                    />
-                    <button
-                      type="button"
-                      className={cn(`absolute -top-1 left-[116px] flex size-6 items-center justify-center transition-all
-                        rounded-full bg-red-400 text-destructive-foreground hover:bg-red-500 border border-accent-foreground`)}
-                      onClick={() => handleRemovePhoto(index)}
-                    >
-                      <X className="size-4" />
-                    </button>
-                  </div>
-                ))}
+          <CardContent className="flex flex-col gap-6">
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <Label htmlFor="type">{t('issueType')}</Label>
+                <p className="text-xs text-muted-foreground">{t('issueType_placeholder')}</p>
+                <Combobox
+                  placeholder={t('issueType_placeholder')}
+                  options={issueCategories}
+                  value={methods.watch('type')}
+                  setValue={handleSelectIssueType}
+                  popoverClassName="w-[370px] sm:max-w-[600px] sm:w-[600px] max-h-[240px]"
+                />
+                {methods.formState.errors.type && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.type.message}</span>}
               </div>
-              {methods.formState.errors.photos && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.photos.message}</span>}
+            </div>
+
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <Label htmlFor="issue_description">{t('issue_description')}</Label>
+                <p className="text-xs text-muted-foreground">{t('issue_description_placeholder')}</p>
+                <Textarea id="issue_description" placeholder={t('issue_description_placeholder')} required {...register('description')} />
+                {methods.formState.errors.description && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.description.message}</span>}
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <Label htmlFor="photos">{t('photos')}</Label>
+                <p className="text-xs text-muted-foreground">{t('photos_placeholder')}</p>
+                <Input
+                  id="photos"
+                  multiple
+                  type="file"
+                  accept="image/png, image/gif, image/jpeg"
+                  onChange={e => handleAddPhotos(e.target.files!)}
+                />
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                  {localPhotos.map((photo, index) => (
+                    <div key={photo.name} className="relative">
+                      <Image
+                        src={URL.createObjectURL(photo)}
+                        alt={`Preview ${index + 1}`}
+                        className="size-32 rounded-lg border border-accent-foreground object-cover"
+                        width={0}
+                        height={0}
+                      />
+                      <button
+                        type="button"
+                        className={cn(`absolute -top-1 left-[116px] flex size-6 items-center justify-center transition-all
+                        rounded-full bg-destructive text-destructive-foreground hover:bg-destructive/90 border border-destructive`)}
+                        onClick={() => handleRemovePhoto(index)}
+                      >
+                        <X className="size-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {methods.formState.errors.photos && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.photos.message}</span>}
+              </div>
             </div>
           </CardContent>
 
         </Card>
 
-        <Card className="w-full max-w-3xl flex-1 bg-primary-foreground sm:min-w-[630px]">
+        <Card className="w-full max-w-3xl flex-1 border-border/60 bg-card shadow-sm sm:min-w-[630px]">
           <CardHeader>
             <CardTitle>{t('location')}</CardTitle>
             <CardDescription>
               {t('location_description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8">
-            <div className="relative grid gap-2">
-              {isLoaded
-                ? (
-                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                      <div>
-                        <Label htmlFor="address">{t('address')}</Label>
-                        <Input id="address" type="text" placeholder={t('address_placeholder')} {...register('address')} />
-                      </div>
-                    </Autocomplete>
-                  )
-                : (
-                    <>
-                      <Skeleton className="h-4 max-w-32" />
-                      <Skeleton className="h-10" />
-                    </>
-                  )}
-            </div>
-
-            <div className="relative grid gap-2">
-              <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
+          <CardContent className="flex flex-col gap-6">
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
                 {isLoaded
                   ? (
-                      <GoogleMaps
-                        center={position}
-                        zoom={16}
-                        onClick={handleChangePosition}
-                        options={{
-                          controlSize: 30,
-                          draggableCursor: 'pointer',
-                          draggingCursor: 'all-scroll',
-                        }}
-                      >
-                        <Marker
-                          position={position}
-                          animation={google.maps.Animation.DROP}
-                        />
-                      </GoogleMaps>
+                      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                        <div>
+                          <Label htmlFor="address">{t('address')}</Label>
+                          <p className="text-xs text-muted-foreground">{t('address_placeholder')}</p>
+                          <Input id="address" type="text" placeholder={t('address_placeholder')} {...register('address')} />
+                        </div>
+                      </Autocomplete>
                     )
-                  : <Skeleton className="h-[50dvh]" />}
+                  : (
+                      <>
+                        <Skeleton className="h-4 max-w-32" />
+                        <Skeleton className="h-10" />
+                      </>
+                    )}
               </div>
-              {methods.formState.errors.latitude && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.latitude.message}</span>}
+            </div>
+
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
+                  {isLoaded
+                    ? (
+                        <GoogleMaps
+                          center={position}
+                          zoom={16}
+                          onClick={handleChangePosition}
+                          options={{
+                            controlSize: 30,
+                            draggableCursor: 'pointer',
+                            draggingCursor: 'all-scroll',
+                          }}
+                        >
+                          <Marker
+                            position={position}
+                            animation={google.maps.Animation.DROP}
+                          />
+                        </GoogleMaps>
+                      )
+                    : <Skeleton className="h-[50dvh]" />}
+                </div>
+                {methods.formState.errors.latitude && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.latitude.message}</span>}
+              </div>
             </div>
 
           </CardContent>

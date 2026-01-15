@@ -20,6 +20,7 @@ import {
 
 export function NavGeneral() {
   const t = useTranslations('Components.Sidebar.General');
+  const tCommon = useTranslations('Components.Sidebar.Common');
 
   const generalLinks = [
     {
@@ -91,7 +92,7 @@ export function NavGeneral() {
                       <CollapsibleTrigger asChild>
                         <SidebarMenuAction className="data-[state=open]:rotate-90">
                           <ChevronRight />
-                          <span className="sr-only">Toggle</span>
+                          <span className="sr-only">{tCommon('toggle')}</span>
                         </SidebarMenuAction>
                       </CollapsibleTrigger>
                       <CollapsibleContent>

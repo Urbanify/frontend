@@ -49,7 +49,7 @@ export const Examples: Story = {
       </div>
       <div className="flex flex-col gap-2">
         <span>Styled Separator</span>
-        <Separator {...args} className="h-[2px] bg-red-500" orientation="horizontal" />
+        <Separator {...args} className="h-[2px] bg-destructive" orientation="horizontal" />
       </div>
     </div>
   ),

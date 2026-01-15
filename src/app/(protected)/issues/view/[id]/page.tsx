@@ -1,6 +1,5 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-
-import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
 import { api } from '@/services/api';
 
@@ -14,19 +13,31 @@ export default async function AccessIssue({
 }) {
   const issueId = (await params).id;
   const { data: issue } = await api.issues.getById(issueId);
-  const t = await getTranslations('Components.Sidebar.General.issues');
 
   return (
     <div className="px-4">
-      <BreadcrumbSetter
-        breadcrumbs={[
-          { label: t('title'), href: '/issues' },
-          { label: t('access') },
-        ]}
-      />
-
       <AssignBanner issue={issue} />
       <IssueDetailment issue={issue} />
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const t = await getTranslations('SEO.Issues.View');
+  return {
+    title: t('title', { id: params.id }),
+    description: t('description'),
+    openGraph: {
+      title: t('title', { id: params.id }),
+      description: t('description'),
+    },
+    twitter: {
+      title: t('title', { id: params.id }),
+      description: t('description'),
+    },
+  };
 }

@@ -125,7 +125,7 @@ export default function EditCityForm({ city }: { city: City }) {
   return (
     <FormProvider {...methods} register={register}>
       <form onSubmit={methods.handleSubmit(handleSubmit)} className="flex flex-wrap justify-center gap-4">
-        <Card className="w-full max-w-3xl bg-primary-foreground md:w-fit md:min-w-[460px] lg:w-full">
+        <Card className="w-full max-w-3xl border-border/60 bg-card shadow-sm md:w-fit md:min-w-[460px] lg:w-full">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span>
@@ -137,44 +137,49 @@ export default function EditCityForm({ city }: { city: City }) {
               {t('description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8">
-            <div className="relative grid gap-2">
-              {isLoaded
-                ? (
-                    <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                      <div>
-                        <Label htmlFor="city-name">{t('city_name')}</Label>
-                        <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
-                        {methods.formState.errors.name && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.name.message}</span>}
-                      </div>
-                    </Autocomplete>
-                  )
-                : (
-                    <>
-                      <Skeleton className="h-4 max-w-32" />
-                      <Skeleton className="h-10" />
-                    </>
-                  )}
-            </div>
-
-            <div className="relative grid gap-2">
-              <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
+          <CardContent className="flex flex-col gap-6">
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
                 {isLoaded
                   ? (
-                      <GoogleMaps
-                        center={position}
-                        zoom={14}
-                        onClick={handleChangePosition}
-                        options={{
-                          controlSize: 30,
-                          draggableCursor: 'pointer',
-                          draggingCursor: 'all-scroll',
-                        }}
-                      >
-                        <Marker position={position} />
-                      </GoogleMaps>
+                      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                        <div>
+                          <Label htmlFor="city-name">{t('city_name')}</Label>
+                          <p className="text-xs text-muted-foreground">{t('city_name_placeholder')}</p>
+                          <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
+                          {methods.formState.errors.name && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.name.message}</span>}
+                        </div>
+                      </Autocomplete>
                     )
-                  : <Skeleton className="h-[50dvh]" />}
+                  : (
+                      <>
+                        <Skeleton className="h-4 max-w-32" />
+                        <Skeleton className="h-10" />
+                      </>
+                    )}
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
+              <div className="relative grid gap-2">
+                <div className="h-[50dvh] w-full overflow-hidden rounded-lg">
+                  {isLoaded
+                    ? (
+                        <GoogleMaps
+                          center={position}
+                          zoom={14}
+                          onClick={handleChangePosition}
+                          options={{
+                            controlSize: 30,
+                            draggableCursor: 'pointer',
+                            draggingCursor: 'all-scroll',
+                          }}
+                        >
+                          <Marker position={position} />
+                        </GoogleMaps>
+                      )
+                    : <Skeleton className="h-[50dvh]" />}
+                </div>
               </div>
             </div>
 
@@ -193,24 +198,24 @@ export default function EditCityForm({ city }: { city: City }) {
           </CardFooter>
         </Card>
 
-        <Card className="w-full bg-primary-foreground md:w-fit md:max-w-2xl lg:min-w-[460px]">
+        <Card className="w-full border-border/60 bg-card shadow-sm md:w-fit md:max-w-2xl lg:min-w-[460px]">
           <CardHeader>
             <CardTitle>{t('features.title')}</CardTitle>
             <CardDescription>
               {t('features.description')}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8">
+          <CardContent className="flex flex-col gap-4">
             {methods.watch('featureFlags')?.map((ff: CityFeatureFlag) => (
-              <div className="flex items-center gap-2" key={ff.featureFlagId}>
+              <div className="flex items-center justify-between gap-4 rounded-lg border border-border/60 bg-muted/30 p-3" key={ff.featureFlagId}>
+                <Label className="cursor-pointer text-sm font-medium" htmlFor={ff.featureFlagId}>
+                  {ff.description}
+                </Label>
                 <Switch
                   id={ff.featureFlagId}
                   defaultChecked={ff.status}
                   onCheckedChange={checked => handleSwitchChange(ff.featureFlagId, checked)}
                 />
-                <Label className="cursor-pointer" htmlFor={ff.featureFlagId}>
-                  {ff.description}
-                </Label>
               </div>
             ))}
 

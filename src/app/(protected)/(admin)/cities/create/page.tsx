@@ -1,21 +1,28 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
 import CreateCityForm from '@/components/Cities/CreateCityForm';
-import BreadcrumbSetter from '@/components/ui/breadcrumb/breadcrumb-setter';
 
-export default async function CreateCity() {
-  const t = await getTranslations('Components.Sidebar.Admin.cities');
-
+export default function CreateCity() {
   return (
     <div className="px-4">
-      <BreadcrumbSetter
-        breadcrumbs={[
-          { label: t('title'), href: '/cities' },
-          { label: t('create') },
-        ]}
-      />
-
       <CreateCityForm />
     </div>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('SEO.Cities.Create');
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      title: t('title'),
+      description: t('description'),
+    },
+  };
 }

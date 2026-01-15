@@ -13,7 +13,7 @@ export default function GlobalAds({ children }: GlobalAdsProps) {
   const { currentAd } = useAd();
 
   return (
-    <div className="relative my-20">
+    <div className="relative my-4">
       <FixedAd
         href={currentAd?.fixed?.href ?? ''}
         desktopMedia={currentAd?.fixed?.desktop ?? ''}

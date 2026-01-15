@@ -31,15 +31,15 @@ export function NavOwner() {
   const roles: UserRole[] = ['ADMIN', 'OWNER'];
   const isOwner = roles.includes(userRole);
 
-  const links = [
-    {
-      title: 'OWNER LINKS',
-      url: '/',
-      // icon: Building2,
-      isActive: true,
-      items: [
-      ],
-    },
+  const links: Array<{ title: string; url: string }> = [
+    // {
+    //   title: 'OWNER LINKS',
+    //   url: '/',
+    //   // icon: Building2,
+    //   isActive: true,
+    //   items: [
+    //   ],
+    // },
   ];
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function NavOwner() {
     fetchSession();
   }, []);
 
-  if (loading || !isOwner) {
+  if (loading || !isOwner || links.length === 0) {
     return null;
   }
 

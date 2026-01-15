@@ -73,7 +73,7 @@ export const Variants: Story = {
         <DialogTrigger asChild>
           <Button>Open Custom Dialog</Button>
         </DialogTrigger>
-        <DialogContent className="bg-blue-500 text-white">
+        <DialogContent className="bg-secondary text-secondary-foreground">
           <DialogHeader>
             <DialogTitle>Custom Styled Dialog</DialogTitle>
             <DialogDescription>This dialog has custom styles.</DialogDescription>

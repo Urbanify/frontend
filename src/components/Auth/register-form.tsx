@@ -56,10 +56,10 @@ export function RegisterForm({
   return (
     <FormProvider {...methods} register={register}>
       <div className={cn('flex flex-col gap-6', className)} {...props}>
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">{t('create')}</CardTitle>
-            <CardDescription>
+        <Card className="border-border/60 bg-card/90 shadow-lg">
+          <CardHeader className="text-left">
+            <CardTitle className="text-2xl">{t('create')}</CardTitle>
+            <CardDescription className="text-muted-foreground">
               {t('welcome')}
             </CardDescription>
           </CardHeader>
@@ -67,7 +67,7 @@ export function RegisterForm({
             <form onSubmit={methods.handleSubmit(values => handleSubmit(values, t))}>
               <div className="grid gap-6">
                 <div className="grid gap-8">
-                  <div className="flex flex-col gap-6 md:flex-row">
+                  <div className="grid gap-6 md:grid-cols-2">
                     <div className="relative grid gap-2">
                       <Label htmlFor="name">{t('name')}</Label>
                       <Input
@@ -77,7 +77,7 @@ export function RegisterForm({
                         required
                         {...register('name')}
                       />
-                      {methods.formState.errors.name && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.name.message}</span>}
+                      {methods.formState.errors.name && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.name.message}</span>}
                     </div>
 
                     <div className="relative grid gap-2">
@@ -89,7 +89,7 @@ export function RegisterForm({
                         required
                         {...register('surname')}
                       />
-                      {methods.formState.errors.surname && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.surname.message}</span>}
+                      {methods.formState.errors.surname && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.surname.message}</span>}
                     </div>
                   </div>
 
@@ -102,7 +102,7 @@ export function RegisterForm({
                       required
                       {...register('cpf')}
                     />
-                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.cpf.message}</span>}
+                    {methods.formState.errors.cpf && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.cpf.message}</span>}
                   </div>
 
                   <div className="relative grid gap-2">
@@ -114,7 +114,7 @@ export function RegisterForm({
                       required
                       {...register('email')}
                     />
-                    {methods.formState.errors.email && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.email.message}</span>}
+                    {methods.formState.errors.email && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.email.message}</span>}
                   </div>
 
                   <div className="relative grid gap-2">
@@ -122,7 +122,7 @@ export function RegisterForm({
                       <Label htmlFor="password">{t('password')}</Label>
                     </div>
                     <Input id="password" type="password" placeholder="********" required {...register('password')} />
-                    {methods.formState.errors.password && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.password.message}</span>}
+                    {methods.formState.errors.password && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.password.message}</span>}
                   </div>
 
                   <div className="relative grid gap-2">
@@ -133,7 +133,7 @@ export function RegisterForm({
                       value={methods.watch('cityId')}
                       shouldTranslate={false}
                     />
-                    {methods.formState.errors.cityId && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.cityId.message}</span>}
+                    {methods.formState.errors.cityId && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.cityId.message}</span>}
                   </div>
 
                   <Button
@@ -150,7 +150,7 @@ export function RegisterForm({
                 <div className="text-center text-sm">
                   {t('have_account')}
                   {' '}
-                  <Link href="/login" className="underline underline-offset-4">
+                  <Link href="/login" className="text-muted-foreground underline underline-offset-4 hover:text-foreground">
                     {t('go_login')}
                   </Link>
                 </div>

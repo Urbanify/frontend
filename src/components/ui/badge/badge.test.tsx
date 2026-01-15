@@ -23,7 +23,7 @@ describe('Components -> Badge', () => {
 
     const badge = screen.getByTestId('badge-el');
 
-    expect(badge).toHaveClass('bg-green-100 text-green-800');
+    expect(badge).toHaveClass('bg-accent text-accent-foreground');
   });
 
   it('should accept additional class names', () => {
@@ -37,6 +37,6 @@ describe('Components -> Badge', () => {
     const badge = screen.getByTestId('badge-el');
 
     expect(badge).toHaveClass('custom-class');
-    expect(badge).toHaveClass('bg-blue-100 text-blue-800');
+    expect(badge).toHaveClass('bg-secondary text-secondary-foreground');
   });
 });

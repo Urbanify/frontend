@@ -33,6 +33,30 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        lilac: {
+          hard: 'hsl(var(--lilac-hard))',
+          medium: 'hsl(var(--lilac-medium))',
+          light: 'hsl(var(--lilac-light))',
+          soft: 'hsl(var(--lilac-soft))',
+        },
+        mint: {
+          hard: 'hsl(var(--mint-hard))',
+          medium: 'hsl(var(--mint-medium))',
+          light: 'hsl(var(--mint-light))',
+          soft: 'hsl(var(--mint-soft))',
+        },
+        yellow: {
+          hard: 'hsl(var(--yellow-hard))',
+          medium: 'hsl(var(--yellow-medium))',
+          light: 'hsl(var(--yellow-light))',
+          soft: 'hsl(var(--yellow-soft))',
+        },
+        black: {
+          hard: 'hsl(var(--black-hard))',
+          medium: 'hsl(var(--black-medium))',
+          light: 'hsl(var(--black-light))',
+          soft: 'hsl(var(--black-soft))',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

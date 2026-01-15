@@ -63,7 +63,7 @@ export const Variants: Story = {
         </CardContent>
       </Card>
 
-      <Card className="max-w-sm border-2 border-blue-500">
+      <Card className="max-w-sm border-2 border-primary">
         <CardHeader>
           <CardTitle>Card with Custom Border</CardTitle>
           <CardDescription>Style cards using custom classes.</CardDescription>

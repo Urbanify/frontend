@@ -58,7 +58,7 @@ export default function AssignBanner({ issue }: AssignBannerProps) {
         <div className="relative grid gap-2">
           <Label htmlFor="issue_description">{t('add_a_comment')}</Label>
           <Textarea id="issue_description" placeholder={t('add_a_comment_placeholder')} required {...register('description')} />
-          {methods.formState.errors.description && <span className="absolute top-full text-xs text-red-500">{methods.formState.errors.description.message}</span>}
+          {methods.formState.errors.description && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.description.message}</span>}
         </div>
       </FormProvider>
     );

@@ -90,7 +90,11 @@
   },
   "Cities": {
     "table": {
+      "title": "Cities",
+      "subtitle": "Showing {count} of {total} cities",
       "filterPlaceholder": "Filter by city name...",
+      "empty_title": "No cities found",
+      "empty_description": "Try adjusting your search or check again later.",
       "id": "Identifier",
       "name": "Name",
       "status": "Status",
@@ -323,7 +327,11 @@
       "error": "An error occurred while reporting the problem"
     },
     "table": {
-      "filterPlaceholder": "Filter by feature name...",
+      "title": "Issues",
+      "subtitle": "Showing {count} of {total} issues",
+      "filterPlaceholder": "Search by ID, category, or type...",
+      "empty_title": "No issues found",
+      "empty_description": "Try adjusting your filters or check again later.",
       "id": "Identifier",
       "category": "Category",
       "type": "Type",
@@ -341,6 +349,17 @@
       "not_found": "No options found"
     },
     "Sidebar": {
+      "Common": {
+        "toggle": "Toggle",
+        "more": "More"
+      },
+      "User": {
+        "toggle_theme": "Toggle theme",
+        "account": "Account",
+        "billing": "Billing",
+        "notifications": "Notifications",
+        "logout": "Log out"
+      },
       "Admin": {
         "title": "Admin",
         "cities": {
@@ -369,6 +388,70 @@
           "mine": "Mine",
           "access": "Access"
         }
+      }
+    }
+  },
+  "SEO": {
+    "Home": {
+      "title": "Urbanify - Smart City Operations",
+      "description": "Connect citizens, inspectors, and managers with a clear flow to report, validate, and resolve urban issues."
+    },
+    "Visit": {
+      "title": "Visit a City - Explore Maps and Services",
+      "description": "Discover tourist spots, UBSs, hospitals, and works with an interactive map for visitors."
+    },
+    "Auth": {
+      "Login": {
+        "title": "Sign in - Urbanify",
+        "description": "Access the Urbanify dashboard to manage issues, cities, and urban indicators."
+      },
+      "Register": {
+        "title": "Create account - Urbanify",
+        "description": "Create your account to start managing city operations with Urbanify."
+      },
+      "ForgotPassword": {
+        "title": "Recover access - Urbanify",
+        "description": "Request a secure link to reset your password and regain access."
+      },
+      "UpdatePassword": {
+        "title": "Reset password - Urbanify",
+        "description": "Define a new password to keep your account protected."
+      }
+    },
+    "Issues": {
+      "List": {
+        "title": "All issues - Urbanify",
+        "description": "Monitor all reported issues and track status across the city."
+      },
+      "Open": {
+        "title": "Open issues - Urbanify",
+        "description": "Focus on open issues that need validation or action."
+      },
+      "Mine": {
+        "title": "My issues - Urbanify",
+        "description": "Review the issues assigned to your account."
+      },
+      "Report": {
+        "title": "Report issue - Urbanify",
+        "description": "Register a new issue with location, category, and details."
+      },
+      "View": {
+        "title": "Issue #{id} - Urbanify",
+        "description": "View full details, history, and status of a reported issue."
+      }
+    },
+    "Cities": {
+      "List": {
+        "title": "Cities - Urbanify",
+        "description": "Manage cities, statuses, and configurations in the admin panel."
+      },
+      "Create": {
+        "title": "Create city - Urbanify",
+        "description": "Add a new city and configure its map position."
+      },
+      "Edit": {
+        "title": "Edit city #{id} - Urbanify",
+        "description": "Update city data and map coordinates."
       }
     }
   }

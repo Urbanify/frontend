@@ -17,7 +17,7 @@ export default function BannerMessage({ message, onClick, children }: BannerMess
       }}
       role="button"
       tabIndex={0}
-      className="mb-4 w-full rounded-lg border-2 border-blue-500 bg-primary-foreground p-2 text-muted-foreground"
+      className="mb-4 w-full rounded-lg border-2 border-primary bg-card p-2 text-muted-foreground"
     >
       <p className="text-center">
         {message}
