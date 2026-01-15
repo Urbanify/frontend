@@ -8,14 +8,15 @@ import { TouristCityVisitExplorer } from '@/components/Tourist/city-visit-explor
 import { api } from '@/services/api';
 
 type VisitPageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     city?: string;
-  };
+  }>;
 };
 
 export default async function VisitPage({ searchParams }: VisitPageProps) {
   const { data: cities } = await api.city.getAll();
-  const requestedCityId = searchParams?.city ?? '';
+  const resolvedSearchParams = await searchParams;
+  const requestedCityId = resolvedSearchParams?.city ?? '';
 
   return (
     <main className="min-h-svh bg-background text-foreground">

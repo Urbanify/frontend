@@ -25,18 +25,19 @@ export default async function AccessIssue({
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
+  const resolvedParams = await params;
   const t = await getTranslations('SEO.Issues.View');
   return {
-    title: t('title', { id: params.id }),
+    title: t('title', { id: resolvedParams.id }),
     description: t('description'),
     openGraph: {
-      title: t('title', { id: params.id }),
+      title: t('title', { id: resolvedParams.id }),
       description: t('description'),
     },
     twitter: {
-      title: t('title', { id: params.id }),
+      title: t('title', { id: resolvedParams.id }),
       description: t('description'),
     },
   };
