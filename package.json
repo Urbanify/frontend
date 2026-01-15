@@ -1,7 +1,7 @@
 {
   "name": "urbanify",
   "version": "1.0.0",
-  "author": "Urbanify (https://github.com/Fixed-My-City)",
+  "author": "Urbanify (https://github.com/Urbanify)",
   "scripts": {
     "build-stats": "cross-env ANALYZE=true yarn build",
     "build": "next build",

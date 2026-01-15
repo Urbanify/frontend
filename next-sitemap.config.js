@@ -5,7 +5,7 @@
 module.exports = {
   // !STARTERCONF Change the siteUrl
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  siteUrl: `https://fixed-my-city.com`,
+  siteUrl: `https://urbanify.vercel.app`,
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [{ userAgent: '*', allow: '/' }],
