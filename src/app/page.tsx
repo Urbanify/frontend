@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
+import { Button } from '@/components/ui/button/button';
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
@@ -249,7 +251,11 @@ export default function HomePage() {
             <a href="#fluxos" className="hover:text-foreground">Fluxos</a>
             <a href="#beneficios" className="hover:text-foreground">Beneficios</a>
             <a href="#contato" className="hover:text-foreground">Contato</a>
-            <Link href="/visit" className="hover:text-foreground">Sou turista</Link>
+            <Link href="/visit" className="hover:text-foreground">
+              <Button variant="secondary" className="rounded-full">
+                Sou turista
+              </Button>
+            </Link>
             <Link
               href="/login"
               className="rounded-full border border-border/60 px-4 py-2 text-foreground hover:bg-muted"
@@ -281,7 +287,7 @@ export default function HomePage() {
               </a>
               <Link
                 href="/visit"
-                className="inline-flex items-center justify-center rounded-full border border-border/60 px-6 py-3 text-sm font-semibold text-foreground hover:bg-muted"
+                className="inline-flex items-center justify-center rounded-full border border-border/60 bg-secondary px-6 py-3 text-sm font-semibold text-foreground hover:bg-muted/70"
               >
                 Sou turista
               </Link>
@@ -524,6 +530,53 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <footer className="border-t border-border/60 bg-card/40">
+        <div className="mx-auto w-full max-w-6xl px-6 py-12">
+          <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+            <div className="space-y-4">
+              <Link href="/" className="flex items-center gap-3">
+                <Image src="/logo-full.svg" alt="Urbanify" width={160} height={46} />
+              </Link>
+              <p className="text-sm text-muted-foreground">
+                Operacao urbana inteligente para conectar moradores, fiscais e gestores em um fluxo claro.
+              </p>
+              <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                <span className="rounded-full border border-border/60 px-3 py-1">Mapas e dados</span>
+                <span className="rounded-full border border-border/60 px-3 py-1">Fluxos auditaveis</span>
+                <span className="rounded-full border border-border/60 px-3 py-1">Participacao publica</span>
+              </div>
+            </div>
+
+            <div className="space-y-3 text-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Plataforma</p>
+              <div className="flex flex-col gap-2 text-muted-foreground">
+                <a href="#fluxos" className="hover:text-foreground">Fluxos</a>
+                <a href="#beneficios" className="hover:text-foreground">Beneficios</a>
+                <a href="#anuncios" className="hover:text-foreground">Anuncios</a>
+                <Link href="/visit" className="hover:text-foreground">Sou turista</Link>
+              </div>
+            </div>
+
+            <div className="space-y-3 text-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Contato</p>
+              <div className="flex flex-col gap-2 text-muted-foreground">
+                <a href="mailto:contato@urbanify.com" className="hover:text-foreground">contato@urbanify.com</a>
+                <a href="#contato" className="hover:text-foreground">Fale com nosso time</a>
+                <Link href="/login" className="hover:text-foreground">Acessar painel</Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-3 border-t border-border/60 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+            <p>Urbanify. Todos os direitos reservados.</p>
+            <div className="flex items-center gap-4">
+              <span>Politica de privacidade</span>
+              <span>Termos de uso</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

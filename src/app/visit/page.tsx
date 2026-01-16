@@ -52,6 +52,46 @@ export default async function VisitPage({ searchParams }: VisitPageProps) {
               </div>
             )}
       </section>
+
+      <footer className="border-t border-border/60 bg-card/40">
+        <div className="mx-auto w-full max-w-6xl px-6 py-12">
+          <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr_0.9fr]">
+            <div className="space-y-4">
+              <Link href="/" className="flex items-center gap-3">
+                <Image src="/logo-full.svg" alt="Urbanify" width={160} height={46} />
+              </Link>
+              <p className="text-sm text-muted-foreground">
+                Experiencia publica para visitantes conhecerem a cidade, seus servicos e pontos de interesse.
+              </p>
+            </div>
+
+            <div className="space-y-3 text-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Explore</p>
+              <div className="flex flex-col gap-2 text-muted-foreground">
+                <Link href="/" className="hover:text-foreground">Landing page</Link>
+                <Link href="/visit" className="hover:text-foreground">Mapa visitante</Link>
+                <Link href="/login" className="hover:text-foreground">Acessar painel</Link>
+              </div>
+            </div>
+
+            <div className="space-y-3 text-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Contato</p>
+              <div className="flex flex-col gap-2 text-muted-foreground">
+                <a href="mailto:contato@urbanify.com" className="hover:text-foreground">contato@urbanify.com</a>
+                <Link href="/" className="hover:text-foreground">Fale com nosso time</Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-3 border-t border-border/60 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+            <p>Urbanify. Todos os direitos reservados.</p>
+            <div className="flex items-center gap-4">
+              <span>Politica de privacidade</span>
+              <span>Termos de uso</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

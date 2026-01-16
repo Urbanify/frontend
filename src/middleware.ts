@@ -11,6 +11,8 @@ const authRoutes: string[] = [
 
 const publicRoutes: string[] = [
   '/about',
+  '/',
+  '/visit',
 ];
 
 export default async function middleware(request: NextRequest) {
