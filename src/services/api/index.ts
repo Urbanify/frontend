@@ -1,6 +1,6 @@
 import * as auth from './auth';
 import * as city from './city';
-import * as ff from './ff';
+import * as comments from './comments';
 import { get } from './get';
 import { fetcher } from './instance';
 import * as issues from './issues';
@@ -10,6 +10,6 @@ export const api = {
   instance: fetcher,
   auth,
   city,
-  ff,
+  comments,
   issues,
 };

@@ -17,7 +17,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
 import { Skeleton } from '@/components/ui/skeleton/skeleton';
-import { Switch } from '@/components/ui/switch/switch';
 
 import CityStatusBadge from '@/app/(protected)/(admin)/cities/components/city-status-badge';
 import { editCitySchema } from '@/schemas/city/edit.schema';
@@ -48,27 +47,13 @@ export default function EditCityForm({ city }: { city: City }) {
     reValidateMode: 'onChange',
     defaultValues: {
       ...city,
-      featureFlags: city.featureFlags,
+      // TODO: Remove feature flags from form LATER
+      featureFlags: [],
     },
   });
 
   const disableButton = !methods.formState.isValid
     || methods.formState.isSubmitting;
-
-  const handleSwitchChange
-    = (featureFlagId: string, value: boolean) => {
-      const currentFeatures = methods.watch('featureFlags');
-
-      const updatedFeatures = currentFeatures.map((ff: CityFeatureFlag) =>
-        ff.featureFlagId === featureFlagId
-          ? { ...ff, status: value }
-          : ff,
-      );
-      methods.setValue('featureFlags', updatedFeatures, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    };
 
   const handleSubmit = async (data: EditCityFormData) => {
     try {
@@ -196,30 +181,6 @@ export default function EditCityForm({ city }: { city: City }) {
               </Button>
             </div>
           </CardFooter>
-        </Card>
-
-        <Card className="w-full border-border/60 bg-card shadow-sm md:w-fit md:max-w-2xl lg:min-w-[460px]">
-          <CardHeader>
-            <CardTitle>{t('features.title')}</CardTitle>
-            <CardDescription>
-              {t('features.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            {methods.watch('featureFlags')?.map((ff: CityFeatureFlag) => (
-              <div className="flex items-center justify-between gap-4 rounded-lg border border-border/60 bg-muted/30 p-3" key={ff.featureFlagId}>
-                <Label className="cursor-pointer text-sm font-medium" htmlFor={ff.featureFlagId}>
-                  {ff.description}
-                </Label>
-                <Switch
-                  id={ff.featureFlagId}
-                  defaultChecked={ff.status}
-                  onCheckedChange={checked => handleSwitchChange(ff.featureFlagId, checked)}
-                />
-              </div>
-            ))}
-
-          </CardContent>
         </Card>
       </form>
     </FormProvider>

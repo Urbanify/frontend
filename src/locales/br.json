@@ -294,6 +294,28 @@
       "ask_new_resolution_success": "Tudo certo! Solicitamos uma nova resolução ao gestor!",
       "ask_new_resolution_error": "Ocorreu um erro ao tentar solicitar uma nova resolução!"
     },
+    "Comments": {
+      "title": "Comentários",
+      "description": "Converse com relator, fiscal, gestor e residentes sobre o andamento.",
+      "add": "Adicionar comentário",
+      "placeholder": "Compartilhe atualizações, dúvidas ou próximos passos.",
+      "hint": "Seja claro e objetivo para facilitar a resolução.",
+      "submit": "Publicar comentário",
+      "loading": "Carregando comentários...",
+      "empty": "Ainda não há comentários neste problema.",
+      "reply": "Responder",
+      "reply_placeholder": "Escreva sua resposta",
+      "submit_reply": "Enviar resposta",
+      "cancel": "Cancelar",
+      "delete": "Excluir",
+      "unknown_author": "Usuário",
+      "roles": {
+        "reporter": "Relator",
+        "fiscal": "Fiscal",
+        "manager": "Gestor",
+        "resident": "Residente"
+      }
+    },
     "MyIssuesPage": {
       "title": "Todos os problemas reportados por você"
     },
