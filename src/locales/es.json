@@ -377,7 +377,7 @@
       },
       "User": {
         "toggle_theme": "Alternar tema",
-        "account": "Cuenta",
+        "profile": "Perfil",
         "billing": "Facturación",
         "notifications": "Notificaciones",
         "logout": "Cerrar sesión"
@@ -410,8 +410,75 @@
           "mine": "Míos",
           "access": "Acceder"
         }
+      },
+      "People": {
+        "title": "Personas",
+        "users": "Habitantes",
+        "team": "Mi equipo"
       }
     }
+  },
+  "Users": {
+    "ListPage": {
+      "title": "Usuarios de la ciudad",
+      "table_title": "Usuarios registrados",
+      "table_description": "Gestiona roles y accesos de tu ciudad."
+    },
+    "TeamPage": {
+      "title": "Equipo de la ciudad",
+      "table_title": "Equipo de gestión",
+      "table_description": "Consulta quiénes forman parte del equipo."
+    },
+    "table": {
+      "title": "Usuarios",
+      "subtitle": "Mostrando {count} de {total} usuarios",
+      "filterPlaceholder": "Buscar por nombre, email o CPF...",
+      "empty_title": "No se encontraron usuarios",
+      "empty_description": "Ajusta los filtros o intenta de nuevo.",
+      "name": "Nombre",
+      "email": "Email",
+      "role": "Rol",
+      "createdAt": "Creado en",
+      "actions": "Acciones",
+      "role_placeholder": "Seleccionar rol",
+      "role_success": "Rol actualizado con éxito!",
+      "role_error": "No se pudo actualizar el rol.",
+      "searching": "(buscando)"
+    },
+    "roles": {
+      "ADMIN": "Admin",
+      "OWNER": "Owner",
+      "MANAGER": "Gestor",
+      "FINANCIAL": "Financiero",
+      "RESIDENT": "Residente"
+    }
+  },
+  "Profile": {
+    "title": "Mi perfil",
+    "description": "Consulta tus datos y estadísticas personales.",
+    "details_title": "Datos personales",
+    "stats_title": "Estadísticas",
+    "upcoming_title": "Próximas actualizaciones",
+    "fields": {
+      "name": "Nombre completo",
+      "email": "Email",
+      "cpf": "CPF",
+      "created_at": "Creado en",
+      "photo": "Foto de perfil",
+      "city": "Ciudad",
+      "password": "Contraseña"
+    },
+    "actions": {
+      "change_photo": "Cambiar foto",
+      "change_city": "Cambiar ciudad",
+      "change_password": "Cambiar contraseña"
+    },
+    "stats": {
+      "reported": "Problemas reportados: {count}",
+      "fiscal": "Fiscalizaciones: {count}"
+    },
+    "disabled_placeholder": "Disponible pronto",
+    "soon_hint": "Estas funciones se habilitarán en próximas actualizaciones."
   },
   "SEO": {
     "Home": {
@@ -475,6 +542,20 @@
         "title": "Editar ciudad #{id} - Urbanify",
         "description": "Actualice datos de la ciudad y coordenadas."
       }
+    },
+    "Users": {
+      "List": {
+        "title": "Usuarios de la ciudad - Urbanify",
+        "description": "Gestione usuarios y roles con control centralizado."
+      },
+      "Team": {
+        "title": "Equipo de la ciudad - Urbanify",
+        "description": "Vea quién compone el equipo de gestión."
+      }
+    },
+    "Profile": {
+      "title": "Mi perfil - Urbanify",
+      "description": "Consulta tus datos y estadísticas personales en Urbanify."
     }
   }
 }

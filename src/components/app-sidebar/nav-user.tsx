@@ -1,14 +1,15 @@
 'use client';
 
 import {
-  BadgeCheck,
   Bell,
   ChevronsUpDown,
   CreditCard,
   LogOut,
   Moon,
   Sun,
+  UserRound,
 } from 'lucide-react';
+import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
@@ -117,9 +118,11 @@ export function NavUser({
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                {t('account')}
+              <DropdownMenuItem asChild>
+                <Link href="/profile">
+                  <UserRound />
+                  {t('profile')}
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard />

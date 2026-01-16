@@ -377,7 +377,7 @@
       },
       "User": {
         "toggle_theme": "Toggle theme",
-        "account": "Account",
+        "profile": "Profile",
         "billing": "Billing",
         "notifications": "Notifications",
         "logout": "Log out"
@@ -410,8 +410,75 @@
           "mine": "Mine",
           "access": "Access"
         }
+      },
+      "People": {
+        "title": "People",
+        "users": "Residents",
+        "team": "My Team"
       }
     }
+  },
+  "Users": {
+    "ListPage": {
+      "title": "City users",
+      "table_title": "Registered users",
+      "table_description": "Manage roles and access profiles for your city."
+    },
+    "TeamPage": {
+      "title": "City team",
+      "table_title": "Team members",
+      "table_description": "See who composes your management team."
+    },
+    "table": {
+      "title": "Users",
+      "subtitle": "Showing {count} of {total} users",
+      "filterPlaceholder": "Search by name, email, or CPF...",
+      "empty_title": "No users found",
+      "empty_description": "Adjust the filters or try again.",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "createdAt": "Created at",
+      "actions": "Actions",
+      "role_placeholder": "Select role",
+      "role_success": "Role updated successfully!",
+      "role_error": "Unable to update role.",
+      "searching": "(searching)"
+    },
+    "roles": {
+      "ADMIN": "Admin",
+      "OWNER": "Owner",
+      "MANAGER": "Manager",
+      "FINANCIAL": "Financial",
+      "RESIDENT": "Resident"
+    }
+  },
+  "Profile": {
+    "title": "My profile",
+    "description": "View your data and track your personal stats.",
+    "details_title": "Personal details",
+    "stats_title": "Stats",
+    "upcoming_title": "Upcoming updates",
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "cpf": "CPF",
+      "created_at": "Created at",
+      "photo": "Profile photo",
+      "city": "City",
+      "password": "Password"
+    },
+    "actions": {
+      "change_photo": "Change photo",
+      "change_city": "Change city",
+      "change_password": "Change password"
+    },
+    "stats": {
+      "reported": "Reported issues: {count}",
+      "fiscal": "Fiscal reviews: {count}"
+    },
+    "disabled_placeholder": "Coming soon",
+    "soon_hint": "These features will be available in upcoming updates."
   },
   "SEO": {
     "Home": {
@@ -475,6 +542,20 @@
         "title": "Edit city #{id} - Urbanify",
         "description": "Update city data and map coordinates."
       }
+    },
+    "Users": {
+      "List": {
+        "title": "City users - Urbanify",
+        "description": "Manage users and roles with centralized control."
+      },
+      "Team": {
+        "title": "City team - Urbanify",
+        "description": "See who composes the city management team."
+      }
+    },
+    "Profile": {
+      "title": "My profile - Urbanify",
+      "description": "Track your personal data and stats in Urbanify."
     }
   }
 }
