@@ -325,6 +325,18 @@
     "ListPage": {
       "title": "All issues (last 30 days)"
     },
+    "OverviewPage": {
+      "title": "Issue map",
+      "description": "See how issues are distributed by category on the map.",
+      "map_title": "Issue map",
+      "map_description": "Colored pins help you spot patterns faster.",
+      "map_badge": "Category view",
+      "location_hint": "Location set on the map",
+      "type_breakdown_title": "Most frequent categories",
+      "type_breakdown_description": "Use the toggles to enable/disable categories and hover the icon to see details.",
+      "recent_title": "Recent issues",
+      "cta_report": "Report issue"
+    },
     "ReportPage": {
       "title": "Report a problem",
       "description": "Fill out the form below to report a problem",
@@ -363,6 +375,83 @@
       "access": "Access"
     }
   },
+  "Crimes": {
+    "types": {
+      "VIOLENCE": "Violence",
+      "ASSAULT": "Assault",
+      "ROBBERY": "Robbery",
+      "ARMED_ROBBERY": "Armed robbery",
+      "THREAT": "Threat",
+      "THEFT": "Theft",
+      "BURGLARY": "Burglary",
+      "VEHICLE_THEFT": "Vehicle theft",
+      "PICKPOCKET": "Pickpocketing",
+      "VANDALISM": "Vandalism",
+      "VANDALISM_PROPERTY": "Property damage",
+      "GRAFFITI": "Graffiti",
+      "PUBLIC_DAMAGE": "Public damage",
+      "FRAUD": "Fraud",
+      "SCAM": "Scam",
+      "DOCUMENT_FRAUD": "Document fraud",
+      "CARD_FRAUD": "Card fraud",
+      "DRUGS": "Drugs",
+      "DRUG_TRAFFICKING": "Drug trafficking",
+      "DRUG_USE": "Drug use",
+      "TRAFFIC": "Traffic",
+      "DUI": "DUI",
+      "TRAFFIC_ACCIDENT": "Traffic accident",
+      "DANGEROUS_DRIVING": "Dangerous driving",
+      "DOMESTIC": "Domestic",
+      "DOMESTIC_VIOLENCE": "Domestic violence",
+      "NEIGHBORHOOD_CONFLICT": "Neighborhood conflict",
+      "OTHER": "Other",
+      "SUSPICIOUS_ACTIVITY": "Suspicious activity",
+      "OTHER_CRIME": "Other crime"
+    },
+    "ReportPage": {
+      "title": "Report crime",
+      "description": "Register an occurrence with location, date, and details.",
+      "crimeType": "Category and subtype",
+      "crimeType_placeholder": "Search or select a type...",
+      "crimeType_required": "Selecting a type is required",
+      "date": "Date of occurrence",
+      "time": "Time of occurrence",
+      "date_required": "Date is required",
+      "time_required": "Time is required",
+      "location": "Location",
+      "location_description": "Search for the address and fine-tune the point on the map.",
+      "address": "Address",
+      "address_placeholder": "e.g., 12th Street, 300",
+      "details": "Details",
+      "details_placeholder": "Describe what happened",
+      "submit": "Report crime",
+      "success": "Crime reported successfully!",
+      "error": "Unable to report the crime."
+    },
+    "ListPage": {
+      "title": "Reported crimes",
+      "description": "Track all registered occurrences.",
+      "filterPlaceholder": "Search by type, location, or date...",
+      "empty_title": "No crimes found",
+      "empty_description": "Adjust the filters or try again.",
+      "table": {
+        "id": "Identifier",
+        "type": "Type",
+        "location": "Location",
+        "date": "Date/Time",
+        "actions": "Actions"
+      }
+    },
+    "OverviewPage": {
+      "title": "Crime overview",
+      "description": "Heatmap and patterns to support faster decisions.",
+      "heatmap_title": "Heatmap",
+      "type_breakdown_title": "Most frequent types",
+      "type_breakdown_description": "Use the toggles to enable/disable categories and hover the icon to see details.",
+      "recent_title": "Recent reports",
+      "cta_report": "Report crime"
+    }
+  },
   "Components": {
     "LocaleSwitcher": {
       "label": "Select language"
@@ -399,7 +488,9 @@
       },
       "Manager": {
         "title": "Manager",
-        "open_issues": "Open issues"
+        "open_issues": "Open issues",
+        "issues_overview": "Issue map",
+        "crime_overview": "Crime overview"
       },
       "General": {
         "title": "General",
@@ -408,7 +499,13 @@
           "report": "Report",
           "all": "All",
           "mine": "Mine",
+          "map": "Issue map",
           "access": "Access"
+        },
+        "crimes": {
+          "title": "Crimes",
+          "report": "Report",
+          "all": "All"
         }
       },
       "People": {
@@ -527,6 +624,10 @@
       "View": {
         "title": "Issue #{id} - Urbanify",
         "description": "View full details, history, and status of a reported issue."
+      },
+      "Overview": {
+        "title": "Issue map - Urbanify",
+        "description": "See issue distribution by category on an interactive map."
       }
     },
     "Cities": {
@@ -551,6 +652,20 @@
       "Team": {
         "title": "City team - Urbanify",
         "description": "See who composes the city management team."
+      }
+    },
+    "Crimes": {
+      "Report": {
+        "title": "Report crime - Urbanify",
+        "description": "Register an occurrence with location, date, and details."
+      },
+      "List": {
+        "title": "Reported crimes - Urbanify",
+        "description": "Track the occurrences registered in the city."
+      },
+      "Overview": {
+        "title": "Crime overview - Urbanify",
+        "description": "Heatmap and patterns to support faster decisions."
       }
     },
     "Profile": {

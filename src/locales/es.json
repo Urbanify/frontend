@@ -325,6 +325,18 @@
     "ListPage": {
       "title": "Todos los problemas (últimos 30 días)"
     },
+    "OverviewPage": {
+      "title": "Mapa de problemas",
+      "description": "Observa la distribución de problemas por categoría en el mapa.",
+      "map_title": "Mapa de problemas",
+      "map_description": "Los pines por color ayudan a identificar patrones rápidamente.",
+      "map_badge": "Vista por categoría",
+      "location_hint": "Ubicación indicada en el mapa",
+      "type_breakdown_title": "Categorías más recurrentes",
+      "type_breakdown_description": "Usa los toggles para activar/desactivar categorías y pasa el cursor sobre el ícono para ver los detalles.",
+      "recent_title": "Problemas recientes",
+      "cta_report": "Reportar problema"
+    },
     "ReportPage": {
       "title": "Reportar un problema",
       "description": "Llena el formulario a continuación para reportar un problema",
@@ -363,6 +375,83 @@
       "access": "Acceder"
     }
   },
+  "Crimes": {
+    "types": {
+      "VIOLENCE": "Violencia",
+      "ASSAULT": "Agresión",
+      "ROBBERY": "Robo",
+      "ARMED_ROBBERY": "Robo a mano armada",
+      "THREAT": "Amenaza",
+      "THEFT": "Hurto",
+      "BURGLARY": "Allanamiento",
+      "VEHICLE_THEFT": "Robo de vehículo",
+      "PICKPOCKET": "Hurto de carteras",
+      "VANDALISM": "Vandalismo",
+      "VANDALISM_PROPERTY": "Daños a la propiedad",
+      "GRAFFITI": "Grafiti",
+      "PUBLIC_DAMAGE": "Daños públicos",
+      "FRAUD": "Fraude",
+      "SCAM": "Estafa",
+      "DOCUMENT_FRAUD": "Fraude documental",
+      "CARD_FRAUD": "Fraude con tarjeta",
+      "DRUGS": "Drogas",
+      "DRUG_TRAFFICKING": "Tráfico de drogas",
+      "DRUG_USE": "Consumo de drogas",
+      "TRAFFIC": "Tránsito",
+      "DUI": "Conducción bajo efectos",
+      "TRAFFIC_ACCIDENT": "Accidente de tránsito",
+      "DANGEROUS_DRIVING": "Conducción peligrosa",
+      "DOMESTIC": "Doméstico",
+      "DOMESTIC_VIOLENCE": "Violencia doméstica",
+      "NEIGHBORHOOD_CONFLICT": "Conflicto vecinal",
+      "OTHER": "Otros",
+      "SUSPICIOUS_ACTIVITY": "Actividad sospechosa",
+      "OTHER_CRIME": "Otro crimen"
+    },
+    "ReportPage": {
+      "title": "Reportar crimen",
+      "description": "Registra una ocurrencia con ubicación, fecha y detalles.",
+      "crimeType": "Categoría y subtipo",
+      "crimeType_placeholder": "Busca o selecciona un tipo...",
+      "crimeType_required": "Seleccionar un tipo es obligatorio",
+      "date": "Fecha del hecho",
+      "time": "Hora del hecho",
+      "date_required": "La fecha es obligatoria",
+      "time_required": "La hora es obligatoria",
+      "location": "Ubicación",
+      "location_description": "Busca la dirección y ajusta el punto en el mapa.",
+      "address": "Dirección",
+      "address_placeholder": "Ej.: Calle 12, 300",
+      "details": "Detalles",
+      "details_placeholder": "Describe lo ocurrido",
+      "submit": "Reportar crimen",
+      "success": "Crimen reportado con éxito!",
+      "error": "No se pudo reportar el crimen."
+    },
+    "ListPage": {
+      "title": "Crímenes reportados",
+      "description": "Acompaña todas las ocurrencias registradas.",
+      "filterPlaceholder": "Buscar por tipo, ubicación o fecha...",
+      "empty_title": "No se encontraron crímenes",
+      "empty_description": "Ajusta los filtros o intenta de nuevo.",
+      "table": {
+        "id": "Identificador",
+        "type": "Tipo",
+        "location": "Ubicación",
+        "date": "Fecha/Hora",
+        "actions": "Acciones"
+      }
+    },
+    "OverviewPage": {
+      "title": "Visión general de crímenes",
+      "description": "Mapa de calor y patrones para apoyar decisiones rápidas.",
+      "heatmap_title": "Mapa de calor",
+      "type_breakdown_title": "Tipos más recurrentes",
+      "type_breakdown_description": "Usa los toggles para activar/desactivar categorías y pasa el cursor sobre el ícono para ver los detalles.",
+      "recent_title": "Ocurrencias recientes",
+      "cta_report": "Reportar crimen"
+    }
+  },
   "Components": {
     "LocaleSwitcher": {
       "label": "Seleccionar idioma"
@@ -399,7 +488,9 @@
       },
       "Manager": {
         "title": "Gerente",
-        "open_issues": "Problemas abiertos"
+        "open_issues": "Problemas abiertos",
+        "issues_overview": "Mapa de problemas",
+        "crime_overview": "Vision de crímenes"
       },
       "General": {
         "title": "General",
@@ -408,7 +499,13 @@
           "report": "Reportar",
           "all": "Todos",
           "mine": "Míos",
+          "map": "Mapa de problemas",
           "access": "Acceder"
+        },
+        "crimes": {
+          "title": "Crímenes",
+          "report": "Reportar",
+          "all": "Todos"
         }
       },
       "People": {
@@ -527,6 +624,10 @@
       "View": {
         "title": "Incidencia #{id} - Urbanify",
         "description": "Vea detalles completos, historial y estado de la incidencia."
+      },
+      "Overview": {
+        "title": "Mapa de problemas - Urbanify",
+        "description": "Consulta la distribución de problemas por categoría en un mapa interactivo."
       }
     },
     "Cities": {
@@ -551,6 +652,20 @@
       "Team": {
         "title": "Equipo de la ciudad - Urbanify",
         "description": "Vea quién compone el equipo de gestión."
+      }
+    },
+    "Crimes": {
+      "Report": {
+        "title": "Reportar crimen - Urbanify",
+        "description": "Registra una ocurrencia con ubicación, fecha y detalles."
+      },
+      "List": {
+        "title": "Crímenes reportados - Urbanify",
+        "description": "Acompaña las ocurrencias registradas en la ciudad."
+      },
+      "Overview": {
+        "title": "Visión de crímenes - Urbanify",
+        "description": "Mapa de calor y patrones para apoyar decisiones rápidas."
       }
     },
     "Profile": {
