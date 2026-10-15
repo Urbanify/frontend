@@ -10,9 +10,10 @@ import {
   UserRound,
 } from 'lucide-react';
 import Link from 'next/link';
-import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
+
+import { signOut } from '@/lib/session-client';
 
 import LocaleSwitcher from '@/components/LocaleSelect';
 import {
@@ -134,11 +135,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut({
-              redirect: true,
-              redirectTo: '/login',
-            })}
-            >
+            <DropdownMenuItem onClick={() => signOut()}>
               <LogOut />
               {t('logout')}
             </DropdownMenuItem>

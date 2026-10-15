@@ -1,9 +1,9 @@
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 import { checkUser } from '@/lib/loaders/checkUser';
+import { signOut, useSession } from '@/lib/session-client';
 
 import { parseJwt } from '@/utils/decodeJWT';
 
@@ -17,16 +17,13 @@ export default function CheckAuth() {
 
   const checkIsAuthed = async () => {
     const response = await checkUser({
-      token: data?.access_token,
+      token: data?.access_token ?? '',
       cityId,
       isAdmin,
     });
 
     if (response.status === 401) {
-      return signOut({
-        redirect: true,
-        redirectTo: '/login',
-      });
+      return signOut();
     }
   };
 

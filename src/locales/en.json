@@ -2,20 +2,28 @@
   "Auth": {
     "Login": {
       "welcome": "Welcome back!",
-      "login_with": "Log in with your CPF and password",
-      "cpf": "CPF",
-      "cpf_placeholder": "Enter your CPF",
-      "cpf_required": "CPF is required",
-      "cpf_length": "CPF must be 11 digits",
-      "cpf_only_numbers": "CPF must contain only numbers",
-      "password": "Password",
-      "password_required": "Password is required",
-      "password_length": "Password must be between 8 and 32 characters",
-      "button": "Log in",
-      "forgot_password": "Forgot your password?",
+      "login_with": "We will send an access code to your email",
+      "email": "Email",
+      "email_placeholder": "Enter your email",
+      "email_required": "Email is required",
+      "email_invalid": "The email entered is invalid",
+      "button": "Log in with email",
+      "signup_notice": "Account created! When you log in, we will send an access code to your email.",
+      "code_sent": "We sent a code to {email}",
+      "code_label": "6-digit code",
+      "code_placeholder": "000000",
+      "code_required": "Enter the 6-digit code",
+      "code_invalid_format": "The code must contain 6 digits",
+      "verify_button": "Log in",
+      "resend_button": "Resend code",
+      "resend_in": "Resend code in {seconds}s",
+      "change_email": "Change email",
+      "code_invalid": "Invalid or expired code. Check the code or ask for a new one.",
+      "rate_limited": "Wait 60 seconds before requesting a new code.",
+      "request_error": "We could not send the code. Try again.",
+      "verify_error": "We could not log you in right now. Try again.",
       "no_account": "Don't have an account?",
-      "sign_up": "Sign up",
-      "invalid_credentials": "Incorrect username and/or password"
+      "sign_up": "Sign up"
     },
     "Register": {
       "create": "Create your account!",
@@ -25,9 +33,6 @@
       "cpf_required": "CPF is required",
       "cpf_length": "CPF must be 11 digits",
       "cpf_only_numbers": "CPF must contain only numbers",
-      "password": "Password",
-      "password_required": "Password is required",
-      "password_length": "Password must be between 8 and 32 characters",
       "name": "First name",
       "name_placeholder": "Enter your first name",
       "name_required": "First name is required",
@@ -48,34 +53,6 @@
       "go_login": "Go to login",
       "success": "Your account has been created successfully!",
       "error": "An error occurred while creating your account"
-    },
-    "ForgotPassword": {
-      "title": "Forgot your password?",
-      "description": "Enter your CPF and we will send you an email with instructions to reset your password",
-      "cpf": "CPF",
-      "cpf_placeholder": "Enter your CPF",
-      "cpf_required": "CPF is required",
-      "cpf_length": "CPF must be 11 digits",
-      "cpf_only_numbers": "CPF must contain only numbers",
-      "button": "Send email",
-      "go_login": "Go to login",
-      "success": "All set! An email with password reset instructions has been sent to {email}",
-      "error": "An error occurred while sending the password reset email"
-    },
-    "UpdatePassword": {
-      "title": "Password reset",
-      "description": "Set a new password and confirm it to update",
-      "password": "New Password",
-      "password_required": "Password is required",
-      "password_length": "Password must be between 8 and 32 characters",
-      "password_confirmation": "Confirm Password",
-      "password_confirmation_required": "Password confirmation is required",
-      "password_confirmation_length": "Password must be between 8 and 32 characters",
-      "passwords_must_match": "The password and confirmation password do not match",
-      "button": "Update password",
-      "go_login": "Go to login",
-      "success": "All set! Your password has been updated and you can now log into your account!",
-      "error": "An error occurred while trying to reset the password"
     },
     "terms_and_policy": {
       "text": "By clicking continue, you agree to our",
@@ -594,14 +571,6 @@
       "Register": {
         "title": "Create account - Urbanify",
         "description": "Create your account to start managing city operations with Urbanify."
-      },
-      "ForgotPassword": {
-        "title": "Recover access - Urbanify",
-        "description": "Request a secure link to reset your password and regain access."
-      },
-      "UpdatePassword": {
-        "title": "Reset password - Urbanify",
-        "description": "Define a new password to keep your account protected."
       }
     },
     "Issues": {

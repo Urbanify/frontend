@@ -2,20 +2,28 @@
   "Auth": {
     "Login": {
       "welcome": "¡Bienvenido de nuevo!",
-      "login_with": "Inicia sesión con tu CPF y contraseña",
-      "cpf": "CPF",
-      "cpf_placeholder": "Introduce tu CPF",
-      "cpf_required": "El CPF es obligatorio",
-      "cpf_length": "El CPF debe contener 11 números",
-      "cpf_only_numbers": "El CPF debe contener solo números",
-      "password": "Contraseña",
-      "password_required": "La contraseña es obligatoria",
-      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
-      "button": "Iniciar sesión",
-      "forgot_password": "¿Olvidaste tu contraseña?",
+      "login_with": "Enviaremos un código de acceso a tu correo electrónico",
+      "email": "Correo electrónico",
+      "email_placeholder": "Introduce tu correo electrónico",
+      "email_required": "El correo electrónico es obligatorio",
+      "email_invalid": "El correo electrónico ingresado es inválido",
+      "button": "Iniciar sesión con correo",
+      "signup_notice": "¡Cuenta creada! Al iniciar sesión, enviaremos un código de acceso a tu correo electrónico.",
+      "code_sent": "Enviamos un código a {email}",
+      "code_label": "Código de 6 números",
+      "code_placeholder": "000000",
+      "code_required": "Introduce el código de 6 números",
+      "code_invalid_format": "El código debe contener 6 números",
+      "verify_button": "Iniciar sesión",
+      "resend_button": "Reenviar código",
+      "resend_in": "Reenviar código en {seconds}s",
+      "change_email": "Cambiar correo",
+      "code_invalid": "Código inválido o vencido. Revisa el código o pide uno nuevo.",
+      "rate_limited": "Espera 60 segundos antes de pedir un nuevo código.",
+      "request_error": "No pudimos enviar el código. Inténtalo de nuevo.",
+      "verify_error": "No pudimos iniciar tu sesión ahora. Inténtalo de nuevo.",
       "no_account": "¿No tienes cuenta?",
-      "sign_up": "Registrarse",
-      "invalid_credentials": "Usuario y/o contraseña incorrectos"
+      "sign_up": "Registrarse"
     },
     "Register": {
       "create": "¡Crea tu cuenta!",
@@ -25,9 +33,6 @@
       "cpf_required": "El CPF es obligatorio",
       "cpf_length": "El CPF debe contener 11 números",
       "cpf_only_numbers": "El CPF debe contener solo números",
-      "password": "Contraseña",
-      "password_required": "La contraseña es obligatoria",
-      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
       "name": "Nombre",
       "name_placeholder": "Introduce tu nombre",
       "name_required": "El nombre es obligatorio",
@@ -48,34 +53,6 @@
       "go_login": "Ir al inicio de sesión",
       "success": "¡Tu cuenta ha sido creada con éxito!",
       "error": "Ocurrió un error al crear tu cuenta"
-    },
-    "ForgotPassword": {
-      "title": "¿Olvidaste tu contraseña?",
-      "description": "Introduce tu CPF y te enviaremos un correo electrónico con instrucciones para restablecer tu contraseña",
-      "cpf": "CPF",
-      "cpf_placeholder": "Introduce tu CPF",
-      "cpf_required": "El CPF es obligatorio",
-      "cpf_length": "El CPF debe contener 11 números",
-      "cpf_only_numbers": "El CPF debe contener solo números",
-      "button": "Enviar correo electrónico",
-      "go_login": "Ir al inicio de sesión",
-      "success": "¡Todo listo! Se ha enviado un correo electrónico con las instrucciones para restablecer tu contraseña a {email}",
-      "error": "Ocurrió un error al enviar el correo electrónico de restablecimiento de contraseña"
-    },
-    "UpdatePassword": {
-      "title": "Restablecimiento de contraseña",
-      "description": "Define una nueva contraseña y confírmala para actualizarla",
-      "password": "Nueva contraseña",
-      "password_required": "La contraseña es obligatoria",
-      "password_length": "La contraseña debe tener entre 8 y 32 caracteres",
-      "password_confirmation": "Confirmar contraseña",
-      "password_confirmation_required": "La confirmación de la contraseña es obligatoria",
-      "password_confirmation_length": "La contraseña debe tener entre 8 y 32 caracteres",
-      "passwords_must_match": "La contraseña y la confirmación de la contraseña no coinciden",
-      "button": "Actualizar contraseña",
-      "go_login": "Ir al inicio de sesión",
-      "success": "¡Todo listo! ¡Tu contraseña ha sido actualizada y ya puedes ingresar a tu cuenta!",
-      "error": "Ocurrió un error al intentar restablecer la contraseña"
     },
     "terms_and_policy": {
       "text": "Al hacer clic en continuar, aceptas nuestros",
@@ -594,14 +571,6 @@
       "Register": {
         "title": "Crear cuenta - Urbanify",
         "description": "Cree su cuenta para iniciar la gestion urbana con Urbanify."
-      },
-      "ForgotPassword": {
-        "title": "Recuperar acceso - Urbanify",
-        "description": "Solicite un enlace seguro para restablecer su contrasena."
-      },
-      "UpdatePassword": {
-        "title": "Restablecer contrasena - Urbanify",
-        "description": "Defina una nueva contrasena para proteger su cuenta."
       }
     },
     "Issues": {

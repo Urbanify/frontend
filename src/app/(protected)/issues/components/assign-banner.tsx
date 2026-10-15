@@ -2,12 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { useSession } from '@/lib/session-client';
 import { cn } from '@/lib/utils';
 
 import BannerMessage from '@/components/banner/banner';

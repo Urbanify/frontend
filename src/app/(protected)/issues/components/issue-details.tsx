@@ -2,10 +2,10 @@
 import { Marker, useLoadScript } from '@react-google-maps/api';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
+import { useSession } from '@/lib/session-client';
 import { Env } from '@/libs/Env';
 
 import { GoogleMaps } from '@/components/google-map/google-map';

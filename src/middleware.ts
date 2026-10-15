@@ -1,22 +1,21 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { auth } from '@/auth';
+import { isTokenValid, SESSION_COOKIE } from '@/lib/session';
 
 const authRoutes: string[] = [
   '/login',
   '/register',
-  '/forgot-password',
-  '/update-password',
 ];
 
 const publicRoutes: string[] = [
   '/about',
   '/',
   '/visit',
+  '/api/session',
 ];
 
-export default async function middleware(request: NextRequest) {
-  const session = await auth();
+export default function middleware(request: NextRequest) {
+  const session = isTokenValid(request.cookies.get(SESSION_COOKIE)?.value);
 
   const pathname = request.nextUrl.pathname;
 

@@ -6,7 +6,6 @@ import '@/styles/global.css';
 
 import { Toaster } from '@/components/ui/toaster/toaster';
 
-import AuthProvider from '@/providers/AuthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 
 import PACKAGE from '../../package.json';
@@ -84,10 +83,8 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AuthProvider>
-              <main>{children}</main>
-              <Toaster richColors />
-            </AuthProvider>
+            <main>{children}</main>
+            <Toaster richColors />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

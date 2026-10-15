@@ -2,10 +2,10 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import Link from 'next/link';
-import type { Session } from 'next-auth';
-import { getSession } from 'next-auth/react';
 // import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+
+import { getSession, type Session } from '@/lib/session-client';
 
 import {
   SidebarGroup,

@@ -3,9 +3,10 @@
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
+
+import { signOut, useSession } from '@/lib/session-client';
 
 import { Button } from '@/components/ui/button/button';
 import {
@@ -48,10 +49,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         }, data?.access_token);
 
         if (response.status === 401) {
-          return signOut({
-            redirect: true,
-            redirectTo: '/login',
-          });
+          return signOut();
         }
 
         if (response.ok) {

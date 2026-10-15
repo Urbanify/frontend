@@ -3,13 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Autocomplete, Marker, useLoadScript } from '@react-google-maps/api';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { useSession } from '@/lib/session-client';
 import { Env } from '@/libs/Env';
 
 import { animateMarker } from '@/components/google-map/animate-marker';

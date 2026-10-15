@@ -19,7 +19,6 @@ export type RegisterFormData = {
   name: string;
   surname: string;
   email: string;
-  password: string;
   cpf: string;
   cityId: string;
 };
@@ -44,7 +43,6 @@ export function RegisterForm({
     defaultValues: {
       cpf: '',
       cityId: '',
-      password: '',
       email: '',
       name: '',
       surname: '',
@@ -115,14 +113,6 @@ export function RegisterForm({
                       {...register('email')}
                     />
                     {methods.formState.errors.email && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.email.message}</span>}
-                  </div>
-
-                  <div className="relative grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password">{t('password')}</Label>
-                    </div>
-                    <Input id="password" type="password" placeholder="********" required {...register('password')} />
-                    {methods.formState.errors.password && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.password.message}</span>}
                   </div>
 
                   <div className="relative grid gap-2">

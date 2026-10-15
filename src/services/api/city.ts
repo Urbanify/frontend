@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react';
+import { getSession } from '@/lib/session-client';
 
 import type { CityFormData } from '@/components/Cities/CreateCityForm';
 import type { EditCityFormData } from '@/components/Cities/EditCityForm';

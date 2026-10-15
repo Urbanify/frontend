@@ -2,10 +2,11 @@
 
 import dayjs from 'dayjs';
 import { BadgeCheck, Shield, UserCog, UserRound, Users } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
+
+import { useSession } from '@/lib/session-client';
 
 import { Badge } from '@/components/ui/badge/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card/card';

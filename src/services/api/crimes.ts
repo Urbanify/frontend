@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react';
+import { getSession } from '@/lib/session-client';
 
 import { api } from '.';
 
