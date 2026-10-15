@@ -289,7 +289,7 @@
         "reporter": "Relator",
         "fiscal": "Fiscal",
         "manager": "Gestor",
-        "resident": "Residente"
+        "resident": "Cidadão"
       }
     },
     "MyIssuesPage": {
@@ -520,10 +520,10 @@
     },
     "roles": {
       "ADMIN": "Admin",
-      "OWNER": "Owner",
+      "OWNER": "Responsável",
       "MANAGER": "Gestor",
       "FINANCIAL": "Financeiro",
-      "RESIDENT": "Residente"
+      "RESIDENT": "Cidadão"
     }
   },
   "Profile": {
