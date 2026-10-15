@@ -1,4 +1,4 @@
-import { BadgeAlert, ChevronRight, Siren, Users } from 'lucide-react';
+import { BadgeAlert, ChevronRight, Users } from 'lucide-react';
 import Link from 'next/link';
 import type { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
@@ -44,11 +44,6 @@ export function NavManager() {
       title: t('issues_overview'),
       url: '/issues/overview',
       icon: BadgeAlert,
-    },
-    {
-      title: t('crime_overview'),
-      url: '/crimes/overview',
-      icon: Siren,
     },
     {
       title: tPeople('title'),

@@ -1,7 +1,6 @@
 import {
   ChevronRight,
   OctagonAlert,
-  Siren,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -41,22 +40,6 @@ export function NavGeneral() {
         {
           title: t('issues.mine'),
           url: '/issues/mine',
-        },
-      ],
-    },
-    {
-      title: t('crimes.title'),
-      url: '/crimes',
-      icon: Siren,
-      isActive: true,
-      items: [
-        {
-          title: t('crimes.report'),
-          url: '/crimes/report',
-        },
-        {
-          title: t('crimes.all'),
-          url: '/crimes',
         },
       ],
     },

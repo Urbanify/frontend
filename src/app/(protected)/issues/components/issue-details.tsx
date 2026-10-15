@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { Env } from '@/libs/Env';
 
 import { GoogleMaps } from '@/components/google-map/google-map';
-import { SquareAd } from '@/components/ui/ads/square';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar/avatar';
 import { Badge } from '@/components/ui/badge/badge';
 import { Button } from '@/components/ui/button/button';
@@ -19,7 +18,6 @@ import { Label } from '@/components/ui/label/label';
 import { Skeleton } from '@/components/ui/skeleton/skeleton';
 import { Textarea } from '@/components/ui/textarea/textarea';
 
-import { useAd } from '@/contexts/ads/useAd';
 import { api } from '@/services/api';
 import { parseJwt } from '@/utils/decodeJWT';
 
@@ -69,7 +67,6 @@ type ApiComment = {
 };
 
 export function IssueDetailment({ issue }: IssuesTableProps) {
-  const { currentAd } = useAd();
   const { data: session } = useSession();
   const [openHistory, setOpenHistory] = useState(false);
   const [commentText, setCommentText] = useState('');
@@ -456,13 +453,6 @@ export function IssueDetailment({ issue }: IssuesTableProps) {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="flex justify-center">
-              <SquareAd
-                href={currentAd?.square?.href ?? ''}
-                desktopMedia={currentAd?.square?.desktop ?? ''}
-                mobileMedia={currentAd?.square?.mobile ?? ''}
-              />
-            </div>
 
             <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
               <div className="relative grid gap-2">

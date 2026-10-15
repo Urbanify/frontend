@@ -3,7 +3,6 @@ import type React from 'react';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarFabTrigger } from '@/components/app-sidebar/sidebar-fab-trigger';
 import CheckAuth from '@/components/Auth/check-auth';
-import GlobalAds from '@/components/global-ads/global-ads';
 import {
   SidebarInset,
   SidebarProvider,
@@ -22,10 +21,9 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
       <AppSidebar />
       <SidebarInset>
         <SidebarFabTrigger />
+        {/* Simulated ads are hidden until the ads module exists (SPEC 4.13). */}
         <AdProvider>
-          <GlobalAds>
-            {children}
-          </GlobalAds>
+          <div className="relative my-4">{children}</div>
         </AdProvider>
       </SidebarInset>
     </SidebarProvider>

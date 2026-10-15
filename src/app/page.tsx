@@ -516,7 +516,7 @@ export default function HomePage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href="mailto:contato@urbanify.com"
+              href="mailto:contato@urbanify.com.br"
               className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90"
             >
               Entre em contato
@@ -561,7 +561,7 @@ export default function HomePage() {
             <div className="space-y-3 text-sm">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Contato</p>
               <div className="flex flex-col gap-2 text-muted-foreground">
-                <a href="mailto:contato@urbanify.com" className="hover:text-foreground">contato@urbanify.com</a>
+                <a href="mailto:contato@urbanify.com.br" className="hover:text-foreground">contato@urbanify.com.br</a>
                 <a href="#contato" className="hover:text-foreground">Fale com nosso time</a>
                 <Link href="/login" className="hover:text-foreground">Acessar painel</Link>
               </div>

@@ -15,7 +15,7 @@ const siteConfig = {
   title: 'Urbanify',
   description:
     'Urbanify description',
-  url: 'https://urbanify.com',
+  url: 'https://urbanify.com.br',
 };
 
 export const metadata: Metadata = {
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'Urbanify',
-      url: 'https://urbanify.com',
+      url: 'https://urbanify.com.br',
     },
   ],
 };

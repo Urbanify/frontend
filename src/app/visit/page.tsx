@@ -77,7 +77,7 @@ export default async function VisitPage({ searchParams }: VisitPageProps) {
             <div className="space-y-3 text-sm">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Contato</p>
               <div className="flex flex-col gap-2 text-muted-foreground">
-                <a href="mailto:contato@urbanify.com" className="hover:text-foreground">contato@urbanify.com</a>
+                <a href="mailto:contato@urbanify.com.br" className="hover:text-foreground">contato@urbanify.com.br</a>
                 <Link href="/" className="hover:text-foreground">Fale com nosso time</Link>
               </div>
             </div>

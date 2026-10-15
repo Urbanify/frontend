@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://urbanify.vercel.app
+Host: https://urbanify.com.br
 
 # Sitemaps
-Sitemap: https://urbanify.vercel.app/sitemap.xml
+Sitemap: https://urbanify.com.br/sitemap.xml
