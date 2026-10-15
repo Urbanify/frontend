@@ -28,6 +28,7 @@ export function Marquee() {
   const group = (dup: boolean) => (
     <div className={cn('flex shrink-0 items-center', dup && 'marquee-dup')}>
       {[...WORDS, ...WORDS].map((word, i) => (
+        // eslint-disable-next-line react/no-array-index-key -- the word list is duplicated on purpose
         <span key={`${dup ? 'b' : 'a'}-${i}`} className="flex items-center gap-10 px-5">
           <span className={cn('font-display text-2xl font-bold md:text-3xl', i % 2 === 0 ? 'text-navy' : 'text-primary')}>
             {word}

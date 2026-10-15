@@ -62,6 +62,7 @@ export function Hero() {
 
           <h1 id="hero-title" className="mt-6 font-display text-display-xl text-navy">
             {HEADLINE.map(({ word, accent }, i) => (
+              // eslint-disable-next-line react/no-array-index-key -- static headline, words can repeat
               <span key={word + i}>
                 {i > 0 && ' '}
                 <span
