@@ -1,10 +1,14 @@
 'use client';
 
-import { Plus } from 'lucide-react';
+import { ChevronDown, Landmark, Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+
+import { departmentBySlug, DEPARTMENTS } from '@/lib/departments';
+import { cn } from '@/lib/utils';
 
 import { ComingSoon } from '@/components/app/coming-soon';
 import { useViewer } from '@/components/app/use-viewer';
@@ -31,12 +35,25 @@ import { NavUser } from './nav-user';
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const viewer = useViewer();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const t = useTranslations('App');
   const menu = menuFor(viewer.role, viewer.cityId);
   const user = parseJwt(viewer.token)?.user;
 
-  // Highlight the longest menu link that contains the current page.
-  const activeHref = pathname.startsWith('/issues/report')
+  // A department page is /issues?secretaria=<slug>. Its group opens by itself.
+  const department = pathname === '/issues' ? departmentBySlug(searchParams.get('secretaria')) : undefined;
+  const [departmentsOpen, setDepartmentsOpen] = useState(!!department);
+  useEffect(() => {
+    if (department) {
+      setDepartmentsOpen(true);
+    }
+  }, [department]);
+
+  // Anyone who works in a city can report, staff included. An admin needs a city first.
+  const canReport = !!viewer.role && (viewer.role !== 'ADMIN' || !!viewer.cityId);
+
+  // Highlight the longest menu link that contains the current page. Report and department pages keep no highlight.
+  const activeHref = (pathname.startsWith('/issues/report') || department)
     ? undefined
     : menu?.links
       .map(link => link.href)
@@ -44,12 +61,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       .sort((a, b) => b.length - a.length)[0];
 
   return (
-    <Sidebar className="px-0" variant="inset" {...props}>
-      <SidebarHeader className="border-b border-sidebar-border p-4">
-        <div className="flex items-center gap-3">
+    <Sidebar className="px-0" variant="inset" collapsible="icon" {...props}>
+      <SidebarHeader className="border-b border-sidebar-border p-4 group-data-[collapsible=icon]:p-2">
+        <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col">
           <Link href="/" className="flex min-w-0 flex-1 items-center gap-3">
             <Image src="/logo.svg" alt="Urbanify" width={32} height={32} className="size-8 shrink-0" />
-            <span className="grid min-w-0 leading-tight">
+            <span className="grid min-w-0 leading-tight group-data-[collapsible=icon]:hidden">
               <span className="font-semibold">Urbanify</span>
               <CityName className="text-[13px] text-muted-foreground" />
             </span>
@@ -59,11 +76,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       <SidebarContent className="px-2 py-3">
-        {viewer.role === 'RESIDENT' && (
-          <Button asChild className="mb-3 w-full justify-start gap-2">
-            <Link href="/issues/report">
+        {canReport && (
+          <Button
+            asChild
+            variant={viewer.audience === 'citizen' ? 'default' : 'outline'}
+            className="mb-3 w-full justify-start gap-2 group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
+          >
+            <Link href="/issues/report" aria-label={t('Menu.report')}>
               <Plus aria-hidden />
-              {t('Menu.report')}
+              <span className="group-data-[collapsible=icon]:hidden">{t('Menu.report')}</span>
             </Link>
           </Button>
         )}
@@ -74,10 +95,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {menu.links.map(link => (
                   <SidebarMenuItem key={link.key}>
-                    <SidebarMenuButton asChild isActive={link.href === activeHref} className="h-10">
+                    <SidebarMenuButton asChild isActive={link.href === activeHref} className="h-10" tooltip={t(`Menu.${link.key}`)}>
                       <Link href={link.href} aria-current={link.href === activeHref ? 'page' : undefined}>
                         <link.icon aria-hidden />
-                        <span>{t(`Menu.${link.key}`)}</span>
+                        <span className="group-data-[collapsible=icon]:hidden">{t(`Menu.${link.key}`)}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -85,6 +106,37 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenu>
             </nav>
           </SidebarGroup>
+        )}
+
+        {menu?.departments && (
+          <SidebarMenu className="mt-1">
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                className="h-10"
+                tooltip={t('Menu.departments')}
+                aria-expanded={departmentsOpen}
+                onClick={() => setDepartmentsOpen(open => !open)}
+              >
+                <Landmark aria-hidden />
+                <span className="flex-1 text-left group-data-[collapsible=icon]:hidden">{t('Menu.departments')}</span>
+                <ChevronDown aria-hidden className={cn('size-4 transition-transform group-data-[collapsible=icon]:hidden', departmentsOpen && 'rotate-180')} />
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            {departmentsOpen && (
+              <>
+                <SidebarMenuItem className="px-2 pb-1 text-[13px] text-muted-foreground group-data-[collapsible=icon]:hidden">
+                  {t('Menu.departments_hint')}
+                </SidebarMenuItem>
+                {DEPARTMENTS.map(item => (
+                  <SidebarMenuItem key={item.slug} className="group-data-[collapsible=icon]:hidden">
+                    <SidebarMenuButton asChild isActive={department === item} className="h-9 pl-9">
+                      <Link href={`/issues?secretaria=${item.slug}`}>{item.label}</Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </>
+            )}
+          </SidebarMenu>
         )}
 
         {menu && menu.soon.length > 0 && (

@@ -92,6 +92,7 @@ export type StaffHomeProps = {
 
 export function StaffHome({ title, viewer, cityIssues }: StaffHomeProps) {
   const t = useTranslations('Dashboard.staff');
+  const tDashboard = useTranslations('Dashboard');
   const tButtons = useTranslations('IssueDetail.nextStep.buttons');
   const isOwner = viewer.role === 'OWNER';
   const isManager = viewer.role === 'MANAGER';
@@ -139,6 +140,11 @@ export function StaffHome({ title, viewer, cityIssues }: StaffHomeProps) {
       <PageHeader
         title={title}
         description={staleTotal > 0 ? t('context_stale', { count: staleTotal }) : t('context_ok')}
+        action={(
+          <Button asChild variant="outline">
+            <Link href="/issues/report">{tDashboard('report')}</Link>
+          </Button>
+        )}
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">

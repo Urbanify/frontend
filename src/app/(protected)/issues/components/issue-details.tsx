@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
+import { departmentForType } from '@/lib/departments';
 import { formatRelativeTime } from '@/lib/relative-time';
 import { Env } from '@/libs/Env';
 
@@ -34,6 +35,7 @@ export function IssueDetailment({ issue }: IssueDetailmentProps) {
   const tIssues = useTranslations('Issues');
   const router = useRouter();
   const viewer = useViewer();
+  const department = departmentForType(issue.type);
 
   const position = { lat: +issue.latitude, lng: +issue.longitude };
 
@@ -68,6 +70,7 @@ export function IssueDetailment({ issue }: IssueDetailmentProps) {
             <CategoryTile category={issue.category} className="size-7" iconClassName="size-4" />
             {tIssues(`types.${issue.category}`)}
           </span>
+          {viewer.audience === 'staff' && department && <span>{t('department', { name: department.label })}</span>}
           <span className="tabular-nums">{`${t('protocol')} #${issue.id.slice(0, 6)}`}</span>
           <span>{t('reportedAgo', { time: formatRelativeTime(issue.createdAt) })}</span>
         </p>

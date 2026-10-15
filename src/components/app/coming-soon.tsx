@@ -26,11 +26,11 @@ export function ComingSoon({ label, hint, icon: Icon, className }: ComingSoonPro
           <button
             type="button"
             aria-disabled="true"
-            className={cn('flex min-h-9 w-full cursor-not-allowed items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm text-muted-foreground', className)}
+            className={cn('flex min-h-9 w-full cursor-not-allowed items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm text-muted-foreground group-data-[collapsible=icon]:justify-center', className)}
           >
             {Icon && <Icon className="size-4 shrink-0" aria-hidden />}
-            <span className="min-w-0 flex-1 leading-5">{label}</span>
-            <span className="shrink-0 rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">
+            <span className="min-w-0 flex-1 leading-5 group-data-[collapsible=icon]:hidden">{label}</span>
+            <span className="shrink-0 rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg group-data-[collapsible=icon]:hidden">
               {t('badge')}
             </span>
           </button>

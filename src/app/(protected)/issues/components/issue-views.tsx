@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
+import { departmentBySlug } from '@/lib/departments';
+
 import { EmptyState } from '@/components/app/empty-state';
 import { DATE_ORDER, dateBucket, groupItems, WAIT_ORDER, waitBucket } from '@/components/app/group-items';
 import { GroupedList } from '@/components/app/grouped-list';
@@ -59,7 +61,7 @@ function TakeIssueButton({ issueId, label }: { issueId: string; label: string })
 }
 
 // Citizens see "Eu verifico" on unassigned issues they did not report. Staff browse without actions.
-export function CityIssues({ issues }: { issues: Issue[] }) {
+export function CityIssues({ issues: cityIssues }: { issues: Issue[] }) {
   const t = useTranslations('Issues.ListPage');
   const tLists = useTranslations('App.Lists');
   const viewer = useViewer();
@@ -71,7 +73,19 @@ export function CityIssues({ issues }: { issues: Issue[] }) {
     return null;
   }
 
+  // Department pages (from the sidebar) filter by issue type; see lib/departments.ts.
+  const department = departmentBySlug(searchParams.get('secretaria'));
+  const issues = department ? cityIssues.filter(issue => department.types.includes(issue.type)) : cityIssues;
   const citizen = viewer.audience === 'citizen';
+  const viewSwitch = citizen
+    ? (
+        <Tabs
+          options={[{ value: 'list', label: tLists('view_list') }, { value: 'map', label: tLists('view_map') }]}
+          value={view}
+          onChange={setView}
+        />
+      )
+    : undefined;
   const canVerify = (issue: Issue) => citizen
     && issue.status === 'WAITING_FOR_FISCAL'
     && !issue.fiscalId
@@ -109,16 +123,14 @@ export function CityIssues({ issues }: { issues: Issue[] }) {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={citizen ? t('title_citizen') : t('title_staff')}
-        action={citizen
+        title={department?.label ?? (citizen ? t('title_citizen') : t('title_staff'))}
+        action={department
           ? (
-              <Tabs
-                options={[{ value: 'list', label: tLists('view_list') }, { value: 'map', label: tLists('view_map') }]}
-                value={view}
-                onChange={setView}
-              />
+              <Button variant="outline" asChild>
+                <Link href="/issues">{t('department_all')}</Link>
+              </Button>
             )
-          : undefined}
+          : viewSwitch}
       />
 
       {view === 'map'

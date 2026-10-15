@@ -8,12 +8,12 @@ import {
   FileText,
   House,
   Inbox,
-  Landmark,
   List,
   type LucideIcon,
   Map as MapIcon,
   MapPin,
   Megaphone,
+  ShieldAlert,
   Smartphone,
   Store,
   UserRound,
@@ -25,11 +25,11 @@ import type { UserRole } from '@/types/User';
 
 // Each entry is a translation key under App.Menu (and App.Menu.soon for coming-soon items).
 export type LinkKey = 'home' | 'city_issues' | 'my_reports' | 'my_verifications' | 'open_queue' | 'my_assignments' | 'overview' | 'all_issues' | 'team' | 'citizens' | 'cities';
-export type SoonKey = 'public_notices' | 'city_works' | 'mobile_app' | 'results' | 'deadlines' | 'reports' | 'departments' | 'showcase';
+export type SoonKey = 'public_notices' | 'city_works' | 'mobile_app' | 'neighborhood_safety' | 'safety_map' | 'results' | 'deadlines' | 'reports' | 'showcase';
 
 export type MenuLink = { key: LinkKey; href: string; icon: LucideIcon };
 export type SoonItem = { key: SoonKey; icon: LucideIcon };
-export type RoleMenu = { links: MenuLink[]; soon: SoonItem[] };
+export type RoleMenu = { links: MenuLink[]; soon: SoonItem[]; departments: boolean };
 
 const HOME_LINK: MenuLink = { key: 'home', href: '/inicio', icon: House };
 
@@ -58,6 +58,7 @@ const OWNER_LINKS: MenuLink[] = [
 const CITIES_LINK: MenuLink = { key: 'cities', href: '/cities', icon: Building2 };
 
 const MANAGER_SOON: SoonItem[] = [
+  { key: 'safety_map', icon: ShieldAlert },
   { key: 'results', icon: ChartColumn },
   { key: 'deadlines', icon: CalendarClock },
   { key: 'reports', icon: FileText },
@@ -69,21 +70,24 @@ export const ROLE_MENUS: Record<UserRole, RoleMenu> = {
     soon: [
       { key: 'public_notices', icon: Megaphone },
       { key: 'city_works', icon: Construction },
+      { key: 'neighborhood_safety', icon: ShieldAlert },
       { key: 'mobile_app', icon: Smartphone },
     ],
+    departments: false,
   },
-  MANAGER: { links: MANAGER_LINKS, soon: MANAGER_SOON },
-  FINANCIAL: { links: MANAGER_LINKS, soon: MANAGER_SOON },
+  MANAGER: { links: MANAGER_LINKS, soon: MANAGER_SOON, departments: true },
+  FINANCIAL: { links: MANAGER_LINKS, soon: MANAGER_SOON, departments: true },
   OWNER: {
     links: OWNER_LINKS,
     soon: [
+      { key: 'safety_map', icon: ShieldAlert },
       { key: 'results', icon: ChartColumn },
-      { key: 'departments', icon: Landmark },
       { key: 'showcase', icon: Store },
       { key: 'reports', icon: FileText },
     ],
+    departments: true,
   },
-  ADMIN: { links: [CITIES_LINK], soon: [] },
+  ADMIN: { links: [CITIES_LINK], soon: [], departments: false },
 };
 
 // An admin working inside a city also gets the Responsável menu.
@@ -92,7 +96,7 @@ export function menuFor(role?: UserRole, cityId?: string): RoleMenu | null {
     return null;
   }
   if (role === 'ADMIN' && cityId) {
-    return { links: [CITIES_LINK, ...OWNER_LINKS], soon: ROLE_MENUS.OWNER.soon };
+    return { links: [CITIES_LINK, ...OWNER_LINKS], soon: ROLE_MENUS.OWNER.soon, departments: true };
   }
   return ROLE_MENUS[role];
 }

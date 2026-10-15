@@ -51,11 +51,11 @@ export function NavUser({ user }: { user: TokenData['user'] }) {
                   {initials}
                 </AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
                 <span className="truncate font-semibold">{fullName}</span>
                 <span className="truncate text-[13px] text-muted-foreground">{roleLabel}</span>
               </div>
-              <ChevronsUpDown className="ml-auto size-4" aria-hidden />
+              <ChevronsUpDown className="ml-auto size-4 group-data-[collapsible=icon]:hidden" aria-hidden />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
 
