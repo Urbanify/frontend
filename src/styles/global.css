@@ -2,218 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Brand palette (pitch). Light theme only.
+ * Values are HSL triplets so Tailwind's hsl(var(--token)) pattern keeps working.
+ */
 @layer base {
   :root {
-    /* =========================
-       BASE / SURFACES
-       ========================= */
-    --white: 0 0% 99%;
-    --background: 220 35% 98%;
-    --foreground: 224 28% 12%;
+    color-scheme: light;
 
-    --card: 0 0% 100%;
-    --card-foreground: 224 28% 12%;
+    /* Surfaces and text */
+    --background: 220 50% 98%; /* #F6F8FC */
+    --foreground: 220 49% 8%; /* #0B1220 ink, body text */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 220 49% 8%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 28% 12%;
+    --popover-foreground: 220 49% 8%;
 
-    /* =========================
-       BRAND (from primary/secondary/tertiary)
-       Pastelized blues
-       ========================= */
-    --brand-primary: 221 90% 72%;
-    --brand-secondary: 224 45% 24%;
-    --brand-tertiary: 221 55% 34%;
+    /* Brand */
+    --primary: 222 100% 51%; /* #034EFF */
+    --primary-foreground: 0 0% 100%;
+    --navy: 222 100% 9%; /* #000E2E, titles */
+    --success: 157 80% 35%; /* #12A26B, resolved (never as text) */
+    --mint: 151 100% 53%; /* #10FF8D, brand detail only, never text */
 
-    /* shadcn-style semantic mapping */
-    --primary: var(--brand-primary);
-    --primary-foreground: 224 28% 12%;
+    /* Neutral actions */
+    --secondary: 218 31% 95%; /* #EEF1F6 */
+    --secondary-foreground: 220 49% 8%;
+    --muted: 218 31% 95%; /* #EEF1F6 */
+    --muted-foreground: 222 17% 43%; /* #5B6680 */
+    --accent: 224 100% 95%; /* #E8EEFF, hover tint */
+    --accent-foreground: 222 100% 9%;
 
-    --secondary: 222 28% 92%;
-    --secondary-foreground: 224 18% 28%;
+    --destructive: 4 76% 40%; /* #B42318 */
+    --destructive-foreground: 0 0% 100%;
 
-    --muted: 222 28% 92%;
-    --muted-foreground: 224 12% 42%;
+    /* Lines. --border is the spec's "line" (#E3E8F2) for dividers and cards.
+       --input is darker so field edges reach 3:1 (WCAG 1.4.11). */
+    --border: 220 37% 92%; /* #E3E8F2 */
+    --input: 220 15% 60%; /* #8A94A8 */
+    --ring: 222 100% 51%; /* #034EFF */
 
-    --accent: 151 60% 88%;
-    --accent-foreground: 224 28% 12%;
+    /* Status tones: always paired with text, color is never the only signal */
+    --tone-neutral-fg: 222 17% 43%; /* #5B6680 */
+    --tone-neutral-bg: 218 31% 95%; /* #EEF1F6 */
+    --tone-blue-fg: 222 100% 51%; /* #034EFF */
+    --tone-blue-bg: 224 100% 95%; /* #E8EEFF */
+    --tone-amber-fg: 35 100% 30%; /* #9A5B00 */
+    --tone-amber-bg: 42 100% 93%; /* #FFF4DB */
+    --tone-green-fg: 157 83% 26%; /* #0B7A50 */
+    --tone-green-bg: 155 51% 93%; /* #E3F6EE */
 
-    --destructive: 0 80% 72%;
-    --destructive-foreground: 224 28% 12%;
-
-    /* =========================
-       NEUTRALS (from black + gray)
-       Pastel-friendly neutrals
-       ========================= */
-    --black-hard: 0 0% 8%;
-    --black-medium: 0 0% 22%;
-    --black-light: 0 0% 40%;
-    --black-soft: 0 0% 82%;
-
-    --gray-hard: 221 18% 56%;
-    --gray-medium: 221 16% 66%;
-    --gray-light: 221 18% 78%;
-    --gray-soft: 220 22% 92%;
-
-    --border: 221 22% 84%;
-    --input: 221 22% 84%;
-    --ring: 221 90% 62%;
-
-    /* =========================
-       LILAC SCALE (from lilac)
-       Pastel lilacs
-       ========================= */
-    --lilac-hard: 270 85% 74%;
-    --lilac-medium: 270 80% 80%;
-    --lilac-light: 270 75% 86%;
-    --lilac-soft: 270 60% 94%;
-
-    /* =========================
-       YELLOW SCALE (from yellow)
-       Pastel yellows
-       ========================= */
-    --yellow-hard: 54 95% 70%;
-    --yellow-medium: 54 95% 78%;
-    --yellow-light: 54 90% 86%;
-    --yellow-soft: 54 80% 94%;
-
-    /* =========================
-       MINT SCALE (from mint)
-       Pastel mints
-       ========================= */
-    --mint-hard: 151 70% 62%;
-    --mint-medium: 151 65% 72%;
-    --mint-light: 151 60% 82%;
-    --mint-soft: 151 55% 92%;
-
-    /* =========================
-       RADIUS
-       ========================= */
+    /* Shape: 12px cards (rounded-lg), 10px controls (rounded-md) */
     --radius: 0.75rem;
 
-    /* =========================
-       CHARTS (use all families)
-       ========================= */
-    --chart-1: var(--brand-primary); /* blue */
-    --chart-2: var(--lilac-hard); /* lilac */
-    --chart-3: var(--mint-hard); /* mint */
-    --chart-4: var(--yellow-hard); /* yellow */
-    --chart-5: var(--gray-hard); /* gray */
+    /* Charts */
+    --chart-1: 222 100% 51%; /* primary */
+    --chart-2: 222 100% 9%; /* navy */
+    --chart-3: 157 80% 35%; /* success */
+    --chart-4: 35 100% 30%; /* amber */
+    --chart-5: 222 17% 43%; /* muted */
 
-    /* =========================
-       SIDEBAR (pleasant, startup-ish)
-       ========================= */
-    --sidebar-background: var(--gray-soft);
-    --sidebar-foreground: 224 28% 12%;
-    --sidebar-primary: var(--brand-primary);
-    --sidebar-primary-foreground: 224 28% 12%;
-    --sidebar-accent: var(--mint-soft);
-    --sidebar-accent-foreground: 224 28% 12%;
-    --sidebar-border: 221 22% 84%;
-    --sidebar-ring: 221 90% 62%;
-  }
-
-  .dark {
-    /* =========================
-       BASE / SURFACES (dark)
-       ========================= */
-    --white: 0 0% 99%;
-    --background: 224 28% 10%;
-    --foreground: 220 30% 96%;
-
-    --card: 224 24% 14%;
-    --card-foreground: 220 30% 96%;
-    --popover: 224 24% 14%;
-    --popover-foreground: 220 30% 96%;
-
-    /* =========================
-       BRAND (dark)
-       Keep vivid but still soft
-       ========================= */
-    --brand-primary: 221 90% 75%;
-    --brand-secondary: 224 22% 22%;
-    --brand-tertiary: 221 28% 28%;
-
-    --primary: var(--brand-primary);
-    --primary-foreground: 224 28% 12%;
-
-    --secondary: 224 18% 20%;
-    --secondary-foreground: 220 24% 92%;
-
-    --muted: 224 18% 20%;
-    --muted-foreground: 220 14% 75%;
-
-    --accent: 151 28% 22%;
-    --accent-foreground: 220 30% 96%;
-
-    --destructive: 0 70% 62%;
-    --destructive-foreground: 224 28% 12%;
-
-    /* =========================
-       NEUTRALS (dark)
-       ========================= */
-    --black-hard: 0 0% 6%;
-    --black-medium: 0 0% 16%;
-    --black-light: 0 0% 34%;
-    --black-soft: 0 0% 78%;
-
-    --gray-hard: 221 14% 62%;
-    --gray-medium: 221 12% 70%;
-    --gray-light: 221 14% 78%;
-    --gray-soft: 224 18% 22%;
-
-    --border: 224 18% 22%;
-    --input: 224 18% 22%;
-    --ring: 221 90% 70%;
-
-    /* =========================
-       LILAC SCALE (dark)
-       ========================= */
-    --lilac-hard: 270 85% 78%;
-    --lilac-medium: 270 70% 72%;
-    --lilac-light: 270 55% 62%;
-    --lilac-soft: 270 28% 22%;
-
-    /* =========================
-       YELLOW SCALE (dark)
-       ========================= */
-    --yellow-hard: 54 95% 68%;
-    --yellow-medium: 54 80% 60%;
-    --yellow-light: 54 55% 46%;
-    --yellow-soft: 54 28% 22%;
-
-    /* =========================
-       MINT SCALE (dark)
-       ========================= */
-    --mint-hard: 151 55% 62%;
-    --mint-medium: 151 45% 54%;
-    --mint-light: 151 32% 42%;
-    --mint-soft: 151 22% 22%;
-
-    /* =========================
-       RADIUS
-       ========================= */
-    --radius: 0.75rem;
-
-    /* =========================
-       CHARTS (dark)
-       ========================= */
-    --chart-1: var(--brand-primary);
-    --chart-2: var(--lilac-hard);
-    --chart-3: var(--mint-hard);
-    --chart-4: var(--yellow-hard);
-    --chart-5: var(--gray-hard);
-
-    /* =========================
-       SIDEBAR (dark)
-       ========================= */
-    --sidebar-background: 224 24% 14%;
-    --sidebar-foreground: 220 30% 96%;
-    --sidebar-primary: var(--brand-primary);
-    --sidebar-primary-foreground: 224 28% 12%;
-    --sidebar-accent: 224 18% 20%;
-    --sidebar-accent-foreground: 220 30% 96%;
-    --sidebar-border: 224 18% 22%;
-    --sidebar-ring: 221 90% 70%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 49% 8%;
+    --sidebar-primary: 222 100% 51%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 224 100% 95%;
+    --sidebar-accent-foreground: 222 100% 9%;
+    --sidebar-border: 220 37% 92%;
+    --sidebar-ring: 222 100% 51%;
   }
 }
 
@@ -223,5 +80,19 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Reduced motion: no decorative transitions or enter/exit animations. Spinners keep spinning. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  [class*='animate-in'],
+  [class*='animate-out'] {
+    animation: none !important;
   }
 }

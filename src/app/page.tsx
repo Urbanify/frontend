@@ -470,43 +470,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="anuncios" className="mx-auto w-full max-w-6xl px-6 pb-20">
-        <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-semibold">Anúncios que valorizam negócios locais</h2>
-            <p className="text-base text-muted-foreground">
-              Os anúncios dentro do Urbanify ampliam a visibilidade de negócios da cidade,
-              com campanhas por território, ofertas exclusivas e comunicação relevante para
-              quem usa a plataforma.
-            </p>
-            <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
-              <span className="rounded-full bg-card px-3 py-1 shadow-sm">Promoções exclusivas</span>
-              <span className="rounded-full bg-card px-3 py-1 shadow-sm">Segmentação por bairros</span>
-              <span className="rounded-full bg-card px-3 py-1 shadow-sm">Mais alcance local</span>
-            </div>
-          </div>
-          <div className="rounded-3xl border border-border/60 bg-card/80 p-6 shadow-2xl">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-border/60 bg-muted/30 p-4">
-                <p className="text-xs text-muted-foreground">Campanha destaque</p>
-                <p className="mt-2 text-sm font-semibold">Restaurante Central</p>
-                <p className="text-xs text-muted-foreground">Oferta exclusiva para moradores</p>
-              </div>
-              <div className="rounded-2xl border border-border/60 bg-muted/30 p-4">
-                <p className="text-xs text-muted-foreground">Promoção local</p>
-                <p className="mt-2 text-sm font-semibold">Farmácia Zona Norte</p>
-                <p className="text-xs text-muted-foreground">Desconto em medicamentos</p>
-              </div>
-              <div className="rounded-2xl border border-border/60 bg-muted/30 p-4 sm:col-span-2">
-                <p className="text-xs text-muted-foreground">Relatório de impacto</p>
-                <p className="mt-2 text-sm font-semibold">+38% engajamento em 30 dias</p>
-                <p className="text-xs text-muted-foreground">Campanhas com alto retorno local</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="contato" className="mx-auto w-full max-w-6xl px-6 pb-24">
         <div className="rounded-3xl border border-border/60 bg-secondary/40 p-10 text-center shadow-sm">
           <h2 className="text-3xl font-semibold">Pronto para transformar sua cidade?</h2>
@@ -553,7 +516,6 @@ export default function HomePage() {
               <div className="flex flex-col gap-2 text-muted-foreground">
                 <a href="#fluxos" className="hover:text-foreground">Fluxos</a>
                 <a href="#beneficios" className="hover:text-foreground">Benefícios</a>
-                <a href="#anuncios" className="hover:text-foreground">Anúncios</a>
                 <Link href="/visit" className="hover:text-foreground">Sou turista</Link>
               </div>
             </div>

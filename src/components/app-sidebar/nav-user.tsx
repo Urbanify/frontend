@@ -1,30 +1,18 @@
 'use client';
 
-import {
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Moon,
-  Sun,
-  UserRound,
-} from 'lucide-react';
+import { ChevronsUpDown, LogOut, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 
 import { signOut } from '@/lib/session-client';
 
-import LocaleSwitcher from '@/components/LocaleSelect';
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
 } from '@/components/ui/avatar/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -38,50 +26,35 @@ import {
 import { useSidebar } from '@/components/ui/sidebar/useSidebar';
 
 import type { TokenData } from '@/types/JWT';
+import type { UserRole } from '@/types/User';
 
-export function NavUser({
-  user,
-}: {
-  user: TokenData['user'];
-}) {
+export function NavUser({ user }: { user: TokenData['user'] }) {
   const { isMobile } = useSidebar();
-  const t = useTranslations('Components.Sidebar.User');
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+  const t = useTranslations('App');
+  const initials = `${user.name.slice(0, 1)}${user.surname?.slice(0, 1) ?? ''}`.toUpperCase();
+  const fullName = `${user.name} ${user.surname}`.trim();
+  const roleLabel = t(`Roles.${user.role as UserRole}`);
 
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
-        <LocaleSwitcher />
-      </SidebarMenuItem>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
+              aria-label={t('UserMenu.open')}
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="size-8 rounded-lg">
-                {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                <AvatarImage src="https://avatars.githubusercontent.com/u/34353982?v=4" alt={user.name} />
-                <AvatarFallback className="rounded-lg uppercase">
-                  {user.name.slice(0, 1)}
-                  {user.surname?.slice(0, 1)}
+              <Avatar className="size-9 rounded-full">
+                <AvatarFallback className="rounded-full bg-tone-blue-bg text-sm font-semibold text-tone-blue-fg">
+                  {initials}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">
-                  {user.name}
-                  {' '}
-                  {user.surname}
-                </span>
-                {/* TODO: ENABLE THIS LATER */}
-                {/* <span className="truncate text-xs">{user.email}</span> */}
+                <span className="truncate font-semibold">{fullName}</span>
+                <span className="truncate text-[13px] text-muted-foreground">{roleLabel}</span>
               </div>
-              <ChevronsUpDown className="ml-auto size-4" />
+              <ChevronsUpDown className="ml-auto size-4" aria-hidden />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
 
@@ -91,53 +64,21 @@ export function NavUser({
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="size-8 rounded-lg">
-                  {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                  <AvatarImage src="https://avatars.githubusercontent.com/u/34353982?v=4" alt={user.name} />
-                  <AvatarFallback className="rounded-lg uppercase">
-                    {user.name.slice(0, 1)}
-                    {user.surname?.slice(0, 1)}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">
-                    {user.name}
-                    {' '}
-                    {user.surname}
-                  </span>
-                  {/* TODO: ENABLE THIS LATER */}
-                  {/* <span className="truncate text-xs">{user.email}</span> */}
-                </div>
-              </div>
+            <DropdownMenuLabel className="font-normal">
+              <span className="block truncate font-semibold">{fullName}</span>
+              <span className="block truncate text-[13px] text-muted-foreground">{roleLabel}</span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={toggleTheme}>
-              {theme === 'light' ? <Moon /> : <Sun />}
-              {t('toggle_theme')}
+            <DropdownMenuItem asChild>
+              <Link href="/profile">
+                <UserRound />
+                {t('UserMenu.profile')}
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
-                <Link href="/profile">
-                  <UserRound />
-                  {t('profile')}
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                {t('billing')}
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                {t('notifications')}
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut()}>
               <LogOut />
-              {t('logout')}
+              {t('UserMenu.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

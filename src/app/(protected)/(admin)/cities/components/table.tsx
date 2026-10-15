@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
 
-import { BannerAd } from '@/components/ui/ads/banner';
 import { Button } from '@/components/ui/button/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu/dropdown-menu';
@@ -19,7 +18,6 @@ import {
   TableRow,
 } from '@/components/ui/table/table';
 
-import { useAd } from '@/contexts/ads/useAd';
 import { api } from '@/services/api';
 import { mutate } from '@/utils/revalidateTag';
 
@@ -31,7 +29,6 @@ type CitiesTableProps = {
   cities: City[];
 };
 export function CitiesTable({ cities }: CitiesTableProps) {
-  const { currentAd } = useAd();
   const t = useTranslations('Cities.table');
   const [filter, setFilter] = useState('');
 
@@ -99,7 +96,7 @@ export function CitiesTable({ cities }: CitiesTableProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredCities.map((city, index) => (
+                    {filteredCities.map(city => (
                       <Fragment key={city.id}>
                         <TableRow>
                           <TableCell className="w-fit min-w-24 max-w-24 truncate font-medium md:max-w-72">{city.id}</TableCell>
@@ -136,18 +133,6 @@ export function CitiesTable({ cities }: CitiesTableProps) {
                             </DropdownMenu>
                           </TableCell>
                         </TableRow>
-                        {(index + 1) % 5 === 0
-                        && (
-                          <TableRow className="flex justify-center py-4">
-                            <TableCell>
-                              <BannerAd
-                                href={currentAd?.banner?.href ?? ''}
-                                desktopMedia={currentAd?.banner?.desktop ?? ''}
-                                mobileMedia={currentAd?.banner?.mobile ?? ''}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        )}
                       </Fragment>
                     ))}
                   </TableBody>

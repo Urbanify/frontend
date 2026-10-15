@@ -1,14 +1,16 @@
 import type { Metadata } from 'next';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 
 import '@/styles/global.css';
 
 import { Toaster } from '@/components/ui/toaster/toaster';
 
-import { ThemeProvider } from '@/providers/ThemeProvider';
-
 import PACKAGE from '../../package.json';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
 
 const siteConfig = {
   title: 'Urbanify',
@@ -62,30 +64,21 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = await getLocale();
-
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="size-full">
+    <html lang="pt-BR" className={`size-full ${inter.variable} ${spaceGrotesk.variable}`}>
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
+        content="width=device-width, initial-scale=1"
       />
       <meta name="version" content={PACKAGE.version} key="meta:name:version" />
       <body data-testid="rootlayout-component" className="size-full">
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <main>{children}</main>
-            <Toaster richColors />
-          </ThemeProvider>
+          <main>{children}</main>
+          <Toaster richColors />
         </NextIntlClientProvider>
       </body>
     </html>

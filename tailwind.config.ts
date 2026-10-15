@@ -1,5 +1,6 @@
 /* eslint-disable ts/no-require-imports */
 import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
   darkMode: ['class'],
@@ -27,35 +28,37 @@ export default {
         '3xl': '1920px',
         // => @media (min-width: 1920px) { ... }
       },
+      fontFamily: {
+        // Inter for all text, Space Grotesk for page titles and big numbers (see layout.tsx)
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+        display: ['var(--font-space-grotesk)', ...defaultTheme.fontFamily.sans],
+      },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
+        lg: 'var(--radius)', // 12px, cards
+        md: 'calc(var(--radius) - 2px)', // 10px, buttons and fields
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
-        lilac: {
-          hard: 'hsl(var(--lilac-hard))',
-          medium: 'hsl(var(--lilac-medium))',
-          light: 'hsl(var(--lilac-light))',
-          soft: 'hsl(var(--lilac-soft))',
-        },
-        mint: {
-          hard: 'hsl(var(--mint-hard))',
-          medium: 'hsl(var(--mint-medium))',
-          light: 'hsl(var(--mint-light))',
-          soft: 'hsl(var(--mint-soft))',
-        },
-        yellow: {
-          hard: 'hsl(var(--yellow-hard))',
-          medium: 'hsl(var(--yellow-medium))',
-          light: 'hsl(var(--yellow-light))',
-          soft: 'hsl(var(--yellow-soft))',
-        },
-        black: {
-          hard: 'hsl(var(--black-hard))',
-          medium: 'hsl(var(--black-medium))',
-          light: 'hsl(var(--black-light))',
-          soft: 'hsl(var(--black-soft))',
+        navy: 'hsl(var(--navy))',
+        success: 'hsl(var(--success))',
+        mint: 'hsl(var(--mint))',
+        tone: {
+          neutral: {
+            bg: 'hsl(var(--tone-neutral-bg))',
+            fg: 'hsl(var(--tone-neutral-fg))',
+          },
+          blue: {
+            bg: 'hsl(var(--tone-blue-bg))',
+            fg: 'hsl(var(--tone-blue-fg))',
+          },
+          amber: {
+            bg: 'hsl(var(--tone-amber-bg))',
+            fg: 'hsl(var(--tone-amber-fg))',
+          },
+          green: {
+            bg: 'hsl(var(--tone-green-bg))',
+            fg: 'hsl(var(--tone-green-fg))',
+          },
         },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

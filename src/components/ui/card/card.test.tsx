@@ -9,7 +9,8 @@ describe('Components -> Card', () => {
     const card = screen.getByTestId('card');
 
     expect(card).toBeInTheDocument();
-    expect(card).toHaveClass('rounded-lg border bg-card text-card-foreground shadow-sm');
+    expect(card).toHaveClass('rounded-lg border bg-card text-card-foreground');
+    expect(card).not.toHaveClass('shadow-sm');
   });
 
   it('should render children inside the Card', () => {

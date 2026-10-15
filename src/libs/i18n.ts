@@ -1,12 +1,10 @@
 import { getRequestConfig } from 'next-intl/server';
 
-import { getUserLocale } from '@/services/locale';
+import { AppConfig } from '@/utils/AppConfig';
 
-// Using internationalization in Server Components
+// The app is pt-BR only: the locale switcher was removed, so the locale is fixed.
 export default getRequestConfig(async () => {
-  // Provide a static locale, fetch a user setting,
-  // read from `cookies()`, `headers()`, etc.
-  const locale = await getUserLocale();
+  const locale = AppConfig.defaultLocale;
 
   return {
     locale,

@@ -133,6 +133,7 @@ export type Issue = {
   managerId: string;
   createdAt: string;
   updatedAt: string;
+  photos?: string[];
 };
 
 export type IssueHistoryAction =

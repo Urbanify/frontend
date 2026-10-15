@@ -1,4 +1,75 @@
 {
+  "App": {
+    "Status": {
+      "WAITING_FOR_FISCAL": { "citizen": "Aguardando verificação", "staff": "Sem verificador" },
+      "WAITING_FOR_PROCEDURE": { "citizen": "Em verificação no local", "staff": "Em verificação" },
+      "WAITING_FOR_MANAGER": { "citizen": "Enviado para a prefeitura", "staff": "Na fila" },
+      "WAITING_FOR_MANAGER_RESOLUTION": { "citizen": "Prefeitura resolvendo", "staff": "Em atendimento" },
+      "WAITING_FOR_RESOLUTION_VALIDATION": { "citizen": "Aguardando confirmação", "staff": "Aguardando o cidadão" },
+      "SOLVED": { "citizen": "Resolvido", "staff": "Resolvido" },
+      "CLOSED": { "citizen": "Encerrado", "staff": "Encerrado" },
+      "needs_you": "Falta você confirmar"
+    },
+    "IssueCard": {
+      "photo_alt": "Foto do problema",
+      "protocol": "Protocolo {id}"
+    },
+    "IssueList": {
+      "search_label": "Buscar chamados",
+      "search_placeholder": "Buscar por tipo ou protocolo",
+      "filters_label": "Filtrar por status",
+      "all": "Todos",
+      "in_progress": "Em andamento",
+      "needs_action": "Precisa de ação",
+      "resolved": "Resolvidos",
+      "count": "{count, plural, one {# chamado} other {# chamados}}",
+      "empty": "Nenhum chamado por aqui ainda.",
+      "empty_filtered": "Nenhum chamado encontrado com esses filtros."
+    },
+    "ComingSoon": {
+      "badge": "Em breve"
+    },
+    "Header": {
+      "admin": "Admin Urbanify",
+      "toggle_menu": "Abrir ou fechar o menu"
+    },
+    "Roles": {
+      "RESIDENT": "Cidadão",
+      "MANAGER": "Gestor",
+      "OWNER": "Responsável",
+      "ADMIN": "Admin Urbanify",
+      "FINANCIAL": "Financeiro"
+    },
+    "Menu": {
+      "label": "Menu principal",
+      "report": "Reportar problema",
+      "city_issues": "Na minha cidade",
+      "my_reports": "Meus relatos",
+      "my_verifications": "Minhas verificações",
+      "open_queue": "Fila de atendimento",
+      "my_assignments": "Meus atendimentos",
+      "overview": "Mapa",
+      "all_issues": "Todos os chamados",
+      "team": "Equipe",
+      "citizens": "Cidadãos",
+      "cities": "Cidades",
+      "soon": {
+        "public_notices": { "label": "Avisos da prefeitura", "hint": "Comunicados da prefeitura vão aparecer aqui." },
+        "city_works": { "label": "Obras na cidade", "hint": "Obras e interdições do seu bairro." },
+        "mobile_app": { "label": "App no celular", "hint": "Versão para celular em preparação." },
+        "results": { "label": "Painel de resultados", "hint": "Atendimentos da cidade em números." },
+        "deadlines": { "label": "Prazos por secretaria", "hint": "Tempo médio de atendimento por secretaria." },
+        "reports": { "label": "Relatórios", "hint": "Exporte os dados por período." },
+        "departments": { "label": "Secretarias", "hint": "Cadastro das secretarias responsáveis." },
+        "showcase": { "label": "Vitrine da cidade", "hint": "Serviços e pontos de interesse da cidade." }
+      }
+    },
+    "UserMenu": {
+      "open": "Abrir menu da conta",
+      "profile": "Meu perfil",
+      "logout": "Sair"
+    }
+  },
   "Auth": {
     "Login": {
       "welcome": "Bem-vindo de volta!",
@@ -295,6 +366,20 @@
     "MyIssuesPage": {
       "title": "Todos os problemas reportados por você"
     },
+    "VerifyingPage": {
+      "title": "Minhas verificações",
+      "description": "Chamados que você verificou no local.",
+      "empty_title": "Você ainda não verificou nenhum problema.",
+      "empty_description": "Veja os que aguardam verificação na sua cidade.",
+      "empty_action": "Ver chamados da cidade"
+    },
+    "AssignedPage": {
+      "title": "Meus atendimentos",
+      "description": "Chamados que você está atendendo como gestor.",
+      "empty_title": "Você ainda não assumiu nenhum chamado.",
+      "empty_description": "Escolha um chamado na fila de atendimento para começar.",
+      "empty_action": "Ir para a fila de atendimento"
+    },
     "OpenIssuesPage": {
       "title": "Em aberto (nos últimos 30 dias)"
     },
@@ -429,66 +514,8 @@
     }
   },
   "Components": {
-    "LocaleSwitcher": {
-      "label": "Selecionar idioma"
-    },
     "Combobox": {
       "not_found": "Nenhuma opção encontrada"
-    },
-    "Sidebar": {
-      "Common": {
-        "toggle": "Alternar",
-        "more": "Mais"
-      },
-      "User": {
-        "toggle_theme": "Alternar tema",
-        "profile": "Perfil",
-        "billing": "Cobrança",
-        "notifications": "Notificações",
-        "logout": "Sair"
-      },
-      "Admin": {
-        "title": "Admin",
-        "cities": {
-          "title": "Cidades",
-          "create": "Criar",
-          "list": "Listar",
-          "edit": "Editar"
-        },
-        "features": {
-          "title": "Feature Flags",
-          "create": "Criar",
-          "list": "Listar",
-          "edit": "Editar"
-        }
-      },
-      "Manager": {
-        "title": "Gestor",
-        "open_issues": "Problemas em aberto",
-        "issues_overview": "Mapa de problemas",
-        "crime_overview": "Visão de crimes"
-      },
-      "General": {
-        "title": "Geral",
-        "issues": {
-          "title": "Problemas",
-          "report": "Reportar",
-          "all": "Todos",
-          "mine": "Meus",
-          "map": "Mapa de problemas",
-          "access": "Acessar"
-        },
-        "crimes": {
-          "title": "Crimes",
-          "report": "Reportar",
-          "all": "Todos"
-        }
-      },
-      "People": {
-        "title": "Pessoas",
-        "users": "Habitantes",
-        "team": "Minha Equipe"
-      }
     }
   },
   "Users": {

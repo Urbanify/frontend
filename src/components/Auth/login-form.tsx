@@ -96,7 +96,7 @@ export function LoginForm({
     const result = await verifyCode(sentTo, code);
 
     if (result.ok) {
-      router.replace('/issues');
+      router.replace(result.landing);
       return;
     }
 

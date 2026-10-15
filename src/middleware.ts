@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { isTokenValid, SESSION_COOKIE } from '@/lib/session';
+import { landingPathFor } from '@/lib/landing';
+import { isTokenValid, SESSION_COOKIE, tokenUser } from '@/lib/session';
 
 const authRoutes: string[] = [
   '/login',
@@ -15,7 +16,8 @@ const publicRoutes: string[] = [
 ];
 
 export default function middleware(request: NextRequest) {
-  const session = isTokenValid(request.cookies.get(SESSION_COOKIE)?.value);
+  const token = request.cookies.get(SESSION_COOKIE)?.value;
+  const session = isTokenValid(token);
 
   const pathname = request.nextUrl.pathname;
 
@@ -28,7 +30,8 @@ export default function middleware(request: NextRequest) {
   }
 
   if (isAuthRoute && session) {
-    return NextResponse.redirect(new URL('/issues', request.url));
+    const user = tokenUser(token);
+    return NextResponse.redirect(new URL(landingPathFor(user?.role, user?.cityId), request.url));
   }
 
   return NextResponse.next();

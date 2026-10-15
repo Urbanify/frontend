@@ -8,7 +8,7 @@ export default async function CrimesOverviewPage() {
 
   return (
     <div className="px-4">
-      <div className="mb-6 pl-12">
+      <div className="mb-6">
         <h1 className="text-3xl font-semibold">{t('title')}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{t('description')}</p>
       </div>

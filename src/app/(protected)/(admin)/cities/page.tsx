@@ -11,7 +11,7 @@ export default async function ListCities() {
 
   return (
     <div className="px-4">
-      <h1 className="mb-4 pl-12 font-sans text-3xl font-semibold">{pageT('title')}</h1>
+      <h1 className="mb-4 font-sans text-3xl font-semibold">{pageT('title')}</h1>
       <CitiesTable cities={cities} />
     </div>
   );

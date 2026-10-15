@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Fragment, useMemo, useState } from 'react';
 
-import { BannerAd } from '@/components/ui/ads/banner';
 import { Badge } from '@/components/ui/badge/badge';
 import { Button } from '@/components/ui/button/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card/card';
@@ -20,8 +19,6 @@ import {
   TableRow,
 } from '@/components/ui/table/table';
 
-import { useAd } from '@/contexts/ads/useAd';
-
 import IssueStatusBadge from './issue-status-badge';
 
 import type { Issue } from '@/types/Issue';
@@ -33,7 +30,6 @@ type IssuesTableProps = {
 const defaultIssues: Issue[] = [];
 
 export function IssuesTable({ issues = defaultIssues }: IssuesTableProps) {
-  const { currentAd } = useAd();
   const t = useTranslations('Issues');
   const [filter, setFilter] = useState('');
 
@@ -109,7 +105,7 @@ export function IssuesTable({ issues = defaultIssues }: IssuesTableProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredIssues.map((issue, index) => (
+                  {filteredIssues.map(issue => (
                     <Fragment key={issue.id}>
                       <TableRow>
                         <TableCell className="w-20 min-w-20 max-w-24 font-medium text-muted-foreground">
@@ -157,18 +153,6 @@ export function IssuesTable({ issues = defaultIssues }: IssuesTableProps) {
                           </DropdownMenu>
                         </TableCell>
                       </TableRow>
-                      {(index + 1) % 5 === 0
-                      && (
-                        <TableRow className="flex justify-center py-4">
-                          <TableCell>
-                            <BannerAd
-                              href={currentAd?.banner?.href ?? ''}
-                              desktopMedia={currentAd?.banner?.desktop ?? ''}
-                              mobileMedia={currentAd?.banner?.mobile ?? ''}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      )}
                     </Fragment>
 
                   ))}

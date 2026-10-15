@@ -3,103 +3,110 @@
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import * as React from 'react';
 
-import { signOut, useSession } from '@/lib/session-client';
-
+import { ComingSoon } from '@/components/app/coming-soon';
+import { useViewer } from '@/components/app/use-viewer';
 import { Button } from '@/components/ui/button/button';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarSeparator,
   SidebarTrigger,
 } from '@/components/ui/sidebar/sidebar';
-import { Skeleton } from '@/components/ui/skeleton/skeleton';
 
-import { api } from '@/services/api';
 import { parseJwt } from '@/utils/decodeJWT';
 
-import { NavAdmin } from './nav-admin';
-import { NavFinancial } from './nav-financial';
-import { NavGeneral } from './nav-general';
-import { NavManager } from './nav-manager';
-import { NavOwner } from './nav-owner';
+import { CityName } from './city-name';
+import { menuFor } from './menu';
 import { NavUser } from './nav-user';
 
-import type { City } from '@/types/City';
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data } = useSession();
-  const t = useTranslations('Components.Sidebar.General.issues');
-  const [city, setCity] = React.useState<City | null>(null);
+  const viewer = useViewer();
+  const pathname = usePathname();
+  const t = useTranslations('App');
+  const menu = menuFor(viewer.role, viewer.cityId);
+  const user = parseJwt(viewer.token)?.user;
 
-  const parsedJWT = parseJwt(data?.access_token);
-  const role = parsedJWT?.user?.role;
-  const cityId = parsedJWT?.user?.cityId ?? '';
-  const isAdmin = role === 'ADMIN';
-
-  React.useEffect(() => {
-    const fetchCity = async () => {
-      if (cityId) {
-        const response = await api.instance(`/cities/${cityId}`, {
-          method: 'GET',
-        }, data?.access_token);
-
-        if (response.status === 401) {
-          return signOut();
-        }
-
-        if (response.ok) {
-          const userCity = await response.json() as City;
-          setCity(userCity);
-        }
-      }
-    };
-    fetchCity();
-  }, [cityId]);
+  // Highlight the longest menu link that contains the current page.
+  const activeHref = menu?.links
+    .map(link => link.href)
+    .filter(href => pathname === href || pathname.startsWith(`${href}/`))
+    .sort((a, b) => b.length - a.length)[0];
 
   return (
     <Sidebar className="px-0" variant="inset" {...props}>
-      <SidebarHeader className="gap-3 border-b border-sidebar-border/60 px-3 py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-sidebar-primary/15 text-sidebar-primary-foreground">
-              <Image src="/logo.svg" alt="Urbanify" width={24} height={24} />
-            </div>
-            <div className="grid text-left text-sm leading-tight">
-              <span className="truncate font-semibold">Urbanify</span>
-              <span className="truncate text-xs text-sidebar-foreground/70">
-                {isAdmin
-                  ? 'ADMIN'
-                  : city === null ? <Skeleton className="h-4 w-2/3" /> : city.name}
-              </span>
-            </div>
+      <SidebarHeader className="border-b border-sidebar-border p-4">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3">
+            <Image src="/logo.svg" alt="Urbanify" width={32} height={32} className="size-8 shrink-0" />
+            <span className="grid min-w-0 leading-tight">
+              <span className="font-semibold">Urbanify</span>
+              <CityName className="text-[13px] text-muted-foreground" />
+            </span>
           </Link>
-          <SidebarTrigger className="hidden md:inline-flex" />
+          <SidebarTrigger className="hidden md:inline-flex" aria-label={t('Header.toggle_menu')} />
         </div>
-        <Button asChild size="sm" className="w-full justify-start gap-2">
-          <Link href="/issues/report">
-            <Plus className="size-4" />
-            {t('report')}
-          </Link>
-        </Button>
       </SidebarHeader>
-      <SidebarSeparator />
-      <SidebarContent>
-        <NavGeneral />
-        <NavFinancial />
-        <NavManager />
-        <NavOwner />
-        <NavAdmin />
-        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+
+      <SidebarContent className="px-2 py-3">
+        {viewer.role === 'RESIDENT' && (
+          <Button asChild className="mb-3 w-full justify-start gap-2">
+            <Link href="/issues/report">
+              <Plus aria-hidden />
+              {t('Menu.report')}
+            </Link>
+          </Button>
+        )}
+
+        {menu && (
+          <SidebarGroup className="p-0">
+            <nav aria-label={t('Menu.label')}>
+              <SidebarMenu>
+                {menu.links.map(link => (
+                  <SidebarMenuItem key={link.key}>
+                    <SidebarMenuButton asChild isActive={link.href === activeHref} className="h-10">
+                      <Link href={link.href} aria-current={link.href === activeHref ? 'page' : undefined}>
+                        <link.icon aria-hidden />
+                        <span>{t(`Menu.${link.key}`)}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </nav>
+          </SidebarGroup>
+        )}
+
+        {menu && menu.soon.length > 0 && (
+          <>
+            <SidebarSeparator className="my-3" />
+            <SidebarMenu>
+              {menu.soon.map(item => (
+                <SidebarMenuItem key={item.key}>
+                  <ComingSoon
+                    label={t(`Menu.soon.${item.key}.label`)}
+                    hint={t(`Menu.soon.${item.key}.hint`)}
+                    icon={item.icon}
+                  />
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </>
+        )}
       </SidebarContent>
-      {!!parsedJWT?.user && (
-        <SidebarFooter>
+
+      {user && (
+        <SidebarFooter className="px-2 pb-3">
           <SidebarSeparator />
-          <NavUser user={parsedJWT.user} />
+          <NavUser user={user} />
         </SidebarFooter>
       )}
     </Sidebar>

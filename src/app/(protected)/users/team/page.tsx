@@ -16,7 +16,7 @@ export default async function TeamPage() {
 
   return (
     <div className="px-4">
-      <h1 className="mb-4 pl-12 font-sans text-3xl font-semibold">{t('title')}</h1>
+      <h1 className="mb-4 font-sans text-3xl font-semibold">{t('title')}</h1>
       <UsersTable title={t('table_title')} description={t('table_description')} users={users} showCpf />
     </div>
   );
