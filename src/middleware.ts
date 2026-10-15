@@ -11,6 +11,8 @@ const publicRoutes: string[] = [
   '/about',
   '/',
   '/visit',
+  '/privacidade',
+  '/termos',
   '/api/session',
 ];
 

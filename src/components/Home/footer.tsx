@@ -31,15 +31,9 @@ export function Footer() {
 
         <div>
           <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Legal</p>
-          <ul className="mt-4 space-y-3 text-[15px] text-muted-foreground">
-            <li>
-              Política de privacidade
-              <span className="ml-2 whitespace-nowrap rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">Em breve</span>
-            </li>
-            <li>
-              Termos de uso
-              <span className="ml-2 whitespace-nowrap rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">Em breve</span>
-            </li>
+          <ul className="mt-4 space-y-3 text-[15px]">
+            <li><Link href="/privacidade" className="inline-flex min-h-11 items-center text-navy hover:underline">Política de Privacidade</Link></li>
+            <li><Link href="/termos" className="inline-flex min-h-11 items-center text-navy hover:underline">Termos de Uso</Link></li>
           </ul>
         </div>
       </div>
