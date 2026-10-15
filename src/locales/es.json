@@ -8,7 +8,6 @@
       "email_required": "El correo electrónico es obligatorio",
       "email_invalid": "El correo electrónico ingresado es inválido",
       "button": "Iniciar sesión con correo",
-      "signup_notice": "¡Cuenta creada! Al iniciar sesión, enviaremos un código de acceso a tu correo electrónico.",
       "code_sent": "Enviamos un código a {email}",
       "code_label": "Código de 6 números",
       "code_placeholder": "000000",

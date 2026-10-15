@@ -21,13 +21,10 @@ const RESEND_COOLDOWN_SECONDS = 60;
 type EmailFormData = { email: string };
 type CodeFormData = { code: string };
 
-type LoginFormProps = React.ComponentPropsWithoutRef<'div'> & {
-  initialEmail?: string;
-};
+type LoginFormProps = React.ComponentPropsWithoutRef<'div'>;
 
 export function LoginForm({
   className,
-  initialEmail,
   ...props
 }: LoginFormProps) {
   const t = useTranslations('Auth.Login');
@@ -41,7 +38,7 @@ export function LoginForm({
     resolver: zodResolver(emailSchema(t as unknown as (arg: string) => string)),
     mode: 'onChange',
     reValidateMode: 'onChange',
-    defaultValues: { email: initialEmail ?? '' },
+    defaultValues: { email: '' },
   });
 
   const codeForm = useForm<CodeFormData>({
@@ -133,9 +130,6 @@ export function LoginForm({
             ? (
                 <form onSubmit={emailForm.handleSubmit(onEmailSubmit)}>
                   <div className="grid gap-6">
-                    {initialEmail && (
-                      <p className="text-sm text-muted-foreground">{t('signup_notice')}</p>
-                    )}
                     <div className="relative grid gap-2">
                       <Label htmlFor="email">{t('email')}</Label>
                       <Input

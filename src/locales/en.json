@@ -8,7 +8,6 @@
       "email_required": "Email is required",
       "email_invalid": "The email entered is invalid",
       "button": "Log in with email",
-      "signup_notice": "Account created! When you log in, we will send an access code to your email.",
       "code_sent": "We sent a code to {email}",
       "code_label": "6-digit code",
       "code_placeholder": "000000",

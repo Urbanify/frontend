@@ -5,13 +5,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { LoginForm } from '@/components/Auth/login-form';
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ email?: string }>;
-}) {
-  const { email } = await searchParams;
-
+export default async function LoginPage() {
   return (
     <div className="relative flex min-h-svh items-center justify-center overflow-hidden bg-gradient-to-br from-background via-secondary/50 to-muted px-4 py-6 md:p-10">
       <div className="pointer-events-none absolute -left-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl" />
@@ -52,7 +46,7 @@ export default async function LoginPage({
           </div>
 
           <div className="flex flex-col justify-center">
-            <LoginForm initialEmail={email} />
+            <LoginForm />
           </div>
         </div>
       </div>

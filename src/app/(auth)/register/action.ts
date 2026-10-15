@@ -15,7 +15,7 @@ export const handleSubmit = async (data: RegisterFormData, t: Function): Promise
       throw new Error(t('error'));
     }
 
-    return redirect(`/login?${new URLSearchParams({ email: data.email })}`);
+    return redirect('/login');
   } catch (error: any) {
     if (error.message !== 'NEXT_REDIRECT') {
       toast.error(t('error'));
