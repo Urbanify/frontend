@@ -30,7 +30,9 @@ export function IssueCard({ issue, action, waiting = false, className }: IssueCa
 
   const photo = issue.photos?.[0];
   const protocol = issue.id.slice(0, 6);
-  const needsYou = !!viewer.id && (issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
+  const needsYou = !!viewer.id && (issue.status === 'WAITING_FOR_PROCEDURE'
+    ? issue.fiscalId === viewer.id
+    : issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
   const timeISO = waiting ? issue.updatedAt : issue.createdAt;
   const timeText = waiting
     ? t('waiting_since', { time: formatRelativeTime(issue.updatedAt) })
@@ -51,7 +53,7 @@ export function IssueCard({ issue, action, waiting = false, className }: IssueCa
           {/* The link covers the whole card, so the card is clickable without nesting controls in a link. */}
           <Link
             href={`/issues/view/${issue.id}`}
-            className="block truncate font-semibold text-navy after:absolute after:inset-0 after:rounded-lg after:content-[''] focus:outline-none"
+            className="line-clamp-2 font-semibold text-navy after:absolute after:inset-0 after:rounded-lg after:content-[''] focus:outline-none"
           >
             {tTypes(issue.type)}
           </Link>

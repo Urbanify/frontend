@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
@@ -24,6 +24,13 @@ import type { Issue, IssueStatus } from '@/types/Issue';
 
 const DONE_STATUSES: IssueStatus[] = ['SOLVED', 'CLOSED'];
 type ListTab = 'needs_action' | 'in_progress' | 'resolved';
+const LIST_TABS: ListTab[] = ['needs_action', 'in_progress', 'resolved'];
+// Staff tabs: "Precisa de ação" is the manager queue, and "Em andamento" also holds issues waiting for the citizen.
+const STAFF_STATUSES: Record<ListTab, IssueStatus[]> = {
+  needs_action: ['WAITING_FOR_MANAGER'],
+  in_progress: ['WAITING_FOR_FISCAL', 'WAITING_FOR_PROCEDURE', 'WAITING_FOR_MANAGER_RESOLUTION', 'WAITING_FOR_RESOLUTION_VALIDATION'],
+  resolved: ['SOLVED', 'CLOSED'],
+};
 const byUpdatedDesc = (a: Issue, b: Issue) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt);
 
 // Takes the issue for the viewer, then opens it. The API decides who may take it.
@@ -56,7 +63,8 @@ export function CityIssues({ issues }: { issues: Issue[] }) {
   const t = useTranslations('Issues.ListPage');
   const tLists = useTranslations('App.Lists');
   const viewer = useViewer();
-  const [tab, setTab] = useState<ListTab>('needs_action');
+  const searchParams = useSearchParams();
+  const [tab, setTab] = useState<ListTab>(() => LIST_TABS.find(key => key === searchParams.get('tab')) ?? 'needs_action');
   const [view, setView] = useState<'list' | 'map'>('list');
 
   if (!viewer.role) {
@@ -64,10 +72,21 @@ export function CityIssues({ issues }: { issues: Issue[] }) {
   }
 
   const citizen = viewer.audience === 'citizen';
+  const canVerify = (issue: Issue) => citizen
+    && issue.status === 'WAITING_FOR_FISCAL'
+    && !issue.fiscalId
+    && issue.reporterId !== viewer.id;
+  // Citizens: the issues that need their hand (verify, confirm, or finish a verification they took).
+  const citizenNeedsAction = (issue: Issue) => canVerify(issue)
+    || (issue.status === 'WAITING_FOR_RESOLUTION_VALIDATION' && (issue.reporterId === viewer.id || issue.fiscalId === viewer.id))
+    || (issue.status === 'WAITING_FOR_PROCEDURE' && issue.fiscalId === viewer.id);
+  const inTab = (issue: Issue, key: ListTab) => (citizen
+    ? (key === 'needs_action' ? citizenNeedsAction(issue) : !!FILTER_STATUSES[key]?.includes(issue.status))
+    : STAFF_STATUSES[key].includes(issue.status));
   const tabs: { value: ListTab; label: string; count: number }[] = [
-    { value: 'needs_action', label: tLists('tab_needs_action'), count: issues.filter(issue => FILTER_STATUSES.needs_action?.includes(issue.status)).length },
-    { value: 'in_progress', label: tLists('tab_in_progress'), count: issues.filter(issue => FILTER_STATUSES.in_progress?.includes(issue.status)).length },
-    { value: 'resolved', label: tLists('tab_resolved'), count: issues.filter(issue => FILTER_STATUSES.resolved?.includes(issue.status)).length },
+    { value: 'needs_action', label: tLists('tab_needs_action'), count: issues.filter(issue => inTab(issue, 'needs_action')).length },
+    { value: 'in_progress', label: tLists('tab_in_progress'), count: issues.filter(issue => inTab(issue, 'in_progress')).length },
+    { value: 'resolved', label: tLists('tab_resolved'), count: issues.filter(issue => inTab(issue, 'resolved')).length },
   ];
   const emptyText: Record<ListTab, string> = {
     needs_action: t('empty_needs_action'),
@@ -76,7 +95,7 @@ export function CityIssues({ issues }: { issues: Issue[] }) {
   };
 
   const visible = issues
-    .filter(issue => FILTER_STATUSES[tab]?.includes(issue.status))
+    .filter(issue => inTab(issue, tab))
     .sort(byUpdatedDesc);
   const dateLabels: Record<string, string> = {
     today: tLists('group_today'),
@@ -86,11 +105,6 @@ export function CityIssues({ issues }: { issues: Issue[] }) {
   };
   const groups = groupItems(visible, issue => dateBucket(issue.createdAt), DATE_ORDER)
     .map(group => ({ ...group, label: dateLabels[group.key] }));
-
-  const canVerify = (issue: Issue) => citizen
-    && issue.status === 'WAITING_FOR_FISCAL'
-    && !issue.fiscalId
-    && issue.reporterId !== viewer.id;
 
   return (
     <div className="space-y-6">
@@ -213,7 +227,16 @@ export function PhotoTabs({ issues, by, emptyState, emptyTab }: {
         onChange={setTab}
       />
       {visible.length === 0
-        ? <EmptyState title={emptyTab[tab]} />
+        ? (
+            <EmptyState
+              title={emptyTab[tab]}
+              action={(
+                <Button variant="outline" asChild>
+                  <Link href="/issues">{tLists('view_waiting_verify')}</Link>
+                </Button>
+              )}
+            />
+          )
         : (
             <GroupedList
               groups={[{ key: tab, items: visible }]}

@@ -3,6 +3,7 @@
 import { Marker, useLoadScript } from '@react-google-maps/api';
 import { ExternalLink, MapPin } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -31,7 +32,8 @@ type TouristCityVisitExplorerProps = {
 const ARACAJU_CENTER = { lat: -10.9472, lng: -37.0731 };
 const MAP_OPTIONS: google.maps.MapOptions = { clickableIcons: false, gestureHandling: 'cooperative' };
 const CATEGORY_KEYS = Object.keys(CATEGORY_META) as PlaceCategory[];
-const CHIP = 'inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors';
+const CHIP = 'inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors';
+const PREVIEW_COUNT = 4;
 const UNSELECTED_CHIP = 'border border-border bg-card text-navy hover:bg-accent';
 
 const isActive = (city: City) => city.status === 'ACTIVE';
@@ -51,6 +53,7 @@ const pinIcon = (category: PlaceCategory, selected: boolean): google.maps.Icon =
 };
 
 export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId }: TouristCityVisitExplorerProps) {
+  const t = useTranslations('Tourist.Explorer');
   // The server list is the first render. The browser list (GET /cities) replaces it when it loads.
   // If that request fails, the server list stays.
   const [cityList, setCityList] = useState<City[]>(() => cities.filter(isActive));
@@ -78,6 +81,7 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
 
   const [filter, setFilter] = useState<Filter>('all');
   const [selectedId, setSelectedId] = useState<string | null>(initialPlaceId || null);
+  const [showAll, setShowAll] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   const visible = useMemo(
@@ -206,7 +210,7 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
       </div>
 
       {places.length > 0 && (
-        <div role="group" aria-label="Categorias" className="mt-6 flex flex-wrap gap-2">
+        <div role="group" aria-label="Categorias" className="mt-6 flex gap-2 overflow-x-auto pb-1 md:flex-wrap">
           <button
             type="button"
             aria-pressed={filter === 'all'}
@@ -250,12 +254,14 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
             )
           : (
               <ul className="order-2 flex flex-col gap-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:min-h-0 lg:overflow-y-auto lg:pr-1">
-                {visible.map((place) => {
+                {visible.map((place, index) => {
                   const isSelected = selected?.id === place.id;
                   const meta = CATEGORY_META[place.category];
                   const Icon = meta.icon;
+                  // Mobile shows a short list first. Desktop always shows the full list, scrolled beside the map.
+                  const hidden = !showAll && index >= PREVIEW_COUNT;
                   return (
-                    <li key={place.id}>
+                    <li key={place.id} className={cn(hidden && 'max-lg:hidden')}>
                       <button
                         id={`place-${place.id}`}
                         type="button"
@@ -277,6 +283,13 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
                     </li>
                   );
                 })}
+                {visible.length > PREVIEW_COUNT && (
+                  <li className="lg:hidden">
+                    <Button variant="outline" className="h-11 w-full rounded-full" onClick={() => setShowAll(value => !value)}>
+                      {showAll ? t('show_less') : t('show_all', { count: visible.length })}
+                    </Button>
+                  </li>
+                )}
               </ul>
             )}
 

@@ -92,6 +92,7 @@ export type StaffHomeProps = {
 
 export function StaffHome({ title, viewer, cityIssues }: StaffHomeProps) {
   const t = useTranslations('Dashboard.staff');
+  const tButtons = useTranslations('IssueDetail.nextStep.buttons');
   const isOwner = viewer.role === 'OWNER';
   const isManager = viewer.role === 'MANAGER';
 
@@ -103,6 +104,10 @@ export function StaffHome({ title, viewer, cityIssues }: StaffHomeProps) {
     && (issue.status === 'WAITING_FOR_MANAGER_RESOLUTION' || issue.status === 'WAITING_FOR_RESOLUTION_VALIDATION'),
   ).length;
 
+  const solvedRecently = cityIssues.filter(issue => issue.status === 'SOLVED' && Date.now() - Date.parse(issue.updatedAt) < 30 * 86_400_000).length;
+  // The manager's own work in progress: resolve it here, without going through the list.
+  const resolving = cityIssues.filter(issue => issue.managerId === viewer.id && issue.status === 'WAITING_FOR_MANAGER_RESOLUTION');
+
   const tiles: StatTileProps[] = [
     {
       href: '/issues/open',
@@ -113,10 +118,10 @@ export function StaffHome({ title, viewer, cityIssues }: StaffHomeProps) {
       warning: queueStale > 0 ? t('tiles.queue_stale', { count: queueStale }) : undefined,
     },
     isOwner
-      ? { href: '/issues', icon: Wrench, tone: 'blue', label: t('tiles.in_progress'), count: countStatus('WAITING_FOR_MANAGER_RESOLUTION') }
+      ? { href: '/issues?tab=in_progress', icon: Wrench, tone: 'blue', label: t('tiles.in_progress'), count: countStatus('WAITING_FOR_MANAGER_RESOLUTION') }
       : { href: '/issues/assigned', icon: Wrench, tone: 'blue', label: t('tiles.assigned'), count: assignedToMe },
-    { href: '/issues', icon: UserRound, tone: 'amber', label: t('tiles.waiting_citizen'), count: countStatus('WAITING_FOR_RESOLUTION_VALIDATION') },
-    { href: '/issues', icon: CheckCircle2, tone: 'green', label: t('tiles.solved'), count: countStatus('SOLVED') },
+    { href: '/issues?tab=in_progress', icon: UserRound, tone: 'amber', label: t('tiles.waiting_citizen'), count: countStatus('WAITING_FOR_RESOLUTION_VALIDATION') },
+    { href: '/issues?tab=resolved', icon: CheckCircle2, tone: 'green', label: t('tiles.solved'), count: solvedRecently },
   ];
 
   const attention = attentionIssues(cityIssues);
@@ -139,6 +144,25 @@ export function StaffHome({ title, viewer, cityIssues }: StaffHomeProps) {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {tiles.map(tile => <StatTile key={tile.href + tile.label} {...tile} />)}
       </div>
+
+      {isManager && resolving.length > 0 && (
+        <InicioSection title={t('tiles.assigned')}>
+          <ul className="grid gap-3">
+            {resolving.map(issue => (
+              <li key={issue.id}>
+                <IssueCard
+                  issue={issue}
+                  action={(
+                    <Button asChild>
+                      <Link href={`/issues/view/${issue.id}`}>{tButtons('resolve')}</Link>
+                    </Button>
+                  )}
+                />
+              </li>
+            ))}
+          </ul>
+        </InicioSection>
+      )}
 
       {cityIssues.length === 0
         ? <EmptyState title={t('empty')} />

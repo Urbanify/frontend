@@ -7,15 +7,16 @@ type CheckUserParams = {
 };
 
 export const checkUser = async ({ cityId, isAdmin, token }: CheckUserParams) => {
-  if (isAdmin) {
-    return await api.instance(`/cities`, {
-      method: 'POST',
-    }, token);
-  }
-
+  // Checked by GET on the city, so the token is validated without a body. POST /cities returned 400 here.
   if (cityId) {
     return await api.instance(`/cities/${cityId}`, {
       method: 'GET',
+    }, token);
+  }
+
+  if (isAdmin) {
+    return await api.instance(`/cities`, {
+      method: 'POST',
     }, token);
   }
 

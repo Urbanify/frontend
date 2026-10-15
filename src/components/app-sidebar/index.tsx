@@ -36,10 +36,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = parseJwt(viewer.token)?.user;
 
   // Highlight the longest menu link that contains the current page.
-  const activeHref = menu?.links
-    .map(link => link.href)
-    .filter(href => pathname === href || pathname.startsWith(`${href}/`))
-    .sort((a, b) => b.length - a.length)[0];
+  const activeHref = pathname.startsWith('/issues/report')
+    ? undefined
+    : menu?.links
+      .map(link => link.href)
+      .filter(href => pathname === href || pathname.startsWith(`${href}/`))
+      .sort((a, b) => b.length - a.length)[0];
 
   return (
     <Sidebar className="px-0" variant="inset" {...props}>

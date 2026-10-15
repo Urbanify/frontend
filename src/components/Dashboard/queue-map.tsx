@@ -30,7 +30,6 @@ const pinIcon = (color: string) => ({
 
 // Small city map. Pins take the color of the status tone.
 export function QueueMap({ issues }: { issues: Issue[] }) {
-  const t = useTranslations('Dashboard.staff.map');
   const { isLoaded } = useLoadScript({
     id: 'google-map-issues',
     googleMapsApiKey: Env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -68,14 +67,23 @@ export function QueueMap({ issues }: { issues: Issue[] }) {
         )}
       </div>
 
-      <ul className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted-foreground">
-        {LEGEND.map(item => (
-          <li key={item.key} className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full" style={{ backgroundColor: TONE_HEX[item.tone] }} aria-hidden />
-            {t(item.key)}
-          </li>
-        ))}
-      </ul>
+      <MapLegend />
     </div>
+  );
+}
+
+// Status colors used by the queue map and the staff overview map.
+export function MapLegend() {
+  const t = useTranslations('Dashboard.staff.map');
+
+  return (
+    <ul className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-muted-foreground">
+      {LEGEND.map(item => (
+        <li key={item.key} className="flex items-center gap-2">
+          <span className="size-2.5 rounded-full" style={{ backgroundColor: TONE_HEX[item.tone] }} aria-hidden />
+          {t(item.key)}
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -8,7 +8,8 @@
       "WAITING_FOR_RESOLUTION_VALIDATION": { "citizen": "Aguardando confirmação", "staff": "Aguardando o cidadão" },
       "SOLVED": { "citizen": "Resolvido", "staff": "Resolvido" },
       "CLOSED": { "citizen": "Encerrado", "staff": "Encerrado" },
-      "needs_you": "Falta você confirmar"
+      "needs_you": "Falta você confirmar",
+      "needs_you_verify": "Falta você verificar"
     },
     "IssueCard": {
       "photo_alt": "Foto do problema",
@@ -33,6 +34,7 @@
       "tab_in_progress": "Em andamento",
       "tab_resolved": "Resolvidos",
       "tab_done": "Concluídos",
+      "view_waiting_verify": "Ver o que aguarda verificação",
       "view_list": "Lista",
       "view_map": "Mapa",
       "group_today": "Hoje",
@@ -95,7 +97,7 @@
   "Auth": {
     "Login": {
       "welcome": "Entrar ou criar conta",
-      "login_with": "Use seu e-mail. Enviaremos um código de 6 números. Não precisa de senha.",
+      "login_with": "Use seu e-mail. Não precisa de senha.",
       "code_hint": "Enviaremos um código de 6 números para o seu e-mail.",
       "panel_citizen": "Reporte problemas da sua cidade e acompanhe até resolver.",
       "panel_city": "Prefeituras: acompanhe os chamados e a equipe da sua cidade.",
@@ -161,7 +163,8 @@
       "status": "Status",
       "actions": "Ações",
       "edit": "Editar",
-      "access": "Entrar"
+      "access": "Entrar",
+      "current": "Atual"
     },
     "status": {
       "active": "Ativa",
@@ -468,7 +471,7 @@
       "awaitingCitizen": "Aguardando o cidadão confirmar.",
       "confirmNeeded": "A prefeitura informou que resolveu. Foi resolvido?",
       "solvedOn": "Resolvido em {date}.",
-      "closedBecause": "Encerrado: {reason}.",
+      "closedBecause": "Encerrado. Motivo: {reason}.",
       "closed": "Encerrado sem solução.",
       "assigning": "Assumindo o chamado...",
       "assigned": "Chamado assumido.",
@@ -520,6 +523,7 @@
       "empty": "Ainda não há movimentações.",
       "citizen": "Cidadão",
       "REPORTED_ISSUE": "Reportado por {name}",
+      "you_reported": "Você reportou",
       "ASSIGNED_AS_FISCAL": "{name} assumiu a verificação",
       "MARKED_AS_VALID": "Verificado no local por {name}",
       "MARKED_AS_UNFOUNDED": "Não encontrado no local por {name}",
@@ -582,7 +586,7 @@
       "title": "Ajude sua cidade",
       "count": "{count, plural, one {# problema aguarda verificação na sua cidade} other {# problemas aguardam verificação na sua cidade}}",
       "none": "Nenhum problema aguarda verificação agora.",
-      "action": "Ver no mapa"
+      "action": "Ver chamados para verificar"
     },
     "staff": {
       "context_stale": "{count, plural, one {# chamado espera há mais de 3 dias} other {# chamados esperam há mais de 3 dias}}",
@@ -611,6 +615,12 @@
         "legend_citizen": "Aguardando o cidadão",
         "legend_solved": "Resolvido"
       }
+    }
+  },
+  "Tourist": {
+    "Explorer": {
+      "show_all": "Mostrar todos ({count})",
+      "show_less": "Mostrar menos"
     }
   },
   "Crimes": {
@@ -731,6 +741,7 @@
     },
     "RolesGuide": {
       "title": "O que cada papel faz",
+      "open": "Ver o que cada papel faz",
       "citizen": "Cidadão",
       "citizen_text": "Reporta problemas com foto e local, verifica no local os chamados de outras pessoas e confirma quando a solução chega.",
       "manager": "Gestor",

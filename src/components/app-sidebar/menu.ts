@@ -48,8 +48,9 @@ const MANAGER_LINKS: MenuLink[] = [
   { key: 'all_issues', href: '/issues', icon: List },
 ];
 
+// The Responsável does not take issues in v2, so "Meus atendimentos" stays with the manager.
 const OWNER_LINKS: MenuLink[] = [
-  ...MANAGER_LINKS,
+  ...MANAGER_LINKS.filter(link => link.key !== 'my_assignments'),
   { key: 'team', href: '/users/team', icon: Users },
   { key: 'citizens', href: '/users', icon: UserRound },
 ];

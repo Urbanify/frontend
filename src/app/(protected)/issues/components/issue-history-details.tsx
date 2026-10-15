@@ -59,6 +59,7 @@ export function IssueHistoryDetails({ issue, viewer, className }: IssueHistoryDe
                 const name = viewer.audience === 'citizen' && isReporter ? t('citizen') : entry.userName;
                 const isKnown = KNOWN_ACTIONS.includes(entry.action);
                 const isLast = index === entries.length - 1;
+                const youReported = entry.action === 'REPORTED_ISSUE' && viewer.id === issue.reporterId;
 
                 return (
                   <li key={entry.id} className={cn('relative flex gap-3', !isLast && 'pb-5')}>
@@ -68,7 +69,8 @@ export function IssueHistoryDetails({ issue, viewer, className }: IssueHistoryDe
                     </span>
                     <div className="min-w-0 space-y-0.5">
                       <p className="text-sm font-medium text-foreground">
-                        {isKnown ? t(entry.action as 'REPORTED_ISSUE', { name }) : t('other', { name })}
+                        {youReported && t('you_reported')}
+                        {!youReported && (isKnown ? t(entry.action as 'REPORTED_ISSUE', { name }) : t('other', { name }))}
                       </p>
                       <time className="block text-sm tabular-nums text-muted-foreground" dateTime={entry.createdAt}>
                         {dayjs(entry.createdAt).format('DD/MM/YYYY HH:mm')}

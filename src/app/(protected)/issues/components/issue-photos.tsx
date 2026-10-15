@@ -35,7 +35,7 @@ export function IssuePhotos({ photos, className }: IssuePhotosProps) {
             aria-label={t('photoOpen', { number: index + 1 })}
             className={cn(
               'relative overflow-hidden rounded-md bg-muted transition-transform duration-100 active:scale-[0.98]',
-              index === 0 ? 'col-span-3 aspect-[4/3]' : 'aspect-square',
+              index === 0 ? 'col-span-3 h-80' : 'aspect-square',
             )}
           >
             <Image

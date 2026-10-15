@@ -14,7 +14,7 @@ export default async function ListCities() {
   const { data: cities } = await api.city.getAll();
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6 md:py-10">
+    <div className="flex flex-col gap-6 px-4 md:px-6">
       <PageHeader
         title={pageT('title')}
         action={(

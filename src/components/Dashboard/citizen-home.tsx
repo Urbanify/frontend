@@ -41,7 +41,7 @@ export function CitizenHome({ title, viewer, cityIssues, reportedIssues }: Citiz
       <PageHeader
         title={title}
         action={(
-          <Button asChild size="lg" className="w-full md:w-auto">
+          <Button asChild size="lg" className="w-full md:hidden">
             <Link href="/issues/report">
               <Plus aria-hidden />
               {t('report')}

@@ -9,6 +9,8 @@ import { Env } from '@/libs/Env';
 
 import { IssueCard } from '@/components/app/issue-card';
 import { FILTER_STATUSES, type FilterKey } from '@/components/app/issue-filters';
+import { useViewer } from '@/components/app/use-viewer';
+import { MapLegend } from '@/components/Dashboard/queue-map';
 import { GoogleMaps } from '@/components/google-map/google-map';
 
 import type { Issue, IssueStatus } from '@/types/Issue';
@@ -26,6 +28,8 @@ const PIN_COLOR: Record<IssueStatus, string> = {
 
 const FILTER_KEYS: FilterKey[] = ['all', 'needs_action', 'in_progress', 'resolved'];
 const FALLBACK_CENTER = { lat: -23.5505, lng: -46.6333 };
+// Hides Google's shops and hotels, which are noise on a city issue map.
+const MAP_OPTIONS = { clickableIcons: false, styles: [{ featureType: 'poi', stylers: [{ visibility: 'off' }] }] };
 
 const getPinIcon = (color: string, isActive: boolean) => {
   const size = isActive ? 42 : 34;
@@ -51,6 +55,7 @@ export type IssuesOverviewProps = {
 // The city map with status chips on top. Tapping a pin opens a small card that links to the issue.
 export function IssuesOverview({ issues }: IssuesOverviewProps) {
   const t = useTranslations('App.IssueList');
+  const viewer = useViewer();
   const [filter, setFilter] = useState<FilterKey>('all');
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -83,7 +88,7 @@ export function IssuesOverview({ issues }: IssuesOverviewProps) {
         <GoogleMaps
           center={center}
           zoom={13}
-          options={{ clickableIcons: false }}
+          options={MAP_OPTIONS}
           onClick={() => setSelectedId(null)}
         >
           {visible.map(pin => (
@@ -115,6 +120,12 @@ export function IssuesOverview({ issues }: IssuesOverviewProps) {
           </button>
         ))}
       </div>
+
+      {viewer.audience === 'staff' && (
+        <div className="absolute bottom-3 left-3 hidden rounded-md bg-card/90 p-2 shadow-sm md:block">
+          <MapLegend />
+        </div>
+      )}
 
       {selected && (
         <div className="absolute inset-x-3 bottom-3 md:inset-x-auto md:right-3 md:w-96">

@@ -24,11 +24,13 @@ export function IssuePhotoCard({ issue, className }: IssuePhotoCardProps) {
   const viewer = useViewer();
 
   const photo = issue.photos?.[0];
-  const needsYou = !!viewer.id && (issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
+  const needsYou = !!viewer.id && (issue.status === 'WAITING_FOR_PROCEDURE'
+    ? issue.fiscalId === viewer.id
+    : issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
 
   return (
     <article className={cn('relative flex flex-col overflow-hidden rounded-lg border bg-card focus-within:ring-2 focus-within:ring-ring', className)}>
-      <div className="relative flex aspect-[4/3] items-center justify-center bg-muted text-muted-foreground">
+      <div className={cn('relative flex items-center justify-center bg-muted text-muted-foreground', photo ? 'aspect-[4/3]' : 'h-24')}>
         {photo
           ? <Image src={photo} alt={t('photo_alt')} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
           : <CategoryTile category={issue.category} className="size-16" iconClassName="size-8" />}

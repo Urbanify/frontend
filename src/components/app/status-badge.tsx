@@ -26,7 +26,7 @@ const STALE_AFTER_MS = 3 * 24 * 60 * 60 * 1000;
 export type StatusBadgeProps = {
   status: IssueStatus;
   audience: Audience;
-  /** The viewer reported the issue or verifies it, so the confirmation is theirs. */
+  /** The viewer reported the issue or verifies it, so the next step (confirm or verify) is theirs. */
   needsYou?: boolean;
   /** When the issue entered its current status (updatedAt). Used for the staff 3-day rule. */
   since?: string;
@@ -42,8 +42,12 @@ export function StatusBadge({ status, audience, needsYou = false, since, classNa
     && STALE_STAFF_STATUSES.includes(status)
     && Date.now() - new Date(since).getTime() > STALE_AFTER_MS;
 
-  const tone: Tone = isStale ? 'amber' : TONE_BY_STATUS[status];
-  const label = isYourConfirmation ? t('needs_you') : t(`${status}.${audience}`);
+  const isYourVerification = needsYou && audience === 'citizen' && status === 'WAITING_FOR_PROCEDURE';
+
+  const tone: Tone = isStale || isYourVerification ? 'amber' : TONE_BY_STATUS[status];
+  const label = isYourConfirmation
+    ? t('needs_you')
+    : isYourVerification ? t('needs_you_verify') : t(`${status}.${audience}`);
 
   return (
     <span

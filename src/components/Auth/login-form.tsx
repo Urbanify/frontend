@@ -1,6 +1,5 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -36,6 +35,7 @@ export function LoginForm({
 }: LoginFormProps) {
   const t = useTranslations('Auth.Login');
   const terms = useTranslations('Auth.terms_and_policy');
+  const comingSoon = useTranslations('App.ComingSoon');
   const router = useRouter();
   const [sentTo, setSentTo] = useState<string | null>(null);
   // Set only for a new email: the session starts after step 3 (name, surname, city).
@@ -334,11 +334,17 @@ export function LoginForm({
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
         {terms('text')}
         {' '}
-        <Link href="/terms">{terms('terms')}</Link>
+        <span>
+          {terms('terms')}
+          <span className="ml-1 rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">{comingSoon('badge')}</span>
+        </span>
         {' '}
         {terms('and')}
         {' '}
-        <Link href="/policies">{terms('privacy_policy')}</Link>
+        <span>
+          {terms('privacy_policy')}
+          <span className="ml-1 rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">{comingSoon('badge')}</span>
+        </span>
         .
       </div>
     </div>

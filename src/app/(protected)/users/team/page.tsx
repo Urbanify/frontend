@@ -22,7 +22,7 @@ export default async function TeamPage() {
   const tTable = await getTranslations('Users.table');
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-6 md:py-10">
+    <div className="flex flex-col gap-6 px-4 md:px-6">
       <PageHeader title={t('title')} description={t('description')} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <div className="lg:col-start-2 lg:row-start-1">

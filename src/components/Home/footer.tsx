@@ -34,11 +34,11 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-[15px] text-muted-foreground">
             <li>
               Política de privacidade
-              <span className="ml-2 rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">Em breve</span>
+              <span className="ml-2 whitespace-nowrap rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">Em breve</span>
             </li>
             <li>
               Termos de uso
-              <span className="ml-2 rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">Em breve</span>
+              <span className="ml-2 whitespace-nowrap rounded-full bg-tone-neutral-bg px-2 py-0.5 text-[13px] text-tone-neutral-fg">Em breve</span>
             </li>
           </ul>
         </div>

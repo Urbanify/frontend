@@ -1,5 +1,6 @@
 'use client';
 
+import { ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 type RoleKey = 'citizen' | 'manager' | 'owner';
@@ -36,8 +37,11 @@ export function RolesGuide({ roles, showOwnerSoon = false }: RolesGuideProps) {
 
   return (
     <>
-      <details className="rounded-xl border bg-card p-4 lg:hidden">
-        <summary className="flex min-h-11 cursor-pointer items-center font-semibold text-navy">{t('title')}</summary>
+      <details className="group rounded-xl border bg-card p-4 lg:hidden">
+        <summary className="flex min-h-11 cursor-pointer items-center justify-between font-semibold text-navy">
+          {t('open')}
+          <ChevronDown className="size-4 transition-transform group-open:rotate-180" aria-hidden />
+        </summary>
         {body}
       </details>
 

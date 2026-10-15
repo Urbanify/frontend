@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { useViewer } from '@/components/app/use-viewer';
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 
@@ -17,6 +18,7 @@ type CitiesTableProps = {
 
 export function CitiesTable({ cities }: CitiesTableProps) {
   const t = useTranslations('Cities.table');
+  const viewer = useViewer();
   const [filter, setFilter] = useState('');
 
   const filteredCities = cities.filter(city =>
@@ -50,7 +52,7 @@ export function CitiesTable({ cities }: CitiesTableProps) {
                     <CityStatusBadge status={city.status} />
                   </div>
                   <div className="flex shrink-0 gap-2">
-                    <Button variant="outline" disabled>{t('access')}</Button>
+                    <Button variant="outline" disabled>{city.id === viewer.cityId ? t('current') : t('access')}</Button>
                     <Button variant="outline" asChild>
                       <Link href={`/cities/edit/${city.id}`}>{t('edit')}</Link>
                     </Button>
