@@ -85,7 +85,7 @@
         "results": { "label": "Painel de resultados", "hint": "Atendimentos da cidade em números." },
         "deadlines": { "label": "Prazos por secretaria", "hint": "Tempo médio de atendimento por secretaria." },
         "reports": { "label": "Relatórios", "hint": "Exporte os dados por período." },
-        "showcase": { "label": "Vitrine da cidade", "hint": "Serviços e pontos de interesse da cidade." }
+        "showcase": { "label": "Vitrine da cidade", "hint": "Resultados e obras da cidade para a população, sem nomes de autoridades." }
       }
     },
     "UserMenu": {
