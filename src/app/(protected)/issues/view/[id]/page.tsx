@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 
 import { api } from '@/services/api';
 
-import AssignBanner from '../../components/assign-banner';
 import { IssueDetailment } from '../../components/issue-details';
 
 export default async function AccessIssue({
@@ -15,8 +14,7 @@ export default async function AccessIssue({
   const { data: issue } = await api.issues.getById(issueId);
 
   return (
-    <div className="px-4">
-      <AssignBanner issue={issue} />
+    <div className="px-4 pb-8 pt-2">
       <IssueDetailment issue={issue} />
     </div>
   );

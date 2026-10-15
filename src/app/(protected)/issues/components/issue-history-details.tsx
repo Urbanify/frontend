@@ -1,65 +1,70 @@
 import dayjs from 'dayjs';
+import { CheckCheck, CircleCheck, CircleX, type LucideIcon, MapPin, Megaphone, UserRound, Wrench } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
 
-import { Button } from '@/components/ui/button/button';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog/dialog';
-import { Separator } from '@/components/ui/separator/separator';
+import type { Viewer } from '@/components/app/use-viewer';
 
 import type { IssueDetails } from '@/types/Issue';
 
 type IssueHistoryDetailsProps = {
   issue: IssueDetails;
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  viewer: Viewer;
+  className?: string;
 };
 
-export const IssueHistoryDetails = ({ issue, open, setOpen }: IssueHistoryDetailsProps) => {
-  const t = useTranslations('Issues');
+const ICONS: Record<string, LucideIcon> = {
+  REPORTED_ISSUE: Megaphone,
+  ASSIGNED_AS_FISCAL: MapPin,
+  MARKED_AS_VALID: CircleCheck,
+  MARKED_AS_UNFOUNDED: CircleX,
+  ASSIGNED_AS_MANAGER: UserRound,
+  ADDED_RESOLUTION: Wrench,
+  REQUESTED_NEW_SOLUTION: Megaphone,
+  MARKED_AS_SOLVED: CheckCheck,
+};
+
+const KNOWN_ACTIONS = Object.keys(ICONS);
+
+// Visible on the page (replaces the old "Histórico" dialog). Oldest first.
+export function IssueHistoryDetails({ issue, viewer, className }: IssueHistoryDetailsProps) {
+  const t = useTranslations('IssueDetail.timeline');
+  const entries = [...issue.history].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
   return (
-    <Dialog open={open}>
-      <DialogContent showClose={false}>
-        <DialogHeader className="flex gap-4">
-          <DialogTitle>{t('AccessPage.history')}</DialogTitle>
-          <DialogDescription className="max-h-[50vh] overflow-y-auto !text-left">
-            {issue.history.map((history, index) => (
-              <div key={history.id} className={cn('flex flex-col gap-2', index > 0 && 'mt-2')}>
-                <div className="flex flex-row gap-2">
-                  <span>
-                    {dayjs(history.updatedAt).format('DD/MM/YYYY HH:mm')}
-                  </span>
-                  <span className="italic">
-                    {t(`actions.${history.action}`, {
-                      userName: history.userName,
-                    })}
-                  </span>
-                </div>
+    <section className={cn('rounded-lg border border-border bg-card p-5', className)}>
+      <h2 className="text-sm font-semibold text-navy">{t('title')}</h2>
 
-                {!!history.description && (
-                  <div className="flex flex-row gap-2">
-                    <span>
-                      {t('AccessPage.description')}
-                      :
-                    </span>
-                    <span className="italic">
-                      {history.description}
-                    </span>
-                  </div>
-                )}
+      {entries.length === 0
+        ? <p className="mt-3 text-sm text-muted-foreground">{t('empty')}</p>
+        : (
+            <ol className="mt-4 space-y-4">
+              {entries.map((entry) => {
+                const Icon = ICONS[entry.action] ?? Megaphone;
+                const isReporter = entry.userId === issue.reporterId;
+                const name = viewer.audience === 'citizen' && isReporter ? t('citizen') : entry.userName;
+                const isKnown = KNOWN_ACTIONS.includes(entry.action);
 
-                <Separator />
-              </div>
-            ))}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="mt-8 flex flex-row justify-end gap-4">
-          <DialogClose asChild onClick={() => setOpen(false)}>
-            <Button>{t('AccessPage.history_close')}</Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+                return (
+                  <li key={entry.id} className="flex gap-3">
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                      <Icon className="size-4" aria-hidden />
+                    </span>
+                    <div className="min-w-0 space-y-0.5">
+                      <p className="text-sm font-medium text-foreground">
+                        {isKnown ? t(entry.action as 'REPORTED_ISSUE', { name }) : t('other', { name })}
+                      </p>
+                      <time className="block text-sm tabular-nums text-muted-foreground" dateTime={entry.createdAt}>
+                        {dayjs(entry.createdAt).format('DD/MM/YYYY HH:mm')}
+                      </time>
+                      {!!entry.description && <p className="text-sm text-foreground">{entry.description}</p>}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+    </section>
   );
-};
+}

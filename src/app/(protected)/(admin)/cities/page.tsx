@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+
+import { PageHeader } from '@/components/app/page-header';
+import { Button } from '@/components/ui/button/button';
 
 import { api } from '@/services/api';
 
@@ -10,8 +14,15 @@ export default async function ListCities() {
   const { data: cities } = await api.city.getAll();
 
   return (
-    <div className="px-4">
-      <h1 className="mb-4 font-sans text-3xl font-semibold">{pageT('title')}</h1>
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6 md:py-10">
+      <PageHeader
+        title={pageT('title')}
+        action={(
+          <Button asChild>
+            <Link href="/cities/create">{pageT('new')}</Link>
+          </Button>
+        )}
+      />
       <CitiesTable cities={cities} />
     </div>
   );

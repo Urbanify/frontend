@@ -11,17 +11,9 @@ import { Input } from '@/components/ui/input/input';
 
 import { EmptyState } from './empty-state';
 import { IssueCard } from './issue-card';
+import { FILTER_STATUSES, type FilterKey } from './issue-filters';
 
-import type { Issue, IssueStatus } from '@/types/Issue';
-
-type FilterKey = 'all' | 'in_progress' | 'needs_action' | 'resolved';
-
-const FILTER_STATUSES: Record<FilterKey, IssueStatus[] | null> = {
-  all: null,
-  in_progress: ['WAITING_FOR_FISCAL', 'WAITING_FOR_PROCEDURE', 'WAITING_FOR_MANAGER', 'WAITING_FOR_MANAGER_RESOLUTION'],
-  needs_action: ['WAITING_FOR_RESOLUTION_VALIDATION'],
-  resolved: ['SOLVED', 'CLOSED'],
-};
+import type { Issue } from '@/types/Issue';
 
 const FILTER_KEYS = Object.keys(FILTER_STATUSES) as FilterKey[];
 

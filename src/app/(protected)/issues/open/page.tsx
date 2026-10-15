@@ -4,20 +4,19 @@ import { getTranslations } from 'next-intl/server';
 
 import { api } from '@/services/api';
 
-import { IssuesTable } from '../components/table';
+import { QueueIssues } from '../components/issue-views';
 
 export default async function Page() {
-  const pageT = await getTranslations('Issues.OpenIssuesPage');
-  const { data: issues } = await api.issues.getAllOpenIssuesPerPeriod({
-    start: dayjs().subtract(1, 'month').toISOString(),
+  const { data } = await api.issues.getAllOpenIssuesPerPeriod({
+    start: dayjs().subtract(1, 'year').toISOString(),
     end: dayjs().toISOString(),
     page: 1,
+    take: 200,
   });
 
   return (
-    <div className="px-4">
-      <h1 className="mb-4 font-sans text-3xl font-semibold">{pageT('title')}</h1>
-      <IssuesTable issues={issues.items} />
+    <div className="px-4 md:px-6">
+      <QueueIssues issues={data.items ?? []} />
     </div>
   );
 }

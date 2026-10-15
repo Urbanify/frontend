@@ -130,7 +130,6 @@ export default function EditCityForm({ city }: { city: City }) {
                       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                         <div>
                           <Label htmlFor="city-name">{t('city_name')}</Label>
-                          <p className="text-xs text-muted-foreground">{t('city_name_placeholder')}</p>
                           <Input id="city-name" type="text" placeholder={t('city_name_placeholder')} required {...register('name')} />
                           {methods.formState.errors.name && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.name.message}</span>}
                         </div>

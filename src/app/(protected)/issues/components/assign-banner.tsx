@@ -1,369 +1,304 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
-import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
-import { useSession } from '@/lib/session-client';
 import { cn } from '@/lib/utils';
 
-import BannerMessage from '@/components/banner/banner';
+import type { Viewer } from '@/components/app/use-viewer';
 import { Button } from '@/components/ui/button/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog/dialog';
 import { Label } from '@/components/ui/label/label';
 import { Textarea } from '@/components/ui/textarea/textarea';
 
-import { takeActionIssueSchema } from '@/schemas/issues/action.schema';
 import { api } from '@/services/api';
-import { parseJwt } from '@/utils/decodeJWT';
 import { mutate } from '@/utils/revalidateTag';
 
-import type { IssueDetails } from '@/types/Issue';
+import type { IssueDetails, IssueHistory, IssueHistoryAction } from '@/types/Issue';
 
 type AssignBannerProps = {
   issue: IssueDetails;
+  viewer: Viewer;
+  className?: string;
 };
 
-type IssueActionData = {
-  description: string;
+type DialogKind = 'verify' | 'resolve' | 'confirm';
+type NextAction = 'assignFiscal' | 'assignManager' | DialogKind;
+
+type DialogProps = {
+  issue: IssueDetails;
+  onDismiss: () => void;
+  onDone: () => void;
 };
 
-export default function AssignBanner({ issue }: AssignBannerProps) {
-  const { data } = useSession();
-  const t = useTranslations('Issues.AccessPage');
-  const parsedJWT = parseJwt(data?.access_token);
-  const actionTranslation = useTranslations('Issues.ReportPage');
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+type Messages = { loading: string; success: string; error: string };
 
-  const formSchema = takeActionIssueSchema(actionTranslation as unknown as (arg: string) => string);
-  const { register, ...methods } = useForm<IssueActionData>({
-    resolver: zodResolver(formSchema),
-    mode: 'onChange',
-    reValidateMode: 'onChange',
-    defaultValues: {
-      description: '',
-    },
+// Toast + result. The API returns a Response even on 4xx/5xx, so the ok flag decides the outcome.
+async function send(request: Promise<Response>, messages: Messages): Promise<boolean> {
+  const outcome = request.then((response) => {
+    if (!response.ok) {
+      throw new Error(`status ${response.status}`);
+    }
   });
+  toast.promise(outcome, messages);
+  try {
+    await outcome;
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
 
-  const disableButton = !methods.formState.isValid
-    || methods.formState.isSubmitting;
+function latest(history: IssueHistory[], action: IssueHistoryAction) {
+  return history
+    .filter(entry => entry.action === action)
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+    .at(-1);
+}
 
-  const actionForm = () => {
-    return (
-      <FormProvider {...methods} register={register}>
-        <div className="relative grid gap-2">
-          <Label htmlFor="issue_description">{t('add_a_comment')}</Label>
-          <Textarea id="issue_description" placeholder={t('add_a_comment_placeholder')} required {...register('description')} />
-          {methods.formState.errors.description && <span className="absolute top-full text-xs text-destructive">{methods.formState.errors.description.message}</span>}
-        </div>
-      </FormProvider>
-    );
+// "Próximo passo": one sentence saying what happens now, and at most one primary button.
+// Who can do what is the same rule set as before (reporter / verifier / manager / status).
+export function AssignBanner({ issue, viewer, className }: AssignBannerProps) {
+  const t = useTranslations('IssueDetail.nextStep');
+  const [dialog, setDialog] = useState<DialogKind | null>(null);
+  const [isAssigning, setIsAssigning] = useState(false);
+
+  const { status } = issue;
+  const isReporter = issue.reporterId === viewer.id;
+  const isFiscal = issue.fiscalId === viewer.id;
+  const isTheManager = issue.managerId === viewer.id;
+
+  const solvedAt = latest(issue.history, 'MARKED_AS_SOLVED')?.createdAt ?? issue.updatedAt;
+  const closing = latest(issue.history, 'MARKED_AS_UNFOUNDED');
+
+  const statusText = () => {
+    switch (status) {
+      case 'WAITING_FOR_FISCAL':
+        return t('waitingVerifier');
+      case 'WAITING_FOR_PROCEDURE':
+        return t('inVerification');
+      case 'WAITING_FOR_MANAGER':
+        return t('queued');
+      case 'WAITING_FOR_MANAGER_RESOLUTION':
+        return t('inProgress');
+      case 'WAITING_FOR_RESOLUTION_VALIDATION':
+        return t('awaitingCitizen');
+      case 'SOLVED':
+        return t('solvedOn', { date: dayjs(solvedAt).format('DD/MM') });
+      case 'CLOSED':
+        return closing?.description
+          ? t('closedBecause', { reason: closing.description.trim().replace(/[.!?]+$/, '') })
+          : t('closed');
+    }
   };
 
-  if (!parsedJWT) {
-    return null;
+  let text = statusText();
+  let action: NextAction | undefined;
+
+  if (viewer.role === 'RESIDENT' && !isReporter && status === 'WAITING_FOR_FISCAL' && !issue.fiscalId) {
+    text = t('noVerifier');
+    action = 'assignFiscal';
+  } else if (viewer.role === 'MANAGER' && !isReporter && status === 'WAITING_FOR_MANAGER' && !issue.managerId) {
+    // Owners never see this button: the API does not give them the manager role on assign.
+    text = t('queued');
+    action = 'assignManager';
+  } else if (isFiscal && status === 'WAITING_FOR_PROCEDURE') {
+    text = t('verifyOnSite');
+    action = 'verify';
+  } else if (isTheManager && status === 'WAITING_FOR_MANAGER_RESOLUTION') {
+    text = t('managing');
+    action = 'resolve';
+  } else if ((isReporter || isFiscal) && status === 'WAITING_FOR_RESOLUTION_VALIDATION') {
+    text = t('confirmNeeded');
+    action = 'confirm';
   }
 
-  const { role, id } = parsedJWT?.user;
-  const isReporter = issue.reporterId === id;
-  const isFiscal = issue.fiscalId === id;
-  const isTheManager = issue.managerId === id;
-  const isResident = role === 'RESIDENT';
-  const isAManager = role === 'MANAGER' || role === 'OWNER';
-
-  const handleAssignMe = async () => {
-    await toast.promise(
-      api.issues.assignMe(issue.id),
-      {
-        loading: t('assigning'),
-        success: () => {
-          mutate(`get-issue-${issue.id}`);
-          return t('assign_success');
-        },
-        error: () => {
-          mutate(`get-issue-${issue.id}`);
-          return t('assign_error');
-        },
-      },
-    );
+  const handleAssign = async () => {
+    setIsAssigning(true);
+    const ok = await send(api.issues.assignMe(issue.id), {
+      loading: t('assigning'),
+      success: t('assigned'),
+      error: t('assignFailed'),
+    });
+    setIsAssigning(false);
+    if (ok) {
+      mutate(`get-issue-${issue.id}`);
+    }
   };
 
-  const closeDialog = () => {
+  const finish = () => {
+    setDialog(null);
     mutate(`get-issue-${issue.id}`);
-    setIsLoading(false);
-    setOpen(false);
   };
 
-  const handleAddIssueResolution = async () => {
-    setIsLoading(true);
-    await toast.promise(
-      api.issues.resolution(issue.id, methods.getValues().description),
-      {
-        loading: t('adding_resolution'),
-        success: () => {
-          closeDialog();
-          return t('resolution_success');
-        },
-        error: () => {
-          closeDialog();
-          return t('resolution_error');
-        },
-      },
-    );
+  return (
+    <section aria-labelledby="next-step-title" className={cn('rounded-lg border border-border bg-card p-5', className)}>
+      <h2 id="next-step-title" className="text-sm font-semibold text-navy">{t('title')}</h2>
+      <p className="mt-2 text-base text-foreground">{text}</p>
+
+      {action && (
+        <Button
+          className="mt-4 w-full sm:w-auto"
+          isLoading={isAssigning}
+          onClick={() => {
+            if (action === 'assignFiscal' || action === 'assignManager') {
+              handleAssign();
+            } else {
+              setDialog(action);
+            }
+          }}
+        >
+          {t(`buttons.${action}`)}
+        </Button>
+      )}
+
+      {dialog === 'verify' && <VerifyDialog issue={issue} onDismiss={() => setDialog(null)} onDone={finish} />}
+      {dialog === 'resolve' && <ResolveDialog issue={issue} onDismiss={() => setDialog(null)} onDone={finish} />}
+      {dialog === 'confirm' && <ConfirmDialog issue={issue} onDismiss={() => setDialog(null)} onDone={finish} />}
+    </section>
+  );
+}
+
+// Fiscal on site: "existe" confirms (accept), "não encontrei" closes as unfounded (close).
+function VerifyDialog({ issue, onDismiss, onDone }: DialogProps) {
+  const t = useTranslations('IssueDetail.verify');
+  const [comment, setComment] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const trimmed = comment.trim();
+
+  const submit = async (exists: boolean) => {
+    setIsSending(true);
+    const request = exists
+      ? api.issues.accept(issue.id, trimmed || t('defaultComment'))
+      : api.issues.close(issue.id, trimmed);
+    const ok = await send(request, { loading: t('saving'), success: t('saved'), error: t('failed') });
+    setIsSending(false);
+    if (ok) {
+      onDone();
+    }
   };
 
-  const handleAcceptIssue = async () => {
-    setIsLoading(true);
-    await toast.promise(
-      api.issues.accept(issue.id, methods.getValues().description),
-      {
-        loading: t('confirming_accept'),
-        success: () => {
-          closeDialog();
-          return t('accept_success');
-        },
-        error: () => {
-          closeDialog();
-          return t('accept_error');
-        },
-      },
-    );
+  return (
+    <Dialog open onOpenChange={open => !open && onDismiss()}>
+      <DialogContent className="w-[calc(100%-2rem)]">
+        <DialogHeader>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
+        </DialogHeader>
+
+        <div className="grid gap-2">
+          <Label htmlFor="verify-comment">{t('label')}</Label>
+          <Textarea id="verify-comment" rows={4} value={comment} onChange={event => setComment(event.target.value)} />
+          <p className="text-sm text-muted-foreground">{t('hint')}</p>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Button className="h-14 text-base md:h-14" disabled={isSending} onClick={() => submit(true)}>
+            {t('exists')}
+          </Button>
+          <Button className="h-14 text-base md:h-14" variant="outline" disabled={!trimmed || isSending} onClick={() => submit(false)}>
+            {t('notFound')}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// Manager registers what was done on the site. Required.
+function ResolveDialog({ issue, onDismiss, onDone }: DialogProps) {
+  const t = useTranslations('IssueDetail.resolve');
+  const [text, setText] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const trimmed = text.trim();
+
+  const submit = async () => {
+    setIsSending(true);
+    const ok = await send(api.issues.resolution(issue.id, trimmed), {
+      loading: t('saving'),
+      success: t('saved'),
+      error: t('failed'),
+    });
+    setIsSending(false);
+    if (ok) {
+      onDone();
+    }
   };
 
-  const handleCloseIssue = async () => {
-    setIsLoading(true);
-    await toast.promise(
-      api.issues.close(issue.id, methods.getValues().description),
-      {
-        loading: t('confirming_close'),
-        success: () => {
-          closeDialog();
-          return t('close_success');
-        },
-        error: () => {
-          closeDialog();
-          return t('close_error');
-        },
-      },
-    );
+  return (
+    <Dialog open onOpenChange={open => !open && onDismiss()}>
+      <DialogContent className="w-[calc(100%-2rem)]">
+        <DialogHeader>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
+        </DialogHeader>
+
+        <div className="grid gap-2">
+          <Label htmlFor="resolution-text">{t('label')}</Label>
+          <Textarea id="resolution-text" rows={5} value={text} onChange={event => setText(event.target.value)} />
+          <p className="text-sm text-muted-foreground">{t('hint')}</p>
+        </div>
+
+        <Button className="w-full" disabled={!trimmed || isSending} onClick={submit}>
+          {t('submit')}
+        </Button>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// Reporter or verifier confirms the solution (solve) or asks for a new one (askNewSolution, reason required).
+function ConfirmDialog({ issue, onDismiss, onDone }: DialogProps) {
+  const t = useTranslations('IssueDetail.confirm');
+  const [text, setText] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const trimmed = text.trim();
+  const lastSolution = latest(issue.history, 'ADDED_RESOLUTION')?.description;
+
+  const submit = async (resolved: boolean) => {
+    setIsSending(true);
+    const request = resolved
+      ? api.issues.solve(issue.id, trimmed)
+      : api.issues.askNewSolution(issue.id, trimmed);
+    const ok = await send(request, { loading: t('saving'), success: t('saved'), error: t('failed') });
+    setIsSending(false);
+    if (ok) {
+      onDone();
+    }
   };
 
-  const handleSolve = async () => {
-    setIsLoading(true);
-    await toast.promise(
-      api.issues.solve(issue.id, methods.getValues().description),
-      {
-        loading: t('accepting_resolution'),
-        success: () => {
-          closeDialog();
-          return t('accepting_resolution_success');
-        },
-        error: () => {
-          closeDialog();
-          return t('accepting_resolution_error');
-        },
-      },
-    );
-  };
+  return (
+    <Dialog open onOpenChange={open => !open && onDismiss()}>
+      <DialogContent className="w-[calc(100%-2rem)]">
+        <DialogHeader>
+          <DialogTitle>{t('title')}</DialogTitle>
+        </DialogHeader>
 
-  const handleDoesNotSolve = async () => {
-    setIsLoading(true);
-    await toast.promise(
-      api.issues.askNewSolution(issue.id, methods.getValues().description),
-      {
-        loading: t('asking_new_resolution'),
-        success: () => {
-          closeDialog();
-          return t('ask_new_resolution_success');
-        },
-        error: () => {
-          closeDialog();
-          return t('ask_new_resolution_error');
-        },
-      },
-    );
-  };
+        <div className="grid gap-2">
+          <p className="text-sm font-medium text-foreground">{t('lastSolution')}</p>
+          <p className="whitespace-pre-line rounded-md bg-muted p-3 text-base text-foreground">
+            {lastSolution || t('noSolution')}
+          </p>
+        </div>
 
-  if (isResident && !isReporter && !issue.fiscalId) {
-    return <BannerMessage message={t('no_fiscal_yet')} onClick={handleAssignMe} />;
-  }
+        <div className="grid gap-2">
+          <Label htmlFor="confirm-text">{t('label')}</Label>
+          <Textarea id="confirm-text" rows={3} value={text} onChange={event => setText(event.target.value)} />
+          <p className="text-sm text-muted-foreground">{t('hint')}</p>
+        </div>
 
-  if (isAManager && !isReporter && !issue.managerId && issue.status !== 'WAITING_FOR_MANAGER') {
-    return <BannerMessage message={t('cant_assign_yet')} />;
-  }
-
-  if (isAManager && !isReporter && !issue.managerId && issue.status === 'WAITING_FOR_MANAGER') {
-    return <BannerMessage message={t('no_manager_yet')} onClick={handleAssignMe} />;
-  }
-
-  if (isFiscal && issue.status === 'WAITING_FOR_PROCEDURE') {
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <BannerMessage message={t('issue_needs_validation')} />
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t('should_proceed')}</DialogTitle>
-            <DialogDescription className="!mt-3 text-sm text-muted-foreground">
-              {t('should_proceed_info')}
-            </DialogDescription>
-
-            <div className="!mt-12 w-full !text-left">
-              {actionForm()}
-            </div>
-          </DialogHeader>
-          <DialogFooter className="mt-8 flex-row !justify-between gap-4">
-            <Button
-              isLoading={isLoading}
-              disabled={disableButton}
-              onClick={handleCloseIssue}
-              variant="destructive"
-            >
-              {t('close_issue')}
-            </Button>
-            <Button
-              isLoading={isLoading}
-              disabled={disableButton}
-              onClick={handleAcceptIssue}
-            >
-              {t('validate_issue')}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  if (isTheManager && issue.status === 'WAITING_FOR_MANAGER_RESOLUTION') {
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <BannerMessage message={t('issue_needs_validation')} />
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t('waiting_for_resolution')}</DialogTitle>
-            <DialogDescription className="!mt-3 text-sm text-muted-foreground">
-              {t('waiting_for_resolution_info')}
-            </DialogDescription>
-            <DialogDescription className="!mt-3 text-sm text-muted-foreground">
-              {t('waiting_for_resolution_disclaimer')}
-            </DialogDescription>
-
-            <div className="!mt-12 w-full !text-left">
-              {actionForm()}
-            </div>
-          </DialogHeader>
-          <DialogFooter className="mt-8 flex-row !justify-between gap-4">
-            <Button
-              isLoading={isLoading}
-              disabled={disableButton}
-              onClick={handleCloseIssue}
-              variant="destructive"
-            >
-              {t('close_issue')}
-            </Button>
-            <Button
-              isLoading={isLoading}
-              disabled={disableButton}
-              onClick={handleAddIssueResolution}
-            >
-              {t('add_resolution')}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  if ((isFiscal || isReporter || isTheManager) && issue.status === 'WAITING_FOR_RESOLUTION_VALIDATION') {
-    const lastSolution = issue.history?.filter(history => history.action === 'ADDED_RESOLUTION').reverse()[0];
-
-    const lastCreatedAt = lastSolution?.createdAt;
-
-    const sevenDaysLater = dayjs(lastCreatedAt).add(7, 'day');
-    const now = dayjs();
-
-    const totalHoursRemaining = sevenDaysLater.diff(now, 'hour');
-    const daysRemaining = Math.floor(totalHoursRemaining / 24);
-    const hoursRemaining = totalHoursRemaining % 24;
-
-    const disableManagerSolve = totalHoursRemaining > 0;
-
-    return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <BannerMessage message={t('validate_resolution')} />
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t('is_resolution_valid')}</DialogTitle>
-            <DialogDescription className="!mt-3 text-sm text-muted-foreground">
-              {t('is_resolution_valid_info')}
-            </DialogDescription>
-
-            <div className="!mt-12 w-full !text-left">
-              <div className="relative grid gap-2">
-                <Label htmlFor="resolution">{t('last_resolution')}</Label>
-                <Textarea id="resolution" className="pointer-events-none resize-none" defaultValue={lastSolution?.description} />
-              </div>
-            </div>
-
-            <div className="!mt-12 w-full !text-left">
-              {actionForm()}
-            </div>
-          </DialogHeader>
-          <DialogFooter className={cn('mt-8 flex-row !justify-between gap-4', isTheManager && '!justify-end')}>
-            {!isTheManager && (
-              <Button
-                isLoading={isLoading}
-                disabled={disableButton}
-                onClick={handleDoesNotSolve}
-                variant="destructive"
-              >
-                {t('does_not_solve')}
-              </Button>
-            )}
-            {!isTheManager
-            && (
-              <Button
-                isLoading={isLoading}
-                disabled={disableButton}
-                onClick={handleSolve}
-              >
-                {t('it_does_solve')}
-              </Button>
-            )}
-
-            {isTheManager && (
-              <div className="flex flex-col items-end gap-2 text-center">
-                <Button
-                  className="w-fit"
-                  isLoading={isLoading}
-                  disabled={disableButton || disableManagerSolve}
-                  onClick={(disableButton || disableManagerSolve) ? () => ({}) : handleSolve}
-                >
-                  {t('it_does_solve')}
-                </Button>
-
-                <small className="text-xs text-muted-foreground">
-                  {t('close_after_7days', {
-                    days: daysRemaining,
-                    hours: hoursRemaining,
-                  })}
-                </small>
-              </div>
-            )}
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  return null;
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Button disabled={isSending} onClick={() => submit(true)}>
+            {t('yes')}
+          </Button>
+          <Button variant="outline" disabled={!trimmed || isSending} onClick={() => submit(false)}>
+            {t('no')}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 }

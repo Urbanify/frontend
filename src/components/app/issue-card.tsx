@@ -15,12 +15,14 @@ import { type Issue, issueCategories } from '@/types/Issue';
 
 export type IssueCardProps = {
   issue: Issue;
-  /** Extra action, such as "Assumir chamado". Rendered beside the link, never inside it. */
+  /** Extra action, such as "Assumir". Rendered beside the link, never inside it. */
   action?: ReactNode;
+  /** Show how long the issue has been waiting in its current status, instead of when it was reported. */
+  waiting?: boolean;
   className?: string;
 };
 
-export function IssueCard({ issue, action, className }: IssueCardProps) {
+export function IssueCard({ issue, action, waiting = false, className }: IssueCardProps) {
   const t = useTranslations('App.IssueCard');
   const tTypes = useTranslations('Issues.types');
   const viewer = useViewer();
@@ -29,9 +31,13 @@ export function IssueCard({ issue, action, className }: IssueCardProps) {
   const photo = issue.photos?.[0];
   const protocol = issue.id.slice(0, 6);
   const needsYou = !!viewer.id && (issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
+  const timeISO = waiting ? issue.updatedAt : issue.createdAt;
+  const timeText = waiting
+    ? t('waiting_since', { time: formatRelativeTime(issue.updatedAt) })
+    : formatRelativeTime(issue.createdAt);
 
   return (
-    <article className={cn('relative flex gap-4 rounded-lg border bg-card p-4 focus-within:ring-2 focus-within:ring-ring', className)}>
+    <article className={cn('relative flex flex-wrap gap-x-4 gap-y-3 rounded-lg border bg-card p-4 focus-within:ring-2 focus-within:ring-ring', className)}>
       <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted text-muted-foreground">
         {photo
           ? <Image src={photo} alt={t('photo_alt')} width={64} height={64} className="size-16 object-cover" />
@@ -52,7 +58,7 @@ export function IssueCard({ issue, action, className }: IssueCardProps) {
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] text-muted-foreground">
           <StatusBadge status={issue.status} audience={viewer.audience} needsYou={needsYou} since={issue.updatedAt} />
-          <time dateTime={issue.createdAt} className="tabular-nums">{formatRelativeTime(issue.createdAt)}</time>
+          <time dateTime={timeISO} className="tabular-nums">{timeText}</time>
           <span className="tabular-nums">
             <span className="sr-only">{t('protocol', { id: protocol })}</span>
             <span aria-hidden="true">{`#${protocol}`}</span>
@@ -60,7 +66,8 @@ export function IssueCard({ issue, action, className }: IssueCardProps) {
         </div>
       </div>
 
-      {action && <div className="relative z-10 flex shrink-0 items-center">{action}</div>}
+      {/* On mobile the action drops to its own line, full width, so it keeps a 44 px touch target. */}
+      {action && <div className="relative z-10 flex basis-full items-center sm:shrink-0 sm:basis-auto">{action}</div>}
     </article>
   );
 }

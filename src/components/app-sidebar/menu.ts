@@ -6,6 +6,7 @@ import {
   ClipboardList,
   Construction,
   FileText,
+  House,
   Inbox,
   Landmark,
   List,
@@ -23,20 +24,24 @@ import {
 import type { UserRole } from '@/types/User';
 
 // Each entry is a translation key under App.Menu (and App.Menu.soon for coming-soon items).
-export type LinkKey = 'city_issues' | 'my_reports' | 'my_verifications' | 'open_queue' | 'my_assignments' | 'overview' | 'all_issues' | 'team' | 'citizens' | 'cities';
+export type LinkKey = 'home' | 'city_issues' | 'my_reports' | 'my_verifications' | 'open_queue' | 'my_assignments' | 'overview' | 'all_issues' | 'team' | 'citizens' | 'cities';
 export type SoonKey = 'public_notices' | 'city_works' | 'mobile_app' | 'results' | 'deadlines' | 'reports' | 'departments' | 'showcase';
 
 export type MenuLink = { key: LinkKey; href: string; icon: LucideIcon };
 export type SoonItem = { key: SoonKey; icon: LucideIcon };
 export type RoleMenu = { links: MenuLink[]; soon: SoonItem[] };
 
+const HOME_LINK: MenuLink = { key: 'home', href: '/inicio', icon: House };
+
 const RESIDENT_LINKS: MenuLink[] = [
+  HOME_LINK,
   { key: 'city_issues', href: '/issues', icon: MapPin },
   { key: 'my_reports', href: '/issues/mine', icon: ClipboardList },
   { key: 'my_verifications', href: '/issues/verifying', icon: ClipboardCheck },
 ];
 
 const MANAGER_LINKS: MenuLink[] = [
+  HOME_LINK,
   { key: 'open_queue', href: '/issues/open', icon: Inbox },
   { key: 'my_assignments', href: '/issues/assigned', icon: Wrench },
   { key: 'overview', href: '/issues/overview', icon: MapIcon },

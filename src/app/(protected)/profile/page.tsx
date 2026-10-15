@@ -1,95 +1,88 @@
 import dayjs from 'dayjs';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import { Badge } from '@/components/ui/badge/badge';
-import { Button } from '@/components/ui/button/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card/card';
-import { Input } from '@/components/ui/input/input';
-import { Label } from '@/components/ui/label/label';
+import { PageHeader } from '@/components/app/page-header';
 
+import { auth } from '@/auth';
 import { api } from '@/services/api';
+import { parseJwtUniversal } from '@/utils/decodeJWTUniversal';
+
+import { SignOutButton } from './components/sign-out-button';
+
+// Shows the first 3 and last 2 digits only, e.g. 111.***.***-44.
+const maskCpf = (cpf?: string) => {
+  const digits = cpf?.replace(/\D/g, '') ?? '';
+  return digits.length === 11 ? `${digits.slice(0, 3)}.***.***-${digits.slice(-2)}` : '—';
+};
 
 export default async function ProfilePage() {
   const t = await getTranslations('Profile');
-  const response = await api.users.getMe({ fetchServerSide: true });
+  const session = await auth();
+  const cityId = parseJwtUniversal(session?.access_token)?.user?.cityId;
+  const [response, cityResponse] = await Promise.all([
+    api.users.getMe({ fetchServerSide: true }),
+    cityId ? api.city.getById(cityId) : null,
+  ]);
   const payload = response.ok ? await response.json() : null;
+  const cityName = cityResponse?.data.name;
+  const fullName = payload ? `${payload.name} ${payload.surname}` : '';
+  const initials = payload ? `${payload.name?.[0] ?? ''}${payload.surname?.[0] ?? ''}`.toUpperCase() : '';
 
   return (
-    <div className="px-4">
-      <div className="mb-6">
-        <h1 className="text-3xl font-semibold">{t('title')}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{t('description')}</p>
-      </div>
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-4 py-6 md:py-10">
+      <PageHeader title={t('title')} />
 
-      <div className="grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="border-border/60">
-          <CardHeader>
-            <CardTitle className="text-lg">{t('details_title')}</CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label>{t('fields.name')}</Label>
-                <Input value={payload ? `${payload.name} ${payload.surname}` : ''} disabled />
-              </div>
-              <div className="space-y-2">
-                <Label>{t('fields.email')}</Label>
-                <Input value={payload?.email ?? ''} disabled />
-              </div>
-              <div className="space-y-2">
-                <Label>{t('fields.cpf')}</Label>
-                <Input value={payload?.cpf ?? ''} disabled />
-              </div>
-              <div className="space-y-2">
-                <Label>{t('fields.created_at')}</Label>
-                <Input value={payload?.createdAt ? dayjs(payload.createdAt).format('DD/MM/YYYY') : ''} disabled />
-              </div>
-            </div>
+      <section className="flex items-center gap-4 rounded-xl border bg-card p-6">
+        <span aria-hidden="true" className="flex size-16 shrink-0 items-center justify-center rounded-full bg-tone-blue-bg text-xl font-semibold text-tone-blue-fg">
+          {initials}
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-lg font-semibold text-navy">{fullName}</p>
+          <p className="truncate text-sm text-muted-foreground">{payload?.email}</p>
+        </div>
+      </section>
 
-            <div className="rounded-xl border border-border/60 bg-muted/30 p-4">
-              <p className="text-sm font-semibold">{t('stats_title')}</p>
-              <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <Badge variant="secondary">
-                  {t('stats.reported', { count: payload?.createdIssuesCount ?? 0 })}
-                </Badge>
-                <Badge variant="info">
-                  {t('stats.fiscal', { count: payload?.fiscalOfIssuesCount ?? 0 })}
-                </Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <section className="grid gap-3 sm:grid-cols-2">
+        <Link
+          href="/issues/mine"
+          className="flex flex-col gap-1 rounded-xl border bg-card p-5 transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <span className="font-display text-3xl font-semibold tabular-nums text-navy">{payload?.createdIssuesCount ?? 0}</span>
+          <span className="text-sm text-muted-foreground">{t('stats.reported')}</span>
+          <span className="mt-2 text-sm font-medium text-primary">{t('stats.see_list')}</span>
+        </Link>
+        <Link
+          href="/issues/verifying"
+          className="flex flex-col gap-1 rounded-xl border bg-card p-5 transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <span className="font-display text-3xl font-semibold tabular-nums text-navy">{payload?.fiscalOfIssuesCount ?? 0}</span>
+          <span className="text-sm text-muted-foreground">{t('stats.fiscal')}</span>
+          <span className="mt-2 text-sm font-medium text-primary">{t('stats.see_list')}</span>
+        </Link>
+      </section>
 
-        <Card className="border-border/60">
-          <CardHeader>
-            <CardTitle className="text-lg">{t('upcoming_title')}</CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="space-y-2">
-              <Label>{t('fields.photo')}</Label>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <Input value={t('disabled_placeholder')} disabled />
-                <Button variant="outline" disabled>{t('actions.change_photo')}</Button>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label>{t('fields.city')}</Label>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <Input value={t('disabled_placeholder')} disabled />
-                <Button variant="outline" disabled>{t('actions.change_city')}</Button>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label>{t('fields.password')}</Label>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <Input value={t('disabled_placeholder')} disabled />
-                <Button variant="outline" disabled>{t('actions.change_password')}</Button>
-              </div>
-            </div>
-            <p className="text-xs text-muted-foreground">{t('soon_hint')}</p>
-          </CardContent>
-        </Card>
+      <section className="rounded-xl border bg-card p-6">
+        <h2 className="mb-4 text-base font-semibold text-navy">{t('details_title')}</h2>
+        <dl className="grid gap-4 sm:grid-cols-3">
+          <div>
+            <dt className="text-sm text-muted-foreground">{t('fields.city')}</dt>
+            <dd className="font-medium">{cityName ?? '—'}</dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">{t('fields.cpf')}</dt>
+            <dd className="font-medium tabular-nums">{maskCpf(payload?.cpf)}</dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">{t('fields.created_at')}</dt>
+            <dd className="font-medium tabular-nums">{payload?.createdAt ? dayjs(payload.createdAt).format('DD/MM/YYYY') : '—'}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div>
+        <SignOutButton />
       </div>
     </div>
   );

@@ -1,15 +1,20 @@
 'use client';
 
-import dayjs from 'dayjs';
-import { BadgeCheck, Shield, UserCog, UserRound, Users } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-import { useSession } from '@/lib/session-client';
-
-import { Badge } from '@/components/ui/badge/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card/card';
+import { useViewer } from '@/components/app/use-viewer';
+import { Button } from '@/components/ui/button/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog/dialog';
 import { Input } from '@/components/ui/input/input';
 import {
   Select,
@@ -18,16 +23,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select/select';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table/table';
 
 import { api } from '@/services/api';
+
+import { assignableRoles } from './role-options';
 
 import type { UserRole } from '@/types/User';
 
@@ -36,36 +35,28 @@ type User = {
   name: string;
   surname: string;
   email: string;
-  cpf: string;
-  cityId: string;
   role: UserRole;
-  createdAt: string;
 };
 
 type UsersTableProps = {
   users: User[];
-  title: string;
-  description: string;
-  showCpf?: boolean;
+  /** The roles this list shows. Searches and role changes keep the list within them. */
+  roles: UserRole[];
 };
 
-const roleMeta: Record<UserRole, { label: UserRole; icon: typeof Users; variant: string }> = {
-  ADMIN: { label: 'ADMIN', icon: Shield, variant: 'danger' },
-  OWNER: { label: 'OWNER', icon: BadgeCheck, variant: 'warning' },
-  MANAGER: { label: 'MANAGER', icon: UserCog, variant: 'info' },
-  FINANCIAL: { label: 'FINANCIAL', icon: Users, variant: 'secondary' },
-  RESIDENT: { label: 'RESIDENT', icon: UserRound, variant: 'outline' },
-};
+type PendingChange = { user: User; role: UserRole };
 
-export function UsersTable({ users, title, description, showCpf = false }: UsersTableProps) {
+export function UsersTable({ users, roles }: UsersTableProps) {
   const t = useTranslations('Users.table');
   const rolesT = useTranslations('Users.roles');
+  const router = useRouter();
+  const viewer = useViewer();
   const [filter, setFilter] = useState('');
   const [items, setItems] = useState<User[]>(users);
+  const [pending, setPending] = useState<PendingChange | null>(null);
   const [savingUserId, setSavingUserId] = useState<string | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const searchRef = useRef(0);
-  const { data: session } = useSession();
 
   useEffect(() => {
     const query = filter.trim();
@@ -82,7 +73,8 @@ export function UsersTable({ users, title, description, showCpf = false }: Users
       try {
         const response = await api.users.list({
           search: query,
-          token: session?.access_token,
+          roles,
+          token: viewer.token,
         });
         if (!response.ok) {
           return;
@@ -99,127 +91,120 @@ export function UsersTable({ users, title, description, showCpf = false }: Users
     }, 400);
 
     return () => clearTimeout(timeout);
-  }, [filter, session?.access_token, users]);
+  }, [filter, viewer.token, users, roles]);
 
-  const formatCpf = (cpf: string) => {
-    if (showCpf) {
-      return cpf;
-    }
-    const digits = cpf.replace(/\D/g, '');
-    if (digits.length < 11) {
-      return '***.***.***-**';
-    }
-    return `${digits.slice(0, 3)}.***.***-${digits.slice(-2)}`;
-  };
-
-  const handleRoleChange = async (userId: string, role: UserRole) => {
-    setSavingUserId(userId);
+  const saveRole = async ({ user, role }: PendingChange) => {
+    setSavingUserId(user.id);
     try {
-      const response = await api.users.updateRole(userId, role, session?.access_token);
+      const response = await api.users.updateRole(user.id, role, viewer.token);
       if (!response.ok) {
         throw new Error('role_error');
       }
-      setItems(prev => prev.map(user => (
-        user.id === userId ? { ...user, role } : user
-      )));
+      setItems(prev => prev
+        .map(item => (item.id === user.id ? { ...item, role } : item))
+        .filter(item => roles.includes(item.role)));
       toast.success(t('role_success'));
+      router.refresh();
     } catch {
       toast.error(t('role_error'));
     } finally {
       setSavingUserId(null);
+      setPending(null);
     }
   };
 
+  // Admins stay out of city lists, even if the API ever returns them.
+  const visible = items.filter(user => user.role !== 'ADMIN');
+
   return (
-    <Card className="mt-4 border-border/60">
-      <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-1">
-          <CardTitle className="text-lg">{title}</CardTitle>
-          <p className="text-sm text-muted-foreground">{description}</p>
-          <p className="text-sm text-muted-foreground">
-            {t('subtitle', { count: items.length, total: items.length })}
-            {isSearching ? ` ${t('searching')}` : ''}
-          </p>
-        </div>
-        <Input
-          placeholder={t('filterPlaceholder')}
-          value={filter}
-          onChange={event => setFilter(event.target.value)}
-          className="md:max-w-xs"
-        />
-      </CardHeader>
-      <CardContent className="pt-0">
-        {items.length === 0
-          ? (
-              <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-                <p className="text-base font-medium">{t('empty_title')}</p>
-                <p className="text-sm text-muted-foreground">{t('empty_description')}</p>
-              </div>
-            )
-          : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t('name')}</TableHead>
-                    <TableHead>{t('email')}</TableHead>
-                    <TableHead>{t('role')}</TableHead>
-                    <TableHead className="hidden md:table-cell">{t('createdAt')}</TableHead>
-                    <TableHead className="text-right">{t('actions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {items.map((user) => {
-                    const meta = roleMeta[user.role];
-                    const Icon = meta.icon;
-                    return (
-                      <TableRow key={user.id}>
-                        <TableCell className="font-medium">
-                          <div className="flex flex-col">
-                            <span>
-                              {user.name}
-                              {' '}
-                              {user.surname}
-                            </span>
-                            <span className="text-xs text-muted-foreground">{formatCpf(user.cpf)}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>
-                          <Badge variant={meta.variant as any} className="gap-1">
-                            <Icon className="size-3.5" />
-                            {rolesT(meta.label)}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {dayjs(user.createdAt).format('DD/MM/YYYY')}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:justify-end">
-                            <Select
-                              value={user.role}
-                              onValueChange={value => handleRoleChange(user.id, value as UserRole)}
-                              disabled={savingUserId === user.id}
-                            >
-                              <SelectTrigger className="h-9 w-[160px]">
-                                <SelectValue placeholder={t('role_placeholder')} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {(Object.keys(roleMeta) as UserRole[]).map(role => (
-                                  <SelectItem key={role} value={role}>
-                                    {rolesT(role)}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    );
+    <div className="flex flex-col gap-4">
+      <Input
+        type="search"
+        aria-label={t('filterPlaceholder')}
+        placeholder={t('filterPlaceholder')}
+        value={filter}
+        onChange={event => setFilter(event.target.value)}
+        className="sm:max-w-sm"
+      />
+
+      {isSearching && <p role="status" className="text-sm text-muted-foreground">{t('searching')}</p>}
+
+      {visible.length === 0
+        ? (
+            <div className="flex flex-col items-center gap-1 rounded-xl border bg-card py-12 text-center">
+              <p className="font-medium text-navy">{t('empty_title')}</p>
+              <p className="text-sm text-muted-foreground">{t('empty_description')}</p>
+            </div>
+          )
+        : (
+            <ul className="grid gap-3">
+              {visible.map((user) => {
+                const isSelf = user.id === viewer.id;
+                const options = assignableRoles(viewer.role, user.role);
+                const locked = isSelf || options.length === 0;
+                const fullName = `${user.name} ${user.surname}`;
+
+                return (
+                  <li key={user.id} className="flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="min-w-0">
+                      <p className="truncate font-semibold text-navy">
+                        {fullName}
+                        {isSelf && <span className="ml-2 text-sm font-normal text-muted-foreground">{`(${t('you')})`}</span>}
+                      </p>
+                      <p className="truncate text-sm text-muted-foreground">{user.email}</p>
+                    </div>
+
+                    <Select
+                      value={user.role}
+                      disabled={locked || savingUserId === user.id}
+                      onValueChange={(value) => {
+                        if (value !== user.role) {
+                          setPending({ user, role: value as UserRole });
+                        }
+                      }}
+                    >
+                      <SelectTrigger aria-label={`${t('role')}: ${fullName}`} className="h-11 w-full sm:h-9 sm:w-44">
+                        <SelectValue placeholder={t('role_placeholder')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[user.role, ...options].map(role => (
+                          <SelectItem key={role} value={role}>
+                            {rolesT(role)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+      <Dialog open={pending !== null} onOpenChange={open => !open && setPending(null)}>
+        <DialogContent>
+          {pending && (
+            <>
+              <DialogHeader>
+                <DialogTitle>{t('confirm_title', { name: `${pending.user.name} ${pending.user.surname}` })}</DialogTitle>
+                <DialogDescription>
+                  {t('confirm_description', {
+                    name: `${pending.user.name} ${pending.user.surname}`,
+                    role: rolesT(pending.role),
                   })}
-                </TableBody>
-              </Table>
-            )}
-      </CardContent>
-    </Card>
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setPending(null)}>
+                  {t('cancel')}
+                </Button>
+                <Button isLoading={savingUserId === pending.user.id} onClick={() => saveRole(pending)}>
+                  {t('confirm_action')}
+                </Button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

@@ -12,7 +12,8 @@
     },
     "IssueCard": {
       "photo_alt": "Foto do problema",
-      "protocol": "Protocolo {id}"
+      "protocol": "Protocolo {id}",
+      "waiting_since": "Esperando {time}"
     },
     "IssueList": {
       "search_label": "Buscar chamados",
@@ -25,6 +26,22 @@
       "count": "{count, plural, one {# chamado} other {# chamados}}",
       "empty": "Nenhum chamado por aqui ainda.",
       "empty_filtered": "Nenhum chamado encontrado com esses filtros."
+    },
+    "Lists": {
+      "show_more": "Mostrar mais",
+      "tab_needs_action": "Precisa de ação",
+      "tab_in_progress": "Em andamento",
+      "tab_resolved": "Resolvidos",
+      "tab_done": "Concluídos",
+      "view_list": "Lista",
+      "view_map": "Mapa",
+      "group_today": "Hoje",
+      "group_yesterday": "Ontem",
+      "group_this_week": "Esta semana",
+      "group_older": "Antes",
+      "wait_over_7": "Há mais de 7 dias",
+      "wait_3_to_7": "3 a 7 dias",
+      "wait_recent": "Recentes"
     },
     "ComingSoon": {
       "badge": "Em breve"
@@ -43,6 +60,7 @@
     "Menu": {
       "label": "Menu principal",
       "report": "Reportar problema",
+      "home": "Início",
       "city_issues": "Na minha cidade",
       "my_reports": "Meus relatos",
       "my_verifications": "Minhas verificações",
@@ -73,7 +91,10 @@
   "Auth": {
     "Login": {
       "welcome": "Bem-vindo de volta!",
-      "login_with": "Enviaremos um código de acesso para o seu e-mail",
+      "login_with": "Entre com seu e-mail. Não precisa de senha.",
+      "code_hint": "Enviaremos um código de 6 números para o seu e-mail.",
+      "panel_citizen": "Reporte problemas da sua cidade e acompanhe até resolver.",
+      "panel_city": "Prefeituras: acompanhe os chamados e a equipe da sua cidade.",
       "email": "E-mail",
       "email_placeholder": "Insira seu e-mail",
       "email_required": "O e-mail é obrigatório",
@@ -96,13 +117,23 @@
       "sign_up": "Cadastrar-se"
     },
     "Register": {
-      "create": "Crie sua conta!",
-      "welcome": "Sua jornada começa aqui!",
+      "create": "Crie sua conta",
+      "welcome": "Preencha seus dados para reportar problemas na sua cidade.",
+      "panel_title": "Reporte problemas da sua cidade e acompanhe até a solução.",
+      "panel_step_report": "Reporte com foto e localização.",
+      "panel_step_verify": "Alguém confere o problema no local.",
+      "panel_step_solve": "A prefeitura resolve e você confirma.",
       "cpf": "CPF",
-      "cpf_placeholder": "Insira seu CPF",
+      "cpf_placeholder": "000.000.000-00",
+      "cpf_note": "Usamos o CPF só para evitar contas duplicadas. Ele não aparece para outras pessoas.",
       "cpf_required": "CPF é obrigatório",
       "cpf_length": "O CPF deve conter 11 números",
-      "cpf_only_numbers": "O CPF deve conter apenas números",
+      "missing": "Falta preencher: {fields}",
+      "field_city": "cidade",
+      "field_name": "nome",
+      "field_surname": "sobrenome",
+      "field_email": "e-mail",
+      "field_cpf": "CPF",
       "name": "Nome",
       "name_placeholder": "Insira seu nome",
       "name_required": "Nome é obrigatório",
@@ -111,9 +142,9 @@
       "surname_placeholder": "Insira seu sobrenome",
       "surname_required": "Sobrenome é obrigatório",
       "surname_length": "O sobrenome deve conter pelo menos 2 caracteres",
-      "email": "Email",
-      "email_placeholder": "Insira seu email",
-      "email_required": "Email é obrigatório",
+      "email": "E-mail",
+      "email_placeholder": "Insira seu e-mail",
+      "email_required": "O e-mail é obrigatório",
       "email_invalid": "O email inserido é inválido",
       "city": "Cidade",
       "city_placeholder": "Selecione uma cidade...",
@@ -138,31 +169,26 @@
   "Cities": {
     "table": {
       "title": "Cidades",
-      "subtitle": "Mostrando {count} de {total} cidades",
       "filterPlaceholder": "Buscar pelo nome da cidade...",
       "empty_title": "Nenhuma cidade encontrada",
       "empty_description": "Ajuste a busca ou tente novamente mais tarde.",
-      "id": "Identificador",
       "name": "Nome",
       "status": "Status",
-      "status_success": "Status da cidade atualizado com sucesso",
-      "status_error": "Ocorreu um erro ao atualizar o status da cidade",
       "actions": "Ações",
       "edit": "Editar",
-      "deactivate": "Desativar",
-      "activate": "Ativar",
-      "access": "Acessar"
+      "access": "Entrar"
     },
     "status": {
-      "active": "ativo",
-      "inactive": "inativo"
+      "active": "Ativa",
+      "inactive": "Inativa"
     },
     "ListPage": {
-      "title": "Todas as cidades"
+      "title": "Cidades",
+      "new": "Nova cidade"
     },
     "EditPage": {
       "title": "Editar cidade",
-      "description": "Preencha o formulário abaixo para editar a cidade",
+      "description": "Altere o nome ou a posição da cidade no mapa.",
       "city_name": "Nome da cidade",
       "city_name_placeholder": "Digite o nome da cidade",
       "name_required": "Nome da cidade é obrigatório",
@@ -177,8 +203,8 @@
       }
     },
     "CreatePage": {
-      "title": "Crie uma cidade",
-      "description": "Preencha o formulário abaixo para criar uma nova cidade",
+      "title": "Nova cidade",
+      "description": "Dê um nome e marque a posição da cidade no mapa.",
       "city_name": "Nome da cidade",
       "city_name_placeholder": "Digite o nome da cidade",
       "name_required": "Nome da cidade é obrigatório",
@@ -241,6 +267,70 @@
       "error": "Ocorreu um erro ao editar a feature"
     }
   },
+  "Report": {
+    "title": "Reportar um problema",
+    "progress": "Passo {step} de {total}",
+    "back": "Voltar",
+    "error": "Não foi possível enviar seu relato. Tente de novo.",
+    "type": {
+      "title": "O que é o problema?",
+      "search_label": "Buscar tipo de problema",
+      "search_placeholder": "Ex.: buraco, lixo, poste",
+      "no_results": "Nenhum tipo encontrado. Tente outra palavra.",
+      "category_label": "Categoria",
+      "change_category": "Trocar categoria",
+      "continue": "Continuar",
+      "missing": "Escolha um tipo para continuar"
+    },
+    "photo": {
+      "title": "Tem uma foto do problema?",
+      "description": "Uma foto ajuda a equipe a encontrar e entender o problema.",
+      "take": "Tirar foto",
+      "gallery": "Escolher da galeria",
+      "count": "{count, plural, =0 {Nenhuma foto adicionada} one {# foto adicionada} other {# fotos adicionadas}} (até {max})",
+      "limit": "Você pode enviar até 5 fotos. As que passaram do limite não foram adicionadas.",
+      "alt": "Foto {n} do problema",
+      "remove": "Remover foto {n}",
+      "continue": "Continuar",
+      "skip": "Continuar sem foto"
+    },
+    "location": {
+      "title": "Onde fica o problema?",
+      "description": "Marque no mapa, arraste o pino ou busque o endereço.",
+      "use_mine": "Usar minha localização",
+      "use_mine_help": "Pediremos sua permissão só quando você tocar no botão. Usamos sua posição apenas para colocar o pino perto de você.",
+      "denied": "Você não deu permissão para usar sua localização. Libere o acesso no navegador ou busque o endereço.",
+      "unavailable": "Não conseguimos achar sua localização agora. Tente de novo ou busque o endereço.",
+      "search_label": "Buscar endereço",
+      "search_placeholder": "Ex.: Rua 54, nº 1300",
+      "map_help": "Toque no mapa ou arraste o pino para ajustar o ponto.",
+      "continue": "Continuar",
+      "missing": "Marque o local no mapa para continuar"
+    },
+    "review": {
+      "title": "Revise e envie",
+      "type": "Tipo",
+      "photos": "Fotos",
+      "photos_count": "{count, plural, =0 {Sem foto} one {# foto} other {# fotos}}",
+      "location": "Local",
+      "location_pin": "Ponto marcado no mapa",
+      "description": "Descreva o problema",
+      "description_placeholder": "Ex.: buraco grande na faixa da direita, em frente ao ponto de ônibus",
+      "description_count": "{count} de {min} caracteres",
+      "description_ok": "{count} caracteres",
+      "submit": "Enviar",
+      "submit_missing": "Faltam {count, plural, one {# caractere} other {# caracteres}} para enviar"
+    },
+    "success": {
+      "title": "Recebemos seu relato",
+      "protocol": "Protocolo",
+      "next_title": "O que acontece agora",
+      "next_1": "Alguém verifica o problema no local.",
+      "next_2": "A prefeitura resolve.",
+      "next_3": "Você confirma quando estiver resolvido.",
+      "follow": "Acompanhar"
+    }
+  },
   "Issues": {
     "status": {
       "WAITING_FOR_FISCAL": "Aguardando um fiscal",
@@ -250,15 +340,6 @@
       "WAITING_FOR_RESOLUTION_VALIDATION": "Aguardando validação da resolução",
       "SOLVED": "Resolvido",
       "CLOSED": "Fechado"
-    },
-    "actions": {
-      "REPORTED_ISSUE": "{userName} reportou o problema",
-      "ASSIGNED_AS_FISCAL": "{userName} se atribuiu como fiscal",
-      "ASSIGNED_AS_MANAGER": "{userName} se atribuiu como gestor responsável",
-      "MARKED_AS_UNFOUNDED": "{userName} marcou como improcedente",
-      "MARKED_AS_VALID": "{userName} marcou como válido",
-      "ADDED_RESOLUTION": "{userName} adicionou uma resolução",
-      "MARKED_AS_SOLVED": "{userName} marcou como Resolvido"
     },
     "types": {
       "INFRASTRUCTURE": "Infraestrutura",
@@ -295,108 +376,51 @@
       "ILLEGAL_OCCUPATION": "Ocupação irregular",
       "ILLEGAL_CONSTRUCTION": "Construção irregular"
     },
-    "AccessPage": {
-      "description": "Descrição",
-      "photos": "Fotos",
-      "location": "Localização",
-      "history": "Histórico",
-      "history_close": "Fechar",
-      "no_fiscal_yet": "Nenhum fiscal atribuído ainda. Clique aqui para se atribuir!",
-      "no_manager_yet": "Nenhum gestor atribuído ainda. Clique aqui para se atribuir!",
-      "cant_assign_yet": "Você ainda não pode se atribuir como gestor desse problema! Aguarde um pouco mais!",
-      "close_after_7days": "Caso sua solução não seja validada, você pode fechar o problema em {days} dias e {hours} horas",
-      "assigning": "Atribuindo você...",
-      "assign_error": "Ocorreu um erro ao tentar atribuir você a este problema!",
-      "assign_success": "Tudo certo! Você foi atribuído a este problema!",
-      "issue_needs_validation": "Aguardando a sua validação do problema. Clique aqui para validar!",
-      "should_proceed": "Esse problema é real e precisa de uma resolução?",
-      "should_proceed_info": "Seja honesto e responsável ao validar um problema. A validação é importante para garantir que os problemas reportados sejam reais e precisam de uma resolução.",
-      "add_a_comment": "Adicione um comentário (obrigatório)*",
-      "add_a_comment_placeholder": "O que você tem a dizer sobre este problema?",
-      "close_issue": "Não, fechar problema",
-      "validate_issue": "Sim, seguir em frente",
-      "add_resolution": "Adicionar resolução",
-      "confirming_accept": "Definindo problema como válido...",
-      "accept_success": "Tudo certo! O problema foi definido como válido!",
-      "accept_error": "Ocorreu um erro ao tentar definir o problema como válido!",
-      "confirming_close": "Fechando o problema...",
-      "close_success": "Tudo certo! O problema foi fechado com sucesso!",
-      "close_error": "Ocorreu um erro ao tentar fechar o problema!",
-      "waiting_for_resolution": "Que tal adicionar uma resolução?",
-      "waiting_for_resolution_disclaimer": "Caso ainda não haja uma solução, é só clicar no pequeno X",
-      "waiting_for_resolution_info": "Se você achar que o problema não faz sentido de ser corrigido, você pode fechar o problema. Caso contrário, adicione uma resolução para o problema no campo abaixo.",
-      "adding_resolution": "Registrando sua resolução...",
-      "resolution_success": "Tudo certo! A resolução foi adicionada com sucesso!",
-      "resolution_error": "Ocorreu um erro ao tentar adicionar a resolução ao problema!",
-      "validate_resolution": "Hora de validar a solução. Clique aqui para validar!",
-      "is_resolution_valid": "A resolução proposta resolve o problema?",
-      "is_resolution_valid_info": "Caso a resolução proposta resolva o problema, comente algo e clique em Sim. Caso contrário, solicite uma nova resolução e clique em Não.",
-      "does_not_solve": "Não, solicitar nova resolução",
-      "it_does_solve": "Sim, isso resolve o problema",
-      "last_resolution": "Última resolução proposta",
-      "accepting_resolution": "Aceitando a resolução proposta...",
-      "accepting_resolution_success": "Tudo certo! O problema foi resolvido com sucesso!",
-      "accepting_resolution_error": "Ocorreu um erro ao tentar marcar o problema como resolvido!",
-      "asking_new_resolution": "Solicitando nova resolução...",
-      "ask_new_resolution_success": "Tudo certo! Solicitamos uma nova resolução ao gestor!",
-      "ask_new_resolution_error": "Ocorreu um erro ao tentar solicitar uma nova resolução!"
-    },
-    "Comments": {
-      "title": "Comentários",
-      "description": "Converse com relator, fiscal, gestor e residentes sobre o andamento.",
-      "add": "Adicionar comentário",
-      "placeholder": "Compartilhe atualizações, dúvidas ou próximos passos.",
-      "hint": "Seja claro e objetivo para facilitar a resolução.",
-      "submit": "Publicar comentário",
-      "loading": "Carregando comentários...",
-      "empty": "Ainda não há comentários neste problema.",
-      "reply": "Responder",
-      "reply_placeholder": "Escreva sua resposta",
-      "submit_reply": "Enviar resposta",
-      "cancel": "Cancelar",
-      "delete": "Excluir",
-      "unknown_author": "Usuário",
-      "roles": {
-        "reporter": "Relator",
-        "fiscal": "Fiscal",
-        "manager": "Gestor",
-        "resident": "Cidadão"
-      }
-    },
     "MyIssuesPage": {
-      "title": "Todos os problemas reportados por você"
+      "title": "Meus relatos",
+      "empty_title": "Você ainda não reportou nada.",
+      "empty_action": "Reportar problema",
+      "empty_in_progress": "Nenhum relato em andamento.",
+      "empty_done": "Nenhum relato concluído ainda."
     },
     "VerifyingPage": {
       "title": "Minhas verificações",
       "description": "Chamados que você verificou no local.",
       "empty_title": "Você ainda não verificou nenhum problema.",
       "empty_description": "Veja os que aguardam verificação na sua cidade.",
-      "empty_action": "Ver chamados da cidade"
+      "empty_action": "Ver chamados da cidade",
+      "empty_in_progress": "Nenhuma verificação em andamento.",
+      "empty_done": "Nenhuma verificação concluída ainda."
     },
     "AssignedPage": {
       "title": "Meus atendimentos",
       "description": "Chamados que você está atendendo como gestor.",
       "empty_title": "Você ainda não assumiu nenhum chamado.",
       "empty_description": "Escolha um chamado na fila de atendimento para começar.",
-      "empty_action": "Ir para a fila de atendimento"
+      "empty_action": "Ir para a fila de atendimento",
+      "column_in_progress": "Em atendimento",
+      "column_waiting_citizen": "Aguardando o cidadão",
+      "empty_column_in_progress": "Nenhum chamado em atendimento.",
+      "empty_column_waiting": "Nenhum chamado aguardando o cidadão."
     },
     "OpenIssuesPage": {
-      "title": "Em aberto (nos últimos 30 dias)"
+      "title": "Fila de atendimento",
+      "description": "Verificados e aguardando atendimento, do mais antigo para o mais novo.",
+      "take_action": "Assumir",
+      "empty_title": "Nenhum chamado na fila.",
+      "empty_description": "Quando um problema for verificado, ele aparece aqui."
     },
     "ListPage": {
-      "title": "Todos os problemas (nos últimos 30 dias)"
+      "title_citizen": "Na minha cidade",
+      "title_staff": "Todos os chamados",
+      "verify_action": "Eu verifico",
+      "take_error": "Não foi possível assumir este chamado. Tente de novo.",
+      "empty_needs_action": "Nada precisa da sua ação agora.",
+      "empty_in_progress": "Nenhum chamado em andamento.",
+      "empty_resolved": "Nenhum chamado resolvido ainda."
     },
     "OverviewPage": {
-      "title": "Mapa de problemas",
-      "description": "Visualize a distribuição dos problemas por categoria no mapa.",
-      "map_title": "Mapa de problemas",
-      "map_description": "Alfinetes coloridos ajudam a identificar padrões rapidamente.",
-      "map_badge": "Visão por categoria",
-      "location_hint": "Local informado no mapa",
-      "type_breakdown_title": "Categorias mais recorrentes",
-      "type_breakdown_description": "Use os toggles para ativar/desativar categorias e passe o mouse no ícone para ver os detalhes.",
-      "recent_title": "Problemas recentes",
-      "cta_report": "Reportar problema"
+      "title": "Mapa de problemas"
     },
     "ReportPage": {
       "title": "Reportar um problema",
@@ -434,6 +458,174 @@
       "status": "Status",
       "actions": "Ações",
       "access": "Acessar"
+    }
+  },
+  "IssueDetail": {
+    "back": "Voltar",
+    "protocol": "Protocolo",
+    "reportedAgo": "Reportado {time}",
+    "description": "Descrição",
+    "photos": "Fotos",
+    "photoNumber": "Foto {number} de {total}",
+    "photoOpen": "Ver foto {number} em tamanho maior",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Próxima foto",
+    "location": "Local",
+    "nextStep": {
+      "title": "Próximo passo",
+      "noVerifier": "Ninguém verificou ainda. Se você está perto, confira no local.",
+      "waitingVerifier": "Aguardando alguém verificar no local.",
+      "inVerification": "Em verificação no local.",
+      "verifyOnSite": "Vá até o local e diga se o problema existe.",
+      "queued": "Verificado. Aguardando um gestor assumir.",
+      "inProgress": "A prefeitura está cuidando deste chamado.",
+      "managing": "Você está cuidando deste chamado.",
+      "awaitingCitizen": "Aguardando o cidadão confirmar.",
+      "confirmNeeded": "A prefeitura informou que resolveu. Foi resolvido?",
+      "solvedOn": "Resolvido em {date}.",
+      "closedBecause": "Encerrado: {reason}.",
+      "closed": "Encerrado sem solução.",
+      "assigning": "Assumindo o chamado...",
+      "assigned": "Chamado assumido.",
+      "assignFailed": "Não foi possível assumir o chamado. Tente de novo.",
+      "buttons": {
+        "assignFiscal": "Eu verifico",
+        "assignManager": "Assumir chamado",
+        "verify": "Informar o que vi",
+        "resolve": "Registrar solução",
+        "confirm": "Responder"
+      }
+    },
+    "verify": {
+      "title": "Informar o que vi",
+      "description": "Vá até o local e confirme. Se o problema existir, o chamado segue para a prefeitura. Se não existir, o chamado é encerrado.",
+      "label": "O que você viu",
+      "hint": "Obrigatório se você não encontrar o problema.",
+      "defaultComment": "Confirmado no local",
+      "exists": "O problema existe",
+      "notFound": "Não encontrei o problema",
+      "saving": "Registrando o que você viu...",
+      "saved": "Registrado.",
+      "failed": "Não foi possível registrar. Tente de novo."
+    },
+    "resolve": {
+      "title": "Registrar solução",
+      "description": "Conte o que foi feito. Quem reportou vai confirmar depois.",
+      "label": "O que foi feito?",
+      "hint": "Campo obrigatório.",
+      "submit": "Registrar solução",
+      "saving": "Registrando a solução...",
+      "saved": "Solução registrada.",
+      "failed": "Não foi possível registrar a solução. Tente de novo."
+    },
+    "confirm": {
+      "title": "Foi resolvido?",
+      "lastSolution": "O que a prefeitura informou",
+      "noSolution": "Nenhuma solução foi registrada.",
+      "label": "Comentário",
+      "hint": "Obrigatório se ainda não foi resolvido.",
+      "yes": "Sim, foi resolvido",
+      "no": "Não, ainda não foi resolvido",
+      "saving": "Enviando sua resposta...",
+      "saved": "Resposta enviada.",
+      "failed": "Não foi possível enviar sua resposta. Tente de novo."
+    },
+    "timeline": {
+      "title": "Andamento",
+      "empty": "Ainda não há movimentações.",
+      "citizen": "Cidadão",
+      "REPORTED_ISSUE": "Reportado por {name}",
+      "ASSIGNED_AS_FISCAL": "{name} assumiu a verificação",
+      "MARKED_AS_VALID": "Verificado no local por {name}",
+      "MARKED_AS_UNFOUNDED": "Não encontrado no local por {name}",
+      "ASSIGNED_AS_MANAGER": "{name} assumiu o atendimento",
+      "ADDED_RESOLUTION": "Solução registrada por {name}",
+      "REQUESTED_NEW_SOLUTION": "{name} pediu uma nova solução",
+      "MARKED_AS_SOLVED": "Confirmado como resolvido por {name}",
+      "other": "{name} registrou uma movimentação"
+    },
+    "conversation": {
+      "title": "Conversa",
+      "write": "Escrever comentário",
+      "label": "Comentário",
+      "placeholder": "Compartilhe atualizações, dúvidas ou próximos passos.",
+      "send": "Enviar comentário",
+      "cancel": "Cancelar",
+      "empty": "Ainda não há comentários neste chamado.",
+      "reply": "Responder",
+      "replyLabel": "Sua resposta",
+      "sendReply": "Enviar resposta",
+      "delete": "Apagar",
+      "citizen": "Cidadão",
+      "unknownAuthor": "Usuário",
+      "failed": "Não foi possível enviar. Tente de novo.",
+      "roles": {
+        "reporter": "Quem reportou",
+        "fiscal": "Verificador",
+        "manager": "Gestor",
+        "resident": "Cidadão"
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Bom dia",
+      "afternoon": "Boa tarde",
+      "evening": "Boa noite",
+      "named": "{period}, {name}"
+    },
+    "report": "Reportar problema",
+    "needs_you": {
+      "title": "Falta você",
+      "confirm_hint": "A prefeitura informou que resolveu.",
+      "confirm_action": "Responder",
+      "verify_hint": "Você assumiu a verificação deste problema.",
+      "verify_action": "Informar o que vi"
+    },
+    "reports": {
+      "title": "Seus relatos",
+      "all": "Ver todos",
+      "empty": "Você ainda não reportou nada."
+    },
+    "steps": {
+      "reported": "Reportado",
+      "verified": "Verificado",
+      "in_progress": "Em atendimento",
+      "solved": "Resolvido"
+    },
+    "help": {
+      "title": "Ajude sua cidade",
+      "count": "{count, plural, one {# problema aguarda verificação na sua cidade} other {# problemas aguardam verificação na sua cidade}}",
+      "none": "Nenhum problema aguarda verificação agora.",
+      "action": "Ver no mapa"
+    },
+    "staff": {
+      "context_stale": "{count, plural, one {# chamado espera há mais de 3 dias} other {# chamados esperam há mais de 3 dias}}",
+      "context_ok": "Tudo em dia",
+      "empty": "Nenhum chamado na cidade nos últimos 30 dias.",
+      "tiles": {
+        "queue": "Na fila",
+        "queue_stale": "{count} há mais de 3 dias",
+        "assigned": "Meus atendimentos",
+        "in_progress": "Em atendimento",
+        "waiting_citizen": "Aguardando o cidadão",
+        "solved": "Resolvidos em 30 dias"
+      },
+      "attention": {
+        "title": "Precisa de atenção",
+        "none": "Nenhum chamado parado agora.",
+        "assign": "Assumir",
+        "assign_error": "Não foi possível assumir este chamado.",
+        "view": "Ver"
+      },
+      "map": {
+        "title": "Mapa",
+        "open": "Abrir mapa",
+        "legend_queue": "Na fila ou sem verificador",
+        "legend_in_progress": "Em andamento",
+        "legend_citizen": "Aguardando o cidadão",
+        "legend_solved": "Resolvido"
+      }
     }
   },
   "Crimes": {
@@ -520,33 +712,33 @@
   },
   "Users": {
     "ListPage": {
-      "title": "Usuários da cidade",
-      "table_title": "Usuários cadastrados",
-      "table_description": "Gerencie cargos e perfis de acesso da sua cidade."
+      "title": "Cidadãos",
+      "description": "Pessoas que reportam problemas na sua cidade."
     },
     "TeamPage": {
-      "title": "Time da cidade",
-      "table_title": "Equipe e cargos",
-      "table_description": "Visualize quem compõe o time de gestão."
+      "title": "Equipe",
+      "description": "Quem atende os chamados e administra a cidade."
     },
     "table": {
-      "title": "Usuários",
-      "subtitle": "Mostrando {count} de {total} usuários",
-      "filterPlaceholder": "Buscar por nome, email ou CPF...",
+      "filterPlaceholder": "Buscar por nome ou e-mail",
       "empty_title": "Nenhum usuário encontrado",
-      "empty_description": "Ajuste os filtros ou tente novamente.",
+      "empty_description": "Ajuste a busca ou tente novamente.",
       "name": "Nome",
-      "email": "Email",
-      "role": "Cargo",
-      "createdAt": "Criado em",
-      "actions": "Ações",
-      "role_placeholder": "Selecionar cargo",
-      "role_success": "Cargo atualizado com sucesso!",
-      "role_error": "Não foi possível atualizar o cargo.",
-      "searching": "(buscando)"
+      "email": "E-mail",
+      "role": "Papel",
+      "you": "você",
+      "role_placeholder": "Selecionar papel",
+      "role_success": "Papel atualizado.",
+      "role_error": "Não foi possível atualizar o papel.",
+      "confirm_title": "Mudar o papel de {name}?",
+      "confirm_description": "{name} passa a ser {role}.",
+      "confirm_action": "Mudar papel",
+      "cancel": "Cancelar",
+      "searching": "Buscando...",
+      "no_access": "Você não tem acesso a esta lista."
     },
     "roles": {
-      "ADMIN": "Admin",
+      "ADMIN": "Admin Urbanify",
       "OWNER": "Responsável",
       "MANAGER": "Gestor",
       "FINANCIAL": "Financeiro",
@@ -574,11 +766,11 @@
       "change_password": "Alterar senha"
     },
     "stats": {
-      "reported": "Problemas reportados: {count}",
-      "fiscal": "Fiscalizações: {count}"
+      "reported": "Relatos",
+      "fiscal": "Verificações",
+      "see_list": "Ver lista"
     },
-    "disabled_placeholder": "Em breve",
-    "soon_hint": "Essas funções serão liberadas nas próximas atualizações."
+    "sign_out": "Sair"
   },
   "SEO": {
     "Home": {

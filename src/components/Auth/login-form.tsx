@@ -118,7 +118,7 @@ export function LoginForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className="border-border/60 bg-card/90 shadow-lg">
+      <Card className="border-border bg-card shadow-none">
         <CardHeader className="text-left">
           <CardTitle className="text-2xl">{t('welcome')}</CardTitle>
           <CardDescription className="text-muted-foreground">
@@ -153,6 +153,7 @@ export function LoginForm({
                       >
                         {t('button')}
                       </Button>
+                      <p className="text-center text-sm text-muted-foreground">{t('code_hint')}</p>
                       {errorMessage && (
                         <span role="alert" className="text-center text-sm text-destructive">
                           {errorMessage}

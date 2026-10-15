@@ -9,18 +9,15 @@ import { api } from '@/services/api';
 export default async function IssuesOverviewPage() {
   const t = await getTranslations('Issues.OverviewPage');
   const { data } = await api.issues.getAllIssuesPerPeriod({
-    start: dayjs().subtract(30, 'day').toISOString(),
+    start: dayjs().subtract(1, 'year').toISOString(),
     end: dayjs().toISOString(),
     page: 1,
     take: 200,
   });
 
   return (
-    <div className="px-4">
-      <div className="mb-6">
-        <h1 className="text-3xl font-semibold">{t('title')}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{t('description')}</p>
-      </div>
+    <div className="px-4 md:px-6">
+      <h1 className="sr-only">{t('title')}</h1>
       <IssuesOverview issues={data.items ?? []} />
     </div>
   );

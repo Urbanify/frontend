@@ -96,3 +96,26 @@
     animation: none !important;
   }
 }
+
+/* ===== Landing (/) and visit (/visit) motion. Only these two routes use it. ===== */
+:root { --ease-out: cubic-bezier(.23,1,.32,1); }
+.mask-fade-x { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+@keyframes word-in { from { opacity: 0; transform: translateY(.4em); } }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes grow { from { transform: scaleX(0); } }
+.scroll-progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .word { display: inline-block; animation: word-in .9s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress { display: block; transform-origin: left; background: linear-gradient(90deg, #034EFF, #10FF8D); animation: grow linear both; animation-timeline: scroll(root); }
+  }
+  @supports (animation-timeline: view()) {
+    .reveal { animation: rise .7s var(--ease-out) both; animation-timeline: view(); animation-range: entry 0% entry 35%; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-marquee { animation: none; }
+  .marquee-dup { display: none; }
+  .marquee-track { flex-wrap: wrap; justify-content: center; width: auto; transform: none; }
+}

@@ -38,6 +38,33 @@ export default {
         md: 'calc(var(--radius) - 2px)', // 10px, buttons and fields
         sm: 'calc(var(--radius) - 4px)',
       },
+      // Landing and visit tokens (ESPEC-HOME-VISITA §4)
+      fontSize: {
+        'display-xl': ['clamp(2.5rem, 6.2vw, 4.5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em', fontWeight: '700' }],
+        'display-lg': ['clamp(1.875rem, 3.6vw, 2.875rem)', { lineHeight: '1.08', letterSpacing: '-0.025em', fontWeight: '700' }],
+        'display-md': ['clamp(1.5rem, 2.4vw, 2rem)', { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'lead': ['clamp(1.0625rem, 1.5vw, 1.375rem)', { lineHeight: '1.5' }],
+        'eyebrow': ['0.8125rem', { lineHeight: '1', letterSpacing: '0.14em' }],
+      },
+      boxShadow: {
+        float: '0 10px 30px -14px rgb(0 14 46 / 0.35)',
+      },
+      backgroundImage: {
+        'navy-glow': 'radial-gradient(1200px 620px at 85% 0%, #0A2A8A 0%, #000E2E 60%)',
+        'hero-glow': 'radial-gradient(900px 520px at 50% 0%, #fff, transparent 70%), radial-gradient(700px 360px at 50% 100%, rgb(3 78 255 / 0.06), transparent 70%)',
+      },
+      transitionTimingFunction: {
+        // ease-out keeps Tailwind's default; use var(--ease-out) in CSS for the landing curve
+        'spring': 'cubic-bezier(.34,1.45,.64,1)',
+      },
+      keyframes: {
+        marquee: { to: { transform: 'translateX(-50%)' } },
+        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
+      },
+      animation: {
+        marquee: 'marquee 30s linear infinite',
+        float: 'float 6s ease-in-out infinite',
+      },
       colors: {
         navy: 'hsl(var(--navy))',
         success: 'hsl(var(--success))',

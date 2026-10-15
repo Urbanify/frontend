@@ -5,7 +5,6 @@ import { cookies } from 'next/headers';
 import { landingPathFor } from '@/lib/landing';
 import { SESSION_COOKIE, SESSION_MAX_AGE } from '@/lib/session';
 
-import { api } from '@/services/api';
 import { parseJwtUniversal } from '@/utils/decodeJWTUniversal';
 
 type CodeRequestResult = { ok: true } | { ok: false; reason: 'rate_limited' | 'error' };
@@ -34,18 +33,8 @@ export async function requestCode(email: string): Promise<CodeRequestResult> {
   }
 }
 
-// Residents with at least one report go to their reports; everyone else goes to their role's home.
 async function landingAfterLogin(token: string): Promise<string> {
   const user = parseJwtUniversal(token)?.user;
-
-  if (user?.role === 'RESIDENT') {
-    const response = await api.instance('/issues/reported/me?page=1&take=1', { method: 'GET' }, token);
-    const body = response.ok ? await response.json() as { items?: unknown[] } : null;
-
-    if (body?.items?.length) {
-      return '/issues/mine';
-    }
-  }
 
   return landingPathFor(user?.role, user?.cityId);
 }
