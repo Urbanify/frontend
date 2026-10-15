@@ -20,6 +20,12 @@ type VisitPageProps = {
 export default async function VisitPage({ searchParams }: VisitPageProps) {
   const { data: cities } = await api.city.getAll();
   const params = await searchParams;
+  const activeCities = cities.filter(city => city.status === 'ACTIVE');
+  // The server fetches the places of the city in the URL (or the first active one); the browser handles the rest.
+  const initialCity = activeCities.find(city => city.id === params?.city) ?? activeCities[0];
+  const initialPlaces = initialCity
+    ? await api.places.listPublic(initialCity.id).catch(() => null)
+    : null;
 
   return (
     <div id="main" className="min-h-svh bg-background text-foreground">
@@ -28,12 +34,13 @@ export default async function VisitPage({ searchParams }: VisitPageProps) {
       <div className="mx-auto w-full max-w-screen-xl px-6 py-8 lg:py-6">
         <TouristCityVisitExplorer
           cities={cities}
-          initialCityId={params?.city ?? ''}
+          initialCityId={initialCity?.id ?? ''}
           initialPlaceId={params?.place ?? ''}
+          initialPlaces={initialPlaces}
         />
 
         <p className="mt-6 text-[13px] text-muted-foreground">
-          © 2026 Urbanify. Mapa © Google. Pontos de exemplo da cidade de demonstração, com posições aproximadas.
+          © 2026 Urbanify. Mapa © Google.
         </p>
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
   type LucideIcon,
   Map as MapIcon,
   MapPin,
+  MapPinned,
   Megaphone,
   ShieldAlert,
   Smartphone,
@@ -24,7 +25,7 @@ import {
 import type { UserRole } from '@/types/User';
 
 // Each entry is a translation key under App.Menu (and App.Menu.soon for coming-soon items).
-export type LinkKey = 'home' | 'city_issues' | 'my_reports' | 'my_verifications' | 'open_queue' | 'my_assignments' | 'overview' | 'all_issues' | 'team' | 'citizens' | 'cities';
+export type LinkKey = 'home' | 'city_issues' | 'my_reports' | 'my_verifications' | 'open_queue' | 'my_assignments' | 'overview' | 'all_issues' | 'team' | 'citizens' | 'places' | 'cities';
 export type SoonKey = 'public_notices' | 'city_works' | 'mobile_app' | 'neighborhood_safety' | 'safety_map' | 'results' | 'deadlines' | 'reports' | 'showcase';
 
 export type MenuLink = { key: LinkKey; href: string; icon: LucideIcon };
@@ -53,6 +54,7 @@ const OWNER_LINKS: MenuLink[] = [
   ...MANAGER_LINKS.filter(link => link.key !== 'my_assignments'),
   { key: 'team', href: '/users/team', icon: Users },
   { key: 'citizens', href: '/users', icon: UserRound },
+  { key: 'places', href: '/places', icon: MapPinned },
 ];
 
 const CITIES_LINK: MenuLink = { key: 'cities', href: '/cities', icon: Building2 };

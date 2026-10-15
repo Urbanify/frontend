@@ -74,6 +74,7 @@
       "all_issues": "Todos os chamados",
       "team": "Equipe",
       "citizens": "Cidadãos",
+      "places": "Pontos da cidade",
       "cities": "Cidades",
       "soon": {
         "public_notices": { "label": "Avisos da prefeitura", "hint": "Comunicados da prefeitura vão aparecer aqui." },
@@ -622,10 +623,61 @@
       }
     }
   },
-  "Tourist": {
-    "Explorer": {
-      "show_all": "Mostrar todos ({count})",
-      "show_less": "Mostrar menos"
+  "Places": {
+    "ListPage": {
+      "title": "Pontos da cidade",
+      "description": "Estes pontos aparecem para todos na página Explorar a cidade.",
+      "add": "Adicionar ponto"
+    },
+    "List": {
+      "all": "Todos",
+      "search_label": "Buscar ponto",
+      "search_placeholder": "Buscar pelo nome ou endereço",
+      "show_more": "Mostrar mais",
+      "published": "Publicado",
+      "hidden": "Oculto",
+      "switch_label": "Publicar {name}",
+      "edit": "Editar",
+      "empty": "Ainda não há pontos cadastrados.",
+      "add_action": "Adicionar ponto",
+      "no_results": "Nenhum ponto encontrado para esta busca.",
+      "toggle_error": "Não foi possível alterar a publicação.",
+      "published_toast": "Ponto publicado.",
+      "hidden_toast": "Ponto oculto."
+    },
+    "Form": {
+      "new_title": "Novo ponto",
+      "edit_title": "Editar ponto",
+      "back": "Voltar",
+      "name": "Nome",
+      "category": "Categoria",
+      "category_placeholder": "Escolha uma categoria",
+      "address": "Endereço",
+      "phone": "Telefone",
+      "hours": "Horário de funcionamento",
+      "hours_placeholder": "Ex.: Seg a sex, 8h às 17h",
+      "description": "Descrição",
+      "published": "Publicado",
+      "published_hint": "Aparece na página Explorar a cidade.",
+      "position": "Localização",
+      "position_hint": "Clique no mapa para marcar o local.",
+      "no_position": "Nenhum ponto marcado no mapa.",
+      "map_error": "Não foi possível carregar o mapa.",
+      "map_loading": "Carregando o mapa…",
+      "missing": "Falta: {items}.",
+      "field_name": "nome",
+      "field_category": "categoria",
+      "field_position": "ponto no mapa",
+      "save": "Salvar",
+      "saving": "Salvando…",
+      "saved": "Ponto salvo.",
+      "save_error": "Não foi possível salvar o ponto.",
+      "delete": "Excluir",
+      "delete_title": "Excluir este ponto?",
+      "delete_description": "Ele some da página Explorar a cidade. Não dá para desfazer.",
+      "cancel": "Cancelar",
+      "deleted": "Ponto excluído.",
+      "delete_error": "Não foi possível excluir o ponto."
     }
   },
   "Crimes": {

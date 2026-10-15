@@ -2,13 +2,31 @@ import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 import { SectionHeading } from '@/components/Home/section-heading';
-import { ARACAJU_PLACES, CATEGORY_META } from '@/components/Tourist/aracaju-places';
+import { CATEGORY_META } from '@/components/places/place-meta';
 import { Button } from '@/components/ui/button/button';
 
-const FEATURED = ['arcos-da-orla', 'museu-da-gente-sergipana', 'parque-da-sementeira'];
+import { api } from '@/services/api';
 
-export function ExploreCity() {
-  const places = ARACAJU_PLACES.filter(place => FEATURED.includes(place.id));
+// The first three tourism places of the first active city, from the public list. Empty when the API is down.
+async function loadFeatured() {
+  try {
+    const { data: cities } = await api.city.getAll();
+    const city = cities.find(item => item.status === 'ACTIVE');
+    if (!city) {
+      return [];
+    }
+    const places = await api.places.listPublic(city.id);
+    return places
+      .filter(place => place.category === 'TOURISM')
+      .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
+      .slice(0, 3);
+  } catch {
+    return [];
+  }
+}
+
+export async function ExploreCity() {
+  const places = await loadFeatured();
 
   return (
     <section id="explorar" aria-labelledby="explorar-title" className="scroll-mt-24 border-y border-border bg-card">

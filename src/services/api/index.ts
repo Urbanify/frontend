@@ -4,6 +4,7 @@ import * as crimes from './crimes';
 import { get } from './get';
 import { fetcher } from './instance';
 import * as issues from './issues';
+import * as places from './places';
 import * as users from './users';
 
 export const api = {
@@ -13,5 +14,6 @@ export const api = {
   comments,
   crimes,
   issues,
+  places,
   users,
 };
