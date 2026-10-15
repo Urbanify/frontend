@@ -13,6 +13,9 @@ type ProtectedLayoutProps = {
   children: React.ReactNode;
 };
 
+// Every protected page depends on the signed-in person (session cookie, sidebar reads the URL).
+export const dynamic = 'force-dynamic';
+
 export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
   return (
     <SidebarProvider>
