@@ -85,13 +85,17 @@
     "UserMenu": {
       "open": "Abrir menu da conta",
       "profile": "Meu perfil",
+      "theme": "Tema",
+      "theme_light": "Claro",
+      "theme_dark": "Escuro",
+      "theme_system": "Automático",
       "logout": "Sair"
     }
   },
   "Auth": {
     "Login": {
-      "welcome": "Bem-vindo de volta!",
-      "login_with": "Entre com seu e-mail. Não precisa de senha.",
+      "welcome": "Entrar ou criar conta",
+      "login_with": "Use seu e-mail. Enviaremos um código de 6 números. Não precisa de senha.",
       "code_hint": "Enviaremos um código de 6 números para o seu e-mail.",
       "panel_citizen": "Reporte problemas da sua cidade e acompanhe até resolver.",
       "panel_city": "Prefeituras: acompanhe os chamados e a equipe da sua cidade.",
@@ -111,29 +115,11 @@
       "change_email": "Trocar e-mail",
       "code_invalid": "Código inválido ou expirado. Confira o código ou peça um novo.",
       "rate_limited": "Aguarde 60 segundos antes de pedir um novo código.",
+      "already_sent": "Já enviamos um código há menos de 1 minuto. Use o código desse e-mail.",
       "request_error": "Não foi possível enviar o código. Tente novamente.",
       "verify_error": "Não foi possível entrar agora. Tente novamente.",
-      "no_account": "Não tem uma conta?",
-      "sign_up": "Cadastrar-se"
-    },
-    "Register": {
-      "create": "Crie sua conta",
-      "welcome": "Preencha seus dados para reportar problemas na sua cidade.",
-      "panel_title": "Reporte problemas da sua cidade e acompanhe até a solução.",
-      "panel_step_report": "Reporte com foto e localização.",
-      "panel_step_verify": "Alguém confere o problema no local.",
-      "panel_step_solve": "A prefeitura resolve e você confirma.",
-      "cpf": "CPF",
-      "cpf_placeholder": "000.000.000-00",
-      "cpf_note": "Usamos o CPF só para evitar contas duplicadas. Ele não aparece para outras pessoas.",
-      "cpf_required": "CPF é obrigatório",
-      "cpf_length": "O CPF deve conter 11 números",
-      "missing": "Falta preencher: {fields}",
-      "field_city": "cidade",
-      "field_name": "nome",
-      "field_surname": "sobrenome",
-      "field_email": "e-mail",
-      "field_cpf": "CPF",
+      "signup_title": "Complete seu cadastro",
+      "signup_note": "Você só precisa fazer isso uma vez.",
       "name": "Nome",
       "name_placeholder": "Insira seu nome",
       "name_required": "Nome é obrigatório",
@@ -142,18 +128,17 @@
       "surname_placeholder": "Insira seu sobrenome",
       "surname_required": "Sobrenome é obrigatório",
       "surname_length": "O sobrenome deve conter pelo menos 2 caracteres",
-      "email": "E-mail",
-      "email_placeholder": "Insira seu e-mail",
-      "email_required": "O e-mail é obrigatório",
-      "email_invalid": "O email inserido é inválido",
       "city": "Cidade",
       "city_placeholder": "Selecione uma cidade...",
       "city_required": "Cidade é obrigatória",
-      "button": "Criar conta",
-      "have_account": "Já tem uma conta?",
-      "go_login": "Ir para o login",
-      "success": "Sua conta foi criada com sucesso!",
-      "error": "Ocorreu um erro ao criar sua conta"
+      "field_name": "nome",
+      "field_surname": "sobrenome",
+      "field_city": "cidade",
+      "missing": "Falta preencher: {fields}",
+      "signup_button": "Criar conta e entrar",
+      "already_registered": "Este e-mail já tem conta. Entre com o código.",
+      "signup_invalid": "Seu cadastro expirou ou a cidade não aceita novos cadastros. Entre de novo com o código.",
+      "signup_error": "Não foi possível criar sua conta. Tente novamente."
     },
     "terms_and_policy": {
       "text": "Ao clicar em continuar, você concorda com nossos",
@@ -743,6 +728,17 @@
       "MANAGER": "Gestor",
       "FINANCIAL": "Financeiro",
       "RESIDENT": "Cidadão"
+    },
+    "RolesGuide": {
+      "title": "O que cada papel faz",
+      "citizen": "Cidadão",
+      "citizen_text": "Reporta problemas com foto e local, verifica no local os chamados de outras pessoas e confirma quando a solução chega.",
+      "manager": "Gestor",
+      "manager_text": "Valida o chamado pela foto, assume os chamados e os resolve. Faz tudo o que o cidadão faz.",
+      "owner": "Responsável",
+      "owner_text": "Faz tudo o que o gestor faz, e cuida da equipe: define quem é gestor ou responsável da cidade.",
+      "owner_soon": "Em breve: secretarias e relatórios.",
+      "volunteer": "Fiscal não é um cargo: qualquer cidadão ou alguém da equipe pode se oferecer para verificar um chamado no local."
     }
   },
   "Profile": {
@@ -785,10 +781,6 @@
       "Login": {
         "title": "Entrar - Urbanify",
         "description": "Acesse o painel do Urbanify para gerenciar ocorrencias, cidades e indicadores urbanos."
-      },
-      "Register": {
-        "title": "Criar conta - Urbanify",
-        "description": "Crie sua conta para iniciar a gestao urbana com o Urbanify."
       }
     },
     "Issues": {

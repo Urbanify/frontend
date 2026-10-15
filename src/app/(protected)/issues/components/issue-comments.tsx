@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 
+import { type Tone, TONE_CLASS } from '@/components/app/tones';
 import type { Viewer } from '@/components/app/use-viewer';
 import { Button } from '@/components/ui/button/button';
 import { Label } from '@/components/ui/label/label';
@@ -44,6 +45,27 @@ type IssueCommentsProps = {
 };
 
 const byDate = (a: IssueComment, b: IssueComment) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+
+// Role tag tones: reporter amber, verifier blue, manager green, citizen neutral.
+const ROLE_TONE: Record<CommentRole, Tone> = {
+  reporter: 'amber',
+  fiscal: 'blue',
+  manager: 'green',
+  resident: 'neutral',
+};
+
+// Avatar colors. Each person keeps the same one, picked from their user id.
+const AVATAR_TONE = [
+  'bg-[#E0E7FF] text-[#3730A3] dark:bg-[#312E81]/60 dark:text-[#C7D2FE]',
+  'bg-[#FAE8FF] text-[#86198F] dark:bg-[#701A75]/60 dark:text-[#F5D0FE]',
+  'bg-[#ECFCCB] text-[#3F6212] dark:bg-[#365314]/60 dark:text-[#D9F99D]',
+  'bg-[#E0F2FE] text-[#075985] dark:bg-[#0C4A6E]/60 dark:text-[#BAE6FD]',
+  'bg-[#FFE4E6] text-[#9F1239] dark:bg-[#881337]/60 dark:text-[#FECDD3]',
+];
+
+const avatarToneFor = (userId: string) => AVATAR_TONE[[...userId].reduce((sum, char) => sum + char.charCodeAt(0), 0) % AVATAR_TONE.length];
+
+const initialsOf = (name: string) => name.trim().split(/\s+/).slice(0, 2).map(part => part.charAt(0)).join('').toUpperCase();
 
 // Closed by default: the composer only opens on "Escrever comentário". The list stays visible.
 export function IssueComments({ issue, viewer, className }: IssueCommentsProps) {
@@ -175,8 +197,11 @@ export function IssueComments({ issue, viewer, className }: IssueCommentsProps) 
     return (
       <article className={cn(isReply ? 'space-y-1' : 'space-y-2')}>
         <header className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span aria-hidden className={cn('flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold', avatarToneFor(comment.authorId))}>
+            {initialsOf(displayName)}
+          </span>
           <p className="text-sm font-semibold text-foreground">{displayName}</p>
-          <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+          <span className={cn('rounded-full px-2 py-0.5 text-xs font-medium', TONE_CLASS[ROLE_TONE[comment.role]])}>
             {t(`roles.${comment.role}`)}
           </span>
           <time className="text-xs tabular-nums text-muted-foreground" dateTime={comment.createdAt}>

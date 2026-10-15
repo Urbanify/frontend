@@ -70,10 +70,12 @@ export default async function ProfilePage() {
             <dt className="text-sm text-muted-foreground">{t('fields.city')}</dt>
             <dd className="font-medium">{cityName ?? '—'}</dd>
           </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">{t('fields.cpf')}</dt>
-            <dd className="font-medium tabular-nums">{maskCpf(payload?.cpf)}</dd>
-          </div>
+          {payload?.cpf && (
+            <div>
+              <dt className="text-sm text-muted-foreground">{t('fields.cpf')}</dt>
+              <dd className="font-medium tabular-nums">{maskCpf(payload.cpf)}</dd>
+            </div>
+          )}
           <div>
             <dt className="text-sm text-muted-foreground">{t('fields.created_at')}</dt>
             <dd className="font-medium tabular-nums">{payload?.createdAt ? dayjs(payload.createdAt).format('DD/MM/YYYY') : '—'}</dd>

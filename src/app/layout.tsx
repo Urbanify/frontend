@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { ThemeProvider } from 'next-themes';
 
 import '@/styles/global.css';
 
@@ -69,17 +70,19 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="pt-BR" className={`size-full ${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="pt-BR" className={`size-full ${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1"
       />
       <meta name="version" content={PACKAGE.version} key="meta:name:version" />
       <body data-testid="rootlayout-component" className="size-full">
-        <NextIntlClientProvider messages={messages}>
-          <main>{children}</main>
-          <Toaster richColors />
-        </NextIntlClientProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <NextIntlClientProvider messages={messages}>
+            <main>{children}</main>
+            <Toaster richColors />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

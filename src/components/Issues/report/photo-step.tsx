@@ -95,7 +95,7 @@ export function PhotoStep({ draft, onChange, onNext }: StepProps) {
                 type="button"
                 aria-label={t('remove', { n: index + 1 })}
                 onClick={() => removePhoto(index)}
-                className="absolute right-1 top-1 flex size-11 items-center justify-center rounded-full bg-navy text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="absolute right-1 top-1 flex size-11 items-center justify-center rounded-full bg-foreground text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <X className="size-5" aria-hidden />
               </button>

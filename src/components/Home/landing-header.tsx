@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button/button';
 
 type LandingHeaderProps = {
@@ -13,7 +14,7 @@ export function LandingHeader({ variant = 'home' }: LandingHeaderProps) {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-navy focus:shadow-float"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-navy focus:shadow-float"
       >
         Pular para o conteúdo
       </a>
@@ -32,6 +33,7 @@ export function LandingHeader({ variant = 'home' }: LandingHeaderProps) {
           )}
 
           <div className="flex items-center gap-2 md:gap-6">
+            <ThemeToggle />
             {compact
               ? (
                   <Link href="/" className="hidden min-h-11 items-center text-[15px] text-muted-foreground hover:text-navy md:flex">

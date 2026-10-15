@@ -11,14 +11,18 @@ import { Env } from '@/libs/Env';
 import { EmptyState } from '@/components/app/empty-state';
 import { GoogleMaps } from '@/components/google-map/google-map';
 import { CATEGORY_META, citySlug, type Place, type PlaceCategory, PLACES_BY_CITY } from '@/components/Tourist/aracaju-places';
+import { PLACE_PIN, PLACE_TONE } from '@/components/Tourist/category-tone';
 import { Button } from '@/components/ui/button/button';
-import { Combobox, type ComboboxOptions } from '@/components/ui/combobox/combobox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select/select';
+
+import { api } from '@/services/api';
 
 import type { City } from '@/types/City';
 
 type Filter = 'all' | PlaceCategory;
 
 type TouristCityVisitExplorerProps = {
+  /** Cities rendered on the server. The browser refreshes the list from GET /cities. */
   cities: City[];
   initialCityId?: string;
   initialPlaceId?: string;
@@ -27,14 +31,18 @@ type TouristCityVisitExplorerProps = {
 const ARACAJU_CENTER = { lat: -10.9472, lng: -37.0731 };
 const MAP_OPTIONS: google.maps.MapOptions = { clickableIcons: false, gestureHandling: 'cooperative' };
 const CATEGORY_KEYS = Object.keys(CATEGORY_META) as PlaceCategory[];
+const CHIP = 'inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors';
+const UNSELECTED_CHIP = 'border border-border bg-card text-navy hover:bg-accent';
 
+const isActive = (city: City) => city.status === 'ACTIVE';
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
 
-const pinIcon = (selected: boolean): google.maps.Icon => {
+const pinIcon = (category: PlaceCategory, selected: boolean): google.maps.Icon => {
   const size = selected ? 42 : 34;
-  const fill = selected ? '#000E2E' : '#034EFF';
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 6.37 11.48 7.3 12.36.4.38 1.01.38 1.4 0C13.63 21.48 20 15.25 20 10c0-4.42-3.58-8-8-8Z" fill="${fill}" stroke="#FFFFFF" stroke-width="1.5"/><circle cx="12" cy="10" r="3.5" fill="#FFFFFF"/></svg>`;
+  const fill = PLACE_PIN[category];
+  const stroke = selected ? '#000E2E' : '#FFFFFF';
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 6.37 11.48 7.3 12.36.4.38 1.01.38 1.4 0C13.63 21.48 20 15.25 20 10c0-4.42-3.58-8-8-8Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/><circle cx="12" cy="10" r="3.5" fill="#FFFFFF"/></svg>`;
   return {
     url: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
     scaledSize: new google.maps.Size(size, size),
@@ -43,15 +51,33 @@ const pinIcon = (selected: boolean): google.maps.Icon => {
 };
 
 export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId }: TouristCityVisitExplorerProps) {
-  const cityOptions: ComboboxOptions = useMemo(() => cities.map(city => ({ value: city.id, label: city.name })), [cities]);
+  // The server list is the first render. The browser list (GET /cities) replaces it when it loads.
+  // If that request fails, the server list stays.
+  const [cityList, setCityList] = useState<City[]>(() => cities.filter(isActive));
 
-  const [cityId, setCityId] = useState(() => (cities.some(city => city.id === initialCityId) ? initialCityId ?? '' : cities[0]?.id ?? ''));
-  const city = cities.find(item => item.id === cityId) ?? cities[0];
+  useEffect(() => {
+    let active = true;
+    api.instance('/cities', { method: 'GET' })
+      .then(response => (response.ok ? response.json() as Promise<City[]> : null))
+      .then((list) => {
+        if (active && Array.isArray(list)) {
+          setCityList(list.filter(isActive));
+        }
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // The URL id is kept even before the list loads. An unknown id falls back to the first city.
+  const [cityId, setCityId] = useState(initialCityId ?? '');
+  const city = cityList.find(item => item.id === cityId) ?? cityList[0];
   const places = useMemo<Place[]>(() => (city ? PLACES_BY_CITY[citySlug(city.name)] ?? [] : []), [city]);
-  const aracaju = cities.find(item => citySlug(item.name) === 'aracaju');
+  const aracaju = cityList.find(item => citySlug(item.name) === 'aracaju');
 
   const [filter, setFilter] = useState<Filter>('all');
-  const [selectedId, setSelectedId] = useState<string | null>(() => (places.some(place => place.id === initialPlaceId) ? initialPlaceId ?? null : null));
+  const [selectedId, setSelectedId] = useState<string | null>(initialPlaceId || null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   const visible = useMemo(
@@ -59,6 +85,7 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
     [places, filter],
   );
   const selected = visible.find(place => place.id === selectedId) ?? visible[0] ?? null;
+  // Without places, the map centers on the city itself (no pins are invented).
   const center = useMemo(() => ({
     lat: Number.parseFloat(city?.latitude ?? '') || ARACAJU_CENTER.lat,
     lng: Number.parseFloat(city?.longitude ?? '') || ARACAJU_CENTER.lng,
@@ -134,6 +161,21 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
     }
   };
 
+  if (!city) {
+    return (
+      <EmptyState
+        icon={MapPin}
+        title="Ainda não temos cidades públicas."
+        description="Em breve você poderá explorar mapas e pontos de interesse."
+        action={(
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/">Voltar ao início</Link>
+          </Button>
+        )}
+      />
+    );
+  }
+
   const SelectedIcon = selected ? CATEGORY_META[selected.category].icon : MapPin;
 
   return (
@@ -144,62 +186,69 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
           <h1 className="mt-3 font-display text-[28px] font-bold text-navy md:text-[32px]">
             Explore
             {' '}
-            {city?.name}
+            {city.name}
           </h1>
           <p className="mt-2 text-base text-muted-foreground">Escolha um ponto na lista ou no mapa para ver os detalhes.</p>
         </div>
-        {cities.length > 1 && (
-          <div className="w-full md:w-[260px]">
-            <Combobox
-              options={cityOptions}
-              placeholder="Escolha a cidade"
-              value={cityId}
-              setValue={changeCity}
-              shouldTranslate={false}
-              popoverClassName="w-[260px]"
-            />
-          </div>
-        )}
+        <div className="flex items-center gap-3 md:w-[320px]">
+          <span className="shrink-0 text-sm font-medium text-muted-foreground">Explorar:</span>
+          <Select value={city.id} onValueChange={changeCity}>
+            <SelectTrigger aria-label="Escolher a cidade" className="h-11 w-full bg-card">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {cityList.map(item => (
+                <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {places.length > 0 && (
         <div role="group" aria-label="Categorias" className="mt-6 flex flex-wrap gap-2">
-          {[['all', 'Todos', MapPin] as const, ...CATEGORY_KEYS.map(key => [key, CATEGORY_META[key].label, CATEGORY_META[key].icon] as const)].map(([value, label, Icon]) => (
+          <button
+            type="button"
+            aria-pressed={filter === 'all'}
+            onClick={() => setFilter('all')}
+            className={cn(CHIP, filter === 'all' ? 'bg-navy text-background' : UNSELECTED_CHIP)}
+          >
+            <MapPin aria-hidden="true" className="size-4" />
+            Todos
+          </button>
+          {CATEGORY_KEYS.map(key => (
             <button
-              key={value}
+              key={key}
               type="button"
-              aria-pressed={filter === value}
-              onClick={() => setFilter(value)}
-              className={cn(
-                'inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors',
-                filter === value ? 'bg-navy text-white' : 'border border-border bg-card text-navy hover:bg-accent',
-              )}
+              aria-pressed={filter === key}
+              onClick={() => setFilter(key)}
+              className={cn(CHIP, filter === key ? PLACE_TONE[key].solid : UNSELECTED_CHIP)}
             >
-              <Icon aria-hidden="true" className="size-4" />
-              {label}
+              {filter !== key && <span aria-hidden="true" className={cn('size-2.5 rounded-full', PLACE_TONE[key].dot)} />}
+              {CATEGORY_META[key].label}
             </button>
           ))}
         </div>
       )}
 
-      {places.length === 0
-        ? (
-            <div className="mt-6">
-              <EmptyState
-                icon={MapPin}
-                title={`Ainda não há pontos cadastrados para ${city?.name ?? 'esta cidade'}.`}
-                action={aracaju && aracaju.id !== city?.id
-                  ? (
-                      <Button asChild variant="outline" className="rounded-full">
-                        <Link href={`/visit?city=${aracaju.id}`}>Ver Aracaju</Link>
-                      </Button>
-                    )
-                  : undefined}
-              />
-            </div>
-          )
-        : (
-            <div className="mt-6 grid gap-6 lg:h-[calc(100svh-386px)] lg:min-h-[480px] lg:grid-cols-[380px_1fr]">
+      <div className="mt-6 grid gap-6 lg:h-[calc(100svh-386px)] lg:min-h-[480px] lg:grid-cols-[380px_1fr]">
+        {places.length === 0
+          ? (
+              <div className="order-2 lg:order-none lg:col-start-1 lg:row-start-1">
+                <EmptyState
+                  icon={MapPin}
+                  title="Ainda não temos o guia desta cidade."
+                  action={aracaju && aracaju.id !== city.id
+                    ? (
+                        <Button asChild variant="outline" className="rounded-full">
+                          <Link href={`/visit?city=${aracaju.id}`}>Ver Aracaju</Link>
+                        </Button>
+                      )
+                    : undefined}
+                />
+              </div>
+            )
+          : (
               <ul className="order-2 flex flex-col gap-2 lg:order-none lg:col-start-1 lg:row-start-1 lg:min-h-0 lg:overflow-y-auto lg:pr-1">
                 {visible.map((place) => {
                   const isSelected = selected?.id === place.id;
@@ -213,72 +262,68 @@ export function TouristCityVisitExplorer({ cities, initialCityId, initialPlaceId
                         aria-current={isSelected ? 'true' : undefined}
                         onClick={() => focusPlace(place)}
                         className={cn(
-                          'flex min-h-[64px] w-full flex-col justify-center gap-1 rounded-xl border border-border bg-background px-4 py-3 text-left transition-colors hover:bg-white',
-                          isSelected && 'border-primary bg-white ring-1 ring-primary',
+                          'flex min-h-[64px] w-full items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-left transition-colors hover:bg-card',
+                          isSelected && 'border-primary bg-card ring-1 ring-primary',
                         )}
                       >
-                        <span className="font-semibold text-navy">{place.name}</span>
-                        <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                          <Icon aria-hidden="true" className="size-4" />
-                          {meta.label}
+                        <span className={cn('flex size-10 shrink-0 items-center justify-center rounded-lg', PLACE_TONE[place.category].tile)}>
+                          <Icon aria-hidden="true" className="size-5" />
+                        </span>
+                        <span className="flex min-w-0 flex-col gap-0.5">
+                          <span className="font-semibold text-navy">{place.name}</span>
+                          <span className="text-sm text-muted-foreground">{meta.label}</span>
                         </span>
                       </button>
                     </li>
                   );
                 })}
               </ul>
+            )}
 
-              <div className="relative order-1 flex flex-col gap-3 lg:order-none lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0">
-                <div className="relative h-[56svh] min-h-[340px] overflow-hidden rounded-2xl border border-border bg-card lg:h-full lg:min-h-0">
-                  {isLoaded
-                    ? (
-                        <GoogleMaps center={center} zoom={12} onLoad={setMap} options={MAP_OPTIONS}>
-                          {visible.map(place => (
-                            <Marker
-                              key={place.id}
-                              position={place.position}
-                              title={place.name}
-                              onClick={() => selectFromPin(place)}
-                              icon={pinIcon(selected?.id === place.id)}
-                            />
-                          ))}
-                        </GoogleMaps>
-                      )
-                    : (
-                        <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted-foreground">
-                          {loadError ? 'Não foi possível carregar o mapa. Você ainda pode ver os pontos na lista.' : 'Carregando o mapa…'}
-                        </div>
-                      )}
-                </div>
+        <div className="relative order-1 flex flex-col gap-3 lg:order-none lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0">
+          <div className="relative h-[56svh] min-h-[340px] overflow-hidden rounded-2xl border border-border bg-card dark:brightness-[.85] lg:h-full lg:min-h-0">
+            {isLoaded
+              ? (
+                  <GoogleMaps center={center} zoom={12} onLoad={setMap} options={MAP_OPTIONS}>
+                    {visible.map(place => (
+                      <Marker
+                        key={place.id}
+                        position={place.position}
+                        title={place.name}
+                        onClick={() => selectFromPin(place)}
+                        icon={pinIcon(place.category, selected?.id === place.id)}
+                      />
+                    ))}
+                  </GoogleMaps>
+                )
+              : (
+                  <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted-foreground">
+                    {loadError ? 'Não foi possível carregar o mapa. Você ainda pode ver os pontos na lista.' : 'Carregando o mapa…'}
+                  </div>
+                )}
+          </div>
 
-                <div className="rounded-xl border border-border bg-white p-4 lg:absolute lg:bottom-4 lg:left-4 lg:w-[340px] lg:shadow-float">
-                  {selected
-                    ? (
-                        <>
-                          <p className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                            <SelectedIcon aria-hidden="true" className="size-4" />
-                            {CATEGORY_META[selected.category].label}
-                          </p>
-                          <h2 aria-live="polite" className="mt-2 text-lg font-semibold text-navy">{selected.name}</h2>
-                          <p className="mt-2 text-[15px] text-muted-foreground">{selected.description}</p>
-                          <a
-                            href={`https://www.google.com/maps/search/?api=1&query=${selected.position.lat},${selected.position.lng}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium text-primary underline-offset-4 hover:underline"
-                          >
-                            Abrir no Google Maps
-                            <ExternalLink aria-hidden="true" className="size-4" />
-                          </a>
-                        </>
-                      )
-                    : (
-                        <p className="text-[15px] text-muted-foreground">Nenhum ponto nesta categoria.</p>
-                      )}
-                </div>
-              </div>
+          {selected && (
+            <div className={cn('rounded-xl border border-border border-l-4 bg-card p-4 lg:absolute lg:bottom-4 lg:left-4 lg:w-[340px] lg:shadow-float', PLACE_TONE[selected.category].accent)}>
+              <p className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                <SelectedIcon aria-hidden="true" className="size-4" />
+                {CATEGORY_META[selected.category].label}
+              </p>
+              <h2 aria-live="polite" className="mt-2 text-lg font-semibold text-navy">{selected.name}</h2>
+              <p className="mt-2 text-[15px] text-muted-foreground">{selected.description}</p>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${selected.position.lat},${selected.position.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Abrir no Google Maps
+                <ExternalLink aria-hidden="true" className="size-4" />
+              </a>
             </div>
           )}
+        </div>
+      </div>
     </div>
   );
 }

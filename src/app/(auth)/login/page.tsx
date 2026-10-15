@@ -4,9 +4,17 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
 import { LoginForm } from '@/components/Auth/login-form';
+import type { ComboboxOptions } from '@/components/ui/combobox/combobox';
+
+import { api } from '@/services/api';
 
 export default async function LoginPage() {
   const t = await getTranslations('Auth.Login');
+  const { data: cities } = await api.city.getAll();
+  const citiesOptions: ComboboxOptions = cities.map(city => ({
+    value: city.id,
+    label: city.name,
+  }));
 
   return (
     <main className="flex min-h-svh items-center justify-center bg-background px-4 py-10 md:p-10">
@@ -22,7 +30,7 @@ export default async function LoginPage() {
           </div>
         </div>
 
-        <LoginForm className="min-w-0" />
+        <LoginForm cities={citiesOptions} className="min-w-0" />
       </div>
     </main>
   );

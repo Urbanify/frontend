@@ -51,11 +51,11 @@ export default {
       },
       backgroundImage: {
         'navy-glow': 'radial-gradient(1200px 620px at 85% 0%, #0A2A8A 0%, #000E2E 60%)',
-        'hero-glow': 'radial-gradient(900px 520px at 50% 0%, #fff, transparent 70%), radial-gradient(700px 360px at 50% 100%, rgb(3 78 255 / 0.06), transparent 70%)',
+        'hero-glow': 'radial-gradient(900px 520px at 50% 0%, hsl(var(--card)), transparent 70%), radial-gradient(700px 360px at 50% 100%, rgb(3 78 255 / 0.06), transparent 70%)',
       },
       transitionTimingFunction: {
         // ease-out keeps Tailwind's default; use var(--ease-out) in CSS for the landing curve
-        'spring': 'cubic-bezier(.34,1.45,.64,1)',
+        spring: 'cubic-bezier(.34,1.45,.64,1)',
       },
       keyframes: {
         marquee: { to: { transform: 'translateX(-50%)' } },

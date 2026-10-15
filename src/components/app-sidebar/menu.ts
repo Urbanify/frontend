@@ -91,7 +91,7 @@ export function menuFor(role?: UserRole, cityId?: string): RoleMenu | null {
     return null;
   }
   if (role === 'ADMIN' && cityId) {
-    return { links: [CITIES_LINK, ...OWNER_LINKS], soon: [] };
+    return { links: [CITIES_LINK, ...OWNER_LINKS], soon: ROLE_MENUS.OWNER.soon };
   }
   return ROLE_MENUS[role];
 }

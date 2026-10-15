@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 // The root layout already wraps children in <main>, so this is a plain div with the skip-link target.
 export default function HomePage() {
   return (
-    <div id="main">
+    <div id="main" className="min-h-svh bg-background text-foreground">
       <LandingHeader />
       <Hero />
       <Marquee />

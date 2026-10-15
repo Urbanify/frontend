@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 /*
- * Brand palette (pitch). Light theme only.
- * Values are HSL triplets so Tailwind's hsl(var(--token)) pattern keeps working.
+ * Brand palette (pitch). Values are HSL triplets so Tailwind's hsl(var(--token)) pattern keeps working.
+ * Light is the default. `.dark` (set by next-themes on <html>) overrides the tokens that change.
  */
 @layer base {
   :root {
@@ -71,6 +71,61 @@
     --sidebar-accent-foreground: 222 100% 9%;
     --sidebar-border: 220 37% 92%;
     --sidebar-ring: 222 100% 51%;
+  }
+
+  /* Dark set from the spec (ESPEC-TELAS 1, "Escuro"). Status tones are translucent tints with light text. */
+  .dark {
+    color-scheme: dark;
+
+    --background: 223 60% 7%; /* #070D1C */
+    --foreground: 222 39% 94%; /* #E8ECF5 */
+    --card: 222 46% 11%; /* #0F1729 */
+    --card-foreground: 222 39% 94%;
+    --popover: 222 46% 11%;
+    --popover-foreground: 222 39% 94%;
+
+    --primary: 221 100% 65%; /* #4D86FF */
+    --primary-foreground: 223 60% 7%; /* dark ink on primary: 5.7:1, white would be 3.4:1 */
+    --navy: 222 39% 94%; /* titles follow the text color */
+    --success: 162 59% 49%; /* #34C79A */
+
+    --secondary: 222 45% 16%; /* #16213A */
+    --secondary-foreground: 222 39% 94%;
+    --muted: 222 45% 16%;
+    --muted-foreground: 221 22% 68%; /* #9AA6BF */
+    --accent: 222 52% 21%; /* #1A2B52 */
+    --accent-foreground: 222 39% 94%;
+
+    --destructive: 0 91% 71%; /* #F87171 */
+    --destructive-foreground: 223 60% 7%;
+
+    --border: 221 39% 19%; /* #1E2A44 */
+    --input: 222 17% 44%; /* #5C6883, field edges at 3.2:1 on the card */
+    --ring: 221 100% 65%;
+
+    --tone-neutral-fg: 221 22% 68%;
+    --tone-neutral-bg: 221 22% 68% / 0.14;
+    --tone-blue-fg: 221 100% 75%; /* #7DA6FF */
+    --tone-blue-bg: 221 100% 65% / 0.18;
+    --tone-amber-fg: 40 96% 64%; /* #FBBF4A */
+    --tone-amber-bg: 40 96% 56% / 0.16;
+    --tone-green-fg: 162 59% 49%;
+    --tone-green-bg: 162 59% 49% / 0.16;
+
+    --chart-1: 221 100% 65%;
+    --chart-2: 222 39% 94%;
+    --chart-3: 162 59% 49%;
+    --chart-4: 40 96% 64%;
+    --chart-5: 221 22% 68%;
+
+    --sidebar-background: 222 46% 11%;
+    --sidebar-foreground: 222 39% 94%;
+    --sidebar-primary: 221 100% 65%;
+    --sidebar-primary-foreground: 223 60% 7%;
+    --sidebar-accent: 222 52% 21%;
+    --sidebar-accent-foreground: 222 39% 94%;
+    --sidebar-border: 221 39% 19%;
+    --sidebar-ring: 221 100% 65%;
   }
 }
 

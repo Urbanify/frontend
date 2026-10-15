@@ -108,9 +108,9 @@ export function Hero() {
             priority
             quality={80}
             sizes="(min-width: 1200px) 1160px, 100vw"
-            className="object-cover [object-position:60%_45%] md:[object-position:center]"
+            className="object-cover [object-position:60%_45%] dark:brightness-[.8] md:[object-position:center]"
           />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-white/60 to-transparent" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-card/60 to-transparent" />
 
           {CHIPS.map(chip => (
             <div
@@ -118,7 +118,7 @@ export function Hero() {
               aria-hidden="true"
               style={{ animationDelay: chip.delay }}
               className={cn(
-                'animate-float absolute flex items-center gap-3 rounded-xl border border-border bg-white px-3.5 py-2.5 shadow-float',
+                'animate-float absolute flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5 shadow-float',
                 chip.className,
                 chip.desktopOnly && 'max-md:hidden',
               )}

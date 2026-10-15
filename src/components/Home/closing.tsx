@@ -14,7 +14,7 @@ export function Closing() {
           Entre com seu e-mail e acompanhe cada etapa até a solução.
         </p>
         <div className="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild className="h-12 rounded-full bg-white px-6 text-base text-navy hover:bg-white/90 lg:h-[52px]">
+          <Button asChild className="h-12 rounded-full bg-white px-6 text-base text-[#000E2E] hover:bg-white/90 lg:h-[52px]">
             <Link href="/login">Reportar um problema</Link>
           </Button>
           <Button asChild variant="outline" className="h-12 rounded-full border-white/40 bg-transparent px-6 text-base text-white hover:bg-white/10 hover:text-white lg:h-[52px]">

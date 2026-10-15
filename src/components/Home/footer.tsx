@@ -16,7 +16,7 @@ export function Footer() {
           <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Cidadão</p>
           <ul className="mt-4 space-y-3 text-[15px]">
             <li><Link href="/login" className="inline-flex min-h-11 items-center text-navy hover:underline">Reportar um problema</Link></li>
-            <li><Link href="/register" className="inline-flex min-h-11 items-center text-navy hover:underline">Criar conta</Link></li>
+            <li><Link href="/login" className="inline-flex min-h-11 items-center text-navy hover:underline">Criar conta</Link></li>
             <li><Link href="/visit" className="inline-flex min-h-11 items-center text-navy hover:underline">Explorar a cidade</Link></li>
           </ul>
         </div>

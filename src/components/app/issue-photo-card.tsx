@@ -6,10 +6,11 @@ import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
 
+import { CategoryTile } from './category';
 import { StatusBadge } from './status-badge';
 import { useViewer } from './use-viewer';
 
-import { type Issue, issueCategories } from '@/types/Issue';
+import type { Issue } from '@/types/Issue';
 
 export type IssuePhotoCardProps = {
   issue: Issue;
@@ -22,7 +23,6 @@ export function IssuePhotoCard({ issue, className }: IssuePhotoCardProps) {
   const tTypes = useTranslations('Issues.types');
   const viewer = useViewer();
 
-  const CategoryIcon = issueCategories.find(option => option.value === issue.category)?.icon;
   const photo = issue.photos?.[0];
   const needsYou = !!viewer.id && (issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
 
@@ -31,7 +31,7 @@ export function IssuePhotoCard({ issue, className }: IssuePhotoCardProps) {
       <div className="relative flex aspect-[4/3] items-center justify-center bg-muted text-muted-foreground">
         {photo
           ? <Image src={photo} alt={t('photo_alt')} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
-          : CategoryIcon && <CategoryIcon className="size-10" aria-hidden />}
+          : <CategoryTile category={issue.category} className="size-16" iconClassName="size-8" />}
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">

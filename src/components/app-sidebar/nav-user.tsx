@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { signOut } from '@/lib/session-client';
 
+import { ThemeRadioGroup } from '@/components/theme-toggle';
 import {
   Avatar,
   AvatarFallback,
@@ -75,6 +76,9 @@ export function NavUser({ user }: { user: TokenData['user'] }) {
                 {t('UserMenu.profile')}
               </Link>
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel className="text-[13px] font-normal text-muted-foreground">{t('UserMenu.theme')}</DropdownMenuLabel>
+            <ThemeRadioGroup />
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut()}>
               <LogOut />

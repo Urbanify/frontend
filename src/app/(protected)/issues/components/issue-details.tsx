@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { formatRelativeTime } from '@/lib/relative-time';
 import { Env } from '@/libs/Env';
 
+import { CategoryTile } from '@/components/app/category';
 import { PageHeader } from '@/components/app/page-header';
 import { StatusBadge } from '@/components/app/status-badge';
 import { useViewer } from '@/components/app/use-viewer';
@@ -21,7 +22,6 @@ import { IssueHistoryDetails } from './issue-history-details';
 import { IssuePhotos } from './issue-photos';
 
 import type { IssueDetails } from '@/types/Issue';
-import { issueCategories } from '@/types/Issue';
 
 type IssueDetailmentProps = {
   issue: IssueDetails;
@@ -35,7 +35,6 @@ export function IssueDetailment({ issue }: IssueDetailmentProps) {
   const router = useRouter();
   const viewer = useViewer();
 
-  const CategoryIcon = issueCategories.find(option => option.value === issue.category)?.icon;
   const position = { lat: +issue.latitude, lng: +issue.longitude };
 
   const { isLoaded } = useLoadScript({
@@ -65,8 +64,8 @@ export function IssueDetailment({ issue }: IssueDetailmentProps) {
         />
 
         <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
-            {CategoryIcon && <CategoryIcon className="size-4" aria-hidden />}
+          <span className="inline-flex items-center gap-2">
+            <CategoryTile category={issue.category} className="size-7" iconClassName="size-4" />
             {tIssues(`types.${issue.category}`)}
           </span>
           <span className="tabular-nums">{`${t('protocol')} #${issue.id.slice(0, 6)}`}</span>

@@ -5,10 +5,9 @@ import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 import type { Audience } from './audience';
+import { type Tone, TONE_CLASS } from './tones';
 
 import type { IssueStatus } from '@/types/Issue';
-
-type Tone = 'neutral' | 'blue' | 'amber' | 'green';
 
 const TONE_BY_STATUS: Record<IssueStatus, Tone> = {
   WAITING_FOR_FISCAL: 'neutral',
@@ -18,13 +17,6 @@ const TONE_BY_STATUS: Record<IssueStatus, Tone> = {
   WAITING_FOR_RESOLUTION_VALIDATION: 'amber',
   SOLVED: 'green',
   CLOSED: 'neutral',
-};
-
-const TONE_CLASS: Record<Tone, string> = {
-  neutral: 'bg-tone-neutral-bg text-tone-neutral-fg',
-  blue: 'bg-tone-blue-bg text-tone-blue-fg',
-  amber: 'bg-tone-amber-bg text-tone-amber-fg',
-  green: 'bg-tone-green-bg text-tone-green-fg',
 };
 
 // Staff queue statuses turn amber when nobody has touched the issue for 3 days.

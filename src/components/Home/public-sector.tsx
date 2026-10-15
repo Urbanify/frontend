@@ -39,7 +39,7 @@ export function PublicSector() {
           </ul>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Button asChild className="h-12 rounded-full bg-white px-6 text-base text-navy hover:bg-white/90 lg:h-[52px]">
+            <Button asChild className="h-12 rounded-full bg-white px-6 text-base text-[#000E2E] hover:bg-white/90 lg:h-[52px]">
               <a href="mailto:contato@urbanify.com.br?subject=Quero%20conhecer%20a%20Urbanify">Falar com a Urbanify</a>
             </Button>
             <Link href="/visit" className="inline-flex min-h-11 items-center text-[15px] text-white underline underline-offset-4">
@@ -64,9 +64,9 @@ export function PublicSector() {
               alt="Mapa de Aracaju com chamados de exemplo, em cores por status"
               fill
               sizes="(min-width: 1024px) 520px, 100vw"
-              className="object-cover [object-position:65%_40%]"
+              className="object-cover [object-position:65%_40%] dark:brightness-[.8]"
             />
-            <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[13px] font-semibold text-navy">
+            <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[13px] font-semibold text-[#000E2E]">
               Visão do gestor
             </span>
           </div>

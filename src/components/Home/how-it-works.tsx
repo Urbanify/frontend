@@ -70,13 +70,13 @@ const STEPS: Step[] = [
 ];
 
 const ExampleTag = () => (
-  <span className="absolute right-4 top-4 z-10 rounded-full border border-border bg-white/90 px-2.5 py-1 text-[13px] font-medium text-muted-foreground">
+  <span className="absolute right-4 top-4 z-10 rounded-full border border-border bg-card/90 px-2.5 py-1 text-[13px] font-medium text-muted-foreground">
     Exemplo
   </span>
 );
 
 const Card = ({ className, children }: { className?: string; children: ReactNode }) => (
-  <div className={cn('w-full max-w-[360px] rounded-xl border border-border bg-white p-4 shadow-float sm:p-5', className)}>
+  <div className={cn('w-full max-w-[360px] rounded-xl border border-border bg-card p-4 shadow-float sm:p-5', className)}>
     {children}
   </div>
 );
@@ -93,8 +93,8 @@ function StepVisual({ index }: { index: number }) {
   if (index === 0) {
     return (
       <>
-        <Image src="/landing/map-aracaju-near.jpg" alt="" fill sizes="(min-width: 1024px) 544px, 100vw" className="object-cover" />
-        <div className="absolute inset-x-4 bottom-4 rounded-xl border border-border bg-white p-4 shadow-float">
+        <Image src="/landing/map-aracaju-near.jpg" alt="" fill sizes="(min-width: 1024px) 544px, 100vw" className="object-cover dark:brightness-[.8]" />
+        <div className="absolute inset-x-4 bottom-4 rounded-xl border border-border bg-card p-4 shadow-float">
           <p className="font-semibold text-navy">Buraco na rua</p>
           <p className="text-sm text-muted-foreground">2 fotos · local marcado no mapa</p>
         </div>
@@ -212,7 +212,7 @@ export function HowItWorks() {
                   </ul>
                 </div>
 
-                <div aria-hidden="true" className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-white to-accent/60 lg:hidden">
+                <div aria-hidden="true" className="relative mt-10 aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-accent/60 lg:hidden">
                   <StepVisual index={i} />
                 </div>
               </li>
@@ -221,7 +221,7 @@ export function HowItWorks() {
         </ol>
 
         <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
-          <div aria-hidden="true" className="relative h-[640px] overflow-hidden rounded-[28px] border border-border bg-gradient-to-b from-white to-accent/60">
+          <div aria-hidden="true" className="relative h-[640px] overflow-hidden rounded-[28px] border border-border bg-gradient-to-b from-card to-accent/60">
             {STEPS.map((step, i) => (
               <div
                 key={step.eyebrow}
@@ -245,7 +245,7 @@ export function HowItWorks() {
                 onClick={() => goTo(i)}
                 className={cn(
                   'flex h-11 flex-1 items-center justify-center rounded-full px-3 text-sm font-medium transition-colors',
-                  active === i ? 'bg-navy text-white' : 'border border-border bg-card text-navy hover:bg-accent',
+                  active === i ? 'bg-navy text-background' : 'border border-border bg-card text-navy hover:bg-accent',
                 )}
               >
                 {step.tab}

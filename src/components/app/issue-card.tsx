@@ -8,10 +8,11 @@ import type { ReactNode } from 'react';
 import { formatRelativeTime } from '@/lib/relative-time';
 import { cn } from '@/lib/utils';
 
+import { CategoryTile } from './category';
 import { StatusBadge } from './status-badge';
 import { useViewer } from './use-viewer';
 
-import { type Issue, issueCategories } from '@/types/Issue';
+import type { Issue } from '@/types/Issue';
 
 export type IssueCardProps = {
   issue: Issue;
@@ -27,7 +28,6 @@ export function IssueCard({ issue, action, waiting = false, className }: IssueCa
   const tTypes = useTranslations('Issues.types');
   const viewer = useViewer();
 
-  const CategoryIcon = issueCategories.find(option => option.value === issue.category)?.icon;
   const photo = issue.photos?.[0];
   const protocol = issue.id.slice(0, 6);
   const needsYou = !!viewer.id && (issue.reporterId === viewer.id || issue.fiscalId === viewer.id);
@@ -38,11 +38,13 @@ export function IssueCard({ issue, action, waiting = false, className }: IssueCa
 
   return (
     <article className={cn('relative flex flex-wrap gap-x-4 gap-y-3 rounded-lg border bg-card p-4 focus-within:ring-2 focus-within:ring-ring', className)}>
-      <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted text-muted-foreground">
-        {photo
-          ? <Image src={photo} alt={t('photo_alt')} width={64} height={64} className="size-16 object-cover" />
-          : CategoryIcon && <CategoryIcon className="size-6" aria-hidden />}
-      </div>
+      {photo
+        ? (
+            <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+              <Image src={photo} alt={t('photo_alt')} width={64} height={64} className="size-16 object-cover" />
+            </div>
+          )
+        : <CategoryTile category={issue.category} className="size-16" />}
 
       <div className="min-w-0 flex-1 space-y-2">
         <div className="min-w-0 space-y-0.5">

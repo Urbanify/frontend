@@ -5,7 +5,6 @@ import { isTokenValid, SESSION_COOKIE, tokenUser } from '@/lib/session';
 
 const authRoutes: string[] = [
   '/login',
-  '/register',
 ];
 
 const publicRoutes: string[] = [
@@ -20,6 +19,11 @@ export default function middleware(request: NextRequest) {
   const session = isTokenValid(token);
 
   const pathname = request.nextUrl.pathname;
+
+  // Registration now happens in the login flow.
+  if (pathname === '/register') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
 
   const isPublicRoute = publicRoutes.includes(pathname);
   const isAuthRoute = authRoutes.includes(pathname);

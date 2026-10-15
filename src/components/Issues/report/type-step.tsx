@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
+import { CategoryTile } from '@/components/app/category';
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 
@@ -71,7 +72,7 @@ export function TypeStep({ draft, onChange, onNext }: StepProps) {
               onClick={() => onChange({ category: category.value, type: '' })}
               className="flex min-h-24 flex-col items-start justify-between gap-3 rounded-xl border bg-card p-4 text-left font-semibold text-navy transition-transform last:col-span-2 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.98]"
             >
-              {category.icon && <category.icon className="size-6 text-muted-foreground" aria-hidden />}
+              <CategoryTile category={category.value} className="size-11" />
               <span>{tTypes(category.value)}</span>
             </button>
           ))}
