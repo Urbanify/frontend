@@ -140,6 +140,10 @@ export function LegalPage({ legal }: { legal: LegalDocument }) {
             {' '}
             {legal.lastUpdated}
           </p>
+          {/* ponytail: remove once a lawyer reviews the text and the v2 production setup matches it */}
+          <p role="note" className="mt-4 rounded-lg border border-tone-amber-fg/30 bg-tone-amber-bg p-3 text-[15px] text-tone-amber-fg">
+            Versão preliminar, em revisão jurídica. Este ambiente é de demonstração e usa apenas dados fictícios.
+          </p>
 
           <details className="mt-8 rounded-lg border border-border bg-card p-4 lg:hidden">
             <summary className="inline-flex min-h-11 cursor-pointer items-center font-semibold text-navy">Neste documento</summary>
