@@ -2,7 +2,7 @@ import type { LegalDocument } from '@/components/Legal/legal-page';
 
 export const termsOfUse: LegalDocument = {
   title: 'Termos de Uso',
-  lastUpdated: '15 de outubro de 2026',
+  lastUpdated: '16 de outubro de 2026',
   summary: [
     'A Urbanify fornece a plataforma. Cada prefeitura decide e resolve os problemas da própria cidade.',
     'Para registrar chamados, entre com o código enviado ao seu e-mail. Você responde pelo que faz na sua conta.',
@@ -133,6 +133,20 @@ export const termsOfUse: LegalDocument = {
         {
           type: 'p',
           text: '**A Urbanify não garante que um problema será resolvido**, nem o prazo de atendimento, nem o resultado de cada verificação. Essas decisões cabem à prefeitura.',
+        },
+      ],
+    },
+    {
+      id: 'revendedores',
+      title: 'Revendedores',
+      blocks: [
+        {
+          type: 'p',
+          text: 'A Urbanify oferece a plataforma às prefeituras também por meio de revendedores. **Os revendedores são empresas independentes.** Eles não são representantes, mandatários nem prepostos da Urbanify.',
+        },
+        {
+          type: 'p',
+          text: 'A Urbanify não responde pelas ofertas, propostas, preços, prazos ou condutas dos revendedores. **Só obrigam a Urbanify as condições que ela publicar e as de contratos que ela assinar.**',
         },
       ],
     },

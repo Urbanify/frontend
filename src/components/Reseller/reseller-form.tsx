@@ -233,6 +233,9 @@ export function ResellerForm() {
           </span>
         </label>
         {errorText('consent')}
+        <p className="text-sm text-muted-foreground">
+          O envio não cria vínculo nem garante aprovação. Revendedores atuam como empresas independentes.
+        </p>
       </div>
 
       {failure && (
