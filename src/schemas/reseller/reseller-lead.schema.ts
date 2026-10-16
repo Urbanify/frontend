@@ -16,8 +16,8 @@ export const resellerLeadSchema = z.object({
       .max(11, 'Confira o telefone.')),
   company: z.string().trim().min(2, 'Informe a razão social.').max(160, 'Use no máximo 160 caracteres.'),
   cnpj: z.string()
-    .transform(digitsOnly)
-    .pipe(z.string().refine(isValidCnpj, 'CNPJ inválido. Confira os números.')),
+    .transform(value => value.toUpperCase().replace(/[^0-9A-Z]/g, ''))
+    .pipe(z.string().refine(isValidCnpj, 'CNPJ inválido. Confira o número.')),
   region: z.string().trim().min(2, 'Informe a cidade e o estado de atuação.').max(160, 'Use no máximo 160 caracteres.'),
   citiesOfInterest: z.string().trim().max(500, 'Use no máximo 500 caracteres.'),
   experience: z.string()

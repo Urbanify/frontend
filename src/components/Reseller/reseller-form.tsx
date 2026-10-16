@@ -154,7 +154,7 @@ export function ResellerForm() {
             render={({ field }) => (
               <Input
                 id="cnpj"
-                inputMode="numeric"
+                autoCapitalize="characters"
                 autoComplete="off"
                 placeholder="00.000.000/0000-00"
                 className={fieldClass}
