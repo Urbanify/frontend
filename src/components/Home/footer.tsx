@@ -25,8 +25,7 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-[15px]">
             <li><a href="#como-funciona" className="inline-flex min-h-11 items-center text-navy hover:underline">Como funciona</a></li>
             <li><a href="mailto:contato@urbanify.com.br" className="inline-flex min-h-11 items-center text-navy hover:underline">Falar com a Urbanify</a></li>
-            {/* ponytail: mailto until handbook.urbanify.com.br has the public reseller page */}
-            <li><a href="mailto:contato@urbanify.com.br?subject=Quero%20ser%20revendedor%20da%20Urbanify" className="inline-flex min-h-11 items-center font-semibold text-primary hover:underline">Seja revendedor</a></li>
+            <li><Link href="/seja-revendedor" className="inline-flex min-h-11 items-center font-semibold text-primary hover:underline">Seja revendedor</Link></li>
           </ul>
         </div>
 
