@@ -36,7 +36,7 @@ const STEPS: Step[] = [
     eyebrow: '02 · VERIFICAR',
     icon: BadgeCheck,
     title: 'Alguém confere no local.',
-    text: 'Um fiscal, que pode ser um cidadão voluntário ou um servidor, vai até o endereço.',
+    text: 'Um morador voluntário, diferente de quem relatou, vai até o endereço.',
     lines: [
       { icon: CircleCheck, text: 'Diz se o problema existe' },
       { icon: MessageSquare, text: 'Pode registrar um comentário' },

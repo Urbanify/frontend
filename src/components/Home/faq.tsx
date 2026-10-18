@@ -9,7 +9,7 @@ const QUESTIONS = [
   },
   {
     q: 'Quem verifica o problema?',
-    a: 'Depende da cidade: pode ser um cidadão voluntário ou um servidor da prefeitura.',
+    a: 'Um morador da cidade, diferente de quem relatou o problema, vai até o endereço e confirma se ele existe.',
   },
   {
     q: 'Minha cidade já usa a Urbanify?',

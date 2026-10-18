@@ -9,7 +9,7 @@ const POINTS = [
   { icon: ListChecks, text: 'Fila de atendimento com os chamados já verificados' },
   { icon: MapIcon, text: 'Mapa dos chamados, com a cor de cada status' },
   { icon: History, text: 'Histórico de cada chamado, do relato à confirmação' },
-  { icon: ShieldCheck, text: 'Cada cidade vê apenas os seus próprios dados' },
+  { icon: ShieldCheck, text: 'Chamados organizados por cidade' },
 ];
 
 const SOON = ['App no celular', 'Painel de resultados', 'Vitrine da cidade'];
